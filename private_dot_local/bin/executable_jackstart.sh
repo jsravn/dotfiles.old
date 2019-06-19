@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# pacman -S jack2 pulseaudio-jack
+# pacman -S jack2 pulseaudio-jack qjackctl
 # start up jack
 jack_control start
 jack_control ds alsa
