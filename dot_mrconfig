@@ -48,3 +48,6 @@ checkout = git clone 'git@github.com:lightbend/es-prometheus-client.git' 'es-pro
 
 [lightbend/k8s-explore]
 checkout = git clone 'git@github.com:jsravn/k8s-explore.git' 'k8s-explore'
+
+[godev/src/github.com/lightbend/console-charts]
+checkout = git clone 'git@github.com:lightbend/console-charts.git' 'console-charts'
