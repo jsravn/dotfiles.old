@@ -1,0 +1,50 @@
+[devel/cv]
+checkout = git clone 'git@github.com:jsravn/cv.git' 'cv'
+
+[devel/emmersonandfifteenth]
+checkout = git clone 'git@github.com:jsravn/emmersonandfifteenth.git' 'emmersonandfifteenth'
+
+[devel/hamster]
+checkout = git clone 'git@github.com:jsravn/hamster.git' 'hamster'
+
+[devel/mjolnir]
+checkout = git clone 'git@github.com:jsravn/mjolnir.git' 'mjolnir'
+
+[devel/r-vn.org]
+checkout = git clone 'git@github.com:jsravn/r-vn.org.git' 'r-vn.org'
+
+[lightbend/investigations]
+checkout = git clone 'git@github.com:jsravn/investigations.git' 'investigations'
+
+[lightbend/build-helm-charts]
+checkout = git clone 'git@github.com:lightbend/build-helm-charts.git' 'build-helm-charts'
+
+[lightbend/cinnamon]
+checkout = git clone 'git@github.com:lightbend/cinnamon.git' 'cinnamon'
+
+[lightbend/console-api]
+checkout = git clone 'git@github.com:lightbend/console-api.git' 'console-api'
+
+[lightbend/console-charts]
+checkout = git clone 'git@github.com:lightbend/console-charts.git' 'console-charts'
+
+[lightbend/console-docs]
+checkout = git clone 'git@github.com:lightbend/console-docs.git' 'console-docs'
+
+[lightbend/es-console-spa]
+checkout = git clone 'git@github.com:lightbend/es-console-spa.git' 'es-console-spa'
+
+[lightbend/es-demos]
+checkout = git clone 'git@github.com:jsravn/es-demos.git' 'es-demos'
+
+[lightbend/es-grafana]
+checkout = git clone 'git@github.com:lightbend/es-grafana' 'es-grafana'
+
+[lightbend/es-prometheus]
+checkout = git clone 'git@github.com:lightbend/es-prometheus.git' 'es-prometheus'
+
+[lightbend/es-prometheus-client]
+checkout = git clone 'git@github.com:lightbend/es-prometheus-client.git' 'es-prometheus-client'
+
+[lightbend/k8s-explore]
+checkout = git clone 'git@github.com:jsravn/k8s-explore.git' 'k8s-explore'
