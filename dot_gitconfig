@@ -1,0 +1,50 @@
+[user]
+	email = james@r-vn.org
+	name = James Ravn
+[alias]
+    s = status
+	b = branch -vv
+	l = log --abbrev-commit
+	m = merge
+    a = add
+    c = commit
+    d = diff
+    t = tag
+    sh = show
+    bd = branch -d
+    bD = branch -D
+    ca = commit -a
+    cm = commit --amend
+    fa = fetch --all
+	ff = merge --ff-only
+	ci = commit
+	di = diff
+	st = status
+	co = checkout
+    rb = rebase
+    cp = cherry-pick
+    sm = status -s
+    ps = push
+    pl = pull
+    rbi = rebase -i
+    cob = checkout -b
+	rup = remote update
+    rsh = git reset --hard
+	last = log -n 1
+[color]
+	ui = auto
+[svn]
+	rmdir = true
+[log]
+	date = local
+	decorate = true
+[merge]
+	defaultToUpstream = true
+[push]
+	default = upstream
+[core]
+	editor = /usr/bin/vim
+[credential]
+	helper = cache --timeout=86400
+[fetch]
+	prune = true

@@ -1,0 +1,31 @@
+call pathogen#infect()
+syntax enable
+filetype plugin indent on
+filetype on
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set ruler
+set background=dark
+
+" ctrlp
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
+
+" ctags
+set tags+=./tags;$HOME
+
+" cscope
+set csto=0
+set cst
+set nocsverb
+if filereadable("cscope.out")
+  cs add cscope.out
+end
+
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" mail
+au BufRead,BufNewFile /tmp/mutt-* set tw=0

@@ -1,0 +1,28 @@
+# general
+export EDITOR=vim
+export FIGNORE=.svn
+export BROWSER=chromium
+#export DE=xfce # for mime associations
+export GOPATH=$HOME/go:$HOME/godev
+
+# java
+#export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+
+# idea
+#export IDEA_VM_OPTIONS=$HOME/.idea64.vmoptions
+
+# keychain
+#eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
+
+# gradle
+export GRADLE_OPTS='-Xmx2g'
+
+# wine
+export WINEARCH=win32
+export WINEPREFIX=~/.wine
+
+# bundler
+#export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+
+# ssh agent
+#export SSH_ASKPASS=
