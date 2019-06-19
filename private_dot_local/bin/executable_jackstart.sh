@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# pacman -S jack2 pulseaudio-jack qjackctl
+# pacman -S jack2 pulseaudio-jack qjackctl non-session-manager
 # start up jack
 jack_control start
 jack_control ds alsa
