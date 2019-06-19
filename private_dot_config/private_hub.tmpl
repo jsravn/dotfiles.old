@@ -1,0 +1,4 @@
+github.com:
+- user: jsravn
+  oauth_token: {{ trim (index (lastpass "keys/github") 0).note.token }}
+  protocol: https
