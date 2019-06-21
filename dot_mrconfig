@@ -37,8 +37,8 @@ checkout = git clone 'git@github.com:lightbend/es-console-spa.git' 'es-console-s
 [lightbend/es-demos]
 checkout = git clone 'git@github.com:jsravn/es-demos.git' 'es-demos'
 
-[lightbend/es-grafana]
-checkout = git clone 'git@github.com:lightbend/es-grafana' 'es-grafana'
+[lightbend/console-grafana]
+checkout = git clone 'git@github.com:lightbend/es-grafana' 'console-grafana'
 
 [lightbend/es-prometheus]
 checkout = git clone 'git@github.com:lightbend/es-prometheus.git' 'es-prometheus'
