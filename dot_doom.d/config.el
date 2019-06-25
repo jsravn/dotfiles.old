@@ -23,6 +23,8 @@
 ;; Start maximized
 (toggle-frame-maximized)
 
+(add-hook! markdown-mode
+  (visual-line-mode 1))
 ;; Scala mode
 ;; (def-package! scala-mode
 ;;   :mode "\\.s\\(cala\\|bt\\)$")
