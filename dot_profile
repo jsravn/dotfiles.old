@@ -4,3 +4,6 @@ export FIGNORE=.svn
 export BROWSER=chromium
 export GOPATH=$HOME/go:$HOME/godev
 export GRADLE_OPTS='-Xmx2g'
+
+# jabba
+[ -s "/home/james/.jabba/jabba.sh" ] && source "/home/james/.jabba/jabba.sh"

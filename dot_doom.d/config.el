@@ -12,6 +12,17 @@
 (setq select-enable-primary t)
 (setq select-enable-clipboard t)
 
+;; Auto save
+(def-package! super-save
+  :init
+  (setq super-save-auto-save-when-idle t)
+  (setq auto-save-default nil))
+  :config
+  (super-save-mode 1)
+
+;; Start maximized
+(toggle-frame-maximized)
+
 ;; Scala mode
 ;; (def-package! scala-mode
 ;;   :mode "\\.s\\(cala\\|bt\\)$")

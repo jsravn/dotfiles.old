@@ -105,9 +105,6 @@ which rbenv > /dev/null && eval "$(rbenv init -)"
 # rust
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
-# jabba
-[ -s "/home/james/.jabba/jabba.sh" ] && source "/home/james/.jabba/jabba.sh"
-
 # rg: https://github.com/strindberg/rg
 source /home/james/.rg/rgf
 
