@@ -95,7 +95,7 @@ setopt no_complete_aliases
 
 # local path
 typeset -U path
-path=(~/bin /usr/lib/ccache/bin ~/.cabal/bin ~/.local/bin $HOME/go/bin $HOME/godev/bin $path)
+path=(~/bin /usr/lib/ccache/bin ~/.cabal/bin ~/.local/bin $HOME/go/bin $HOME/godev/bin $HOME/.emacs.d/bin $path)
 
 which rbenv > /dev/null && eval "$(rbenv init -)"
 
