@@ -1,0 +1,6 @@
+export PATH="$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/godev/bin:$HOME/.emacs.d/bin:$PATH"
+export EDITOR=vim
+export FIGNORE=.svn
+export BROWSER=chromium
+export GOPATH=$HOME/go:$HOME/godev
+export GRADLE_OPTS='-Xmx2g'

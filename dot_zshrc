@@ -93,10 +93,7 @@ fi
 setopt no_complete_aliases
 [ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && . "$HOME/.scm_breeze/scm_breeze.sh"
 
-# local path
-typeset -U path
-path=(~/bin /usr/lib/ccache/bin ~/.cabal/bin ~/.local/bin $HOME/go/bin $HOME/godev/bin $HOME/.emacs.d/bin $path)
-
+# rbenv
 which rbenv > /dev/null && eval "$(rbenv init -)"
 
 # added by travis gem
