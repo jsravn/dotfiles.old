@@ -5,8 +5,12 @@
 (setq doom-theme 'doom-one)
 (setq doom-font (font-spec :family "DejaVu Sans Mono"))
 
-;; Add projectile projects
+;; Projectile
 (setq projectile-project-search-path '("~/lightbend/" "~/devel/"))
+(after! projectile
+  (setq projectile-globally-ignored-directories
+        (append '(".metals") projectile-globally-ignored-directories))
+)
 
 ;; Clipboard stuff
 (setq select-enable-primary t)
