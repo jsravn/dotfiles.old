@@ -23,8 +23,14 @@
 ;; Start maximized
 (toggle-frame-maximized)
 
+;; Markdown
 (add-hook! markdown-mode
   (visual-line-mode 1))
+
+;; Treemacs
+(after! treemacs
+  (treemacs-follow-mode 1))
+
 ;; Scala mode
 ;; (def-package! scala-mode
 ;;   :mode "\\.s\\(cala\\|bt\\)$")
