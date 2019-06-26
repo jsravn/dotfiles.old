@@ -15,4 +15,4 @@
    'self-insert-command
    minibuffer-local-completion-map))
 
-(add-hook 'scala-mode #'lsp!)
+(add-hook 'scala-mode-hook #'lsp!)
