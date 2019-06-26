@@ -44,6 +44,7 @@
 	default = upstream
 [core]
 	editor = /usr/bin/vim
+	excludesfile = ~/.gitignore
 [credential]
 	helper = cache --timeout=86400
 [fetch]
