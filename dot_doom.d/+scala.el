@@ -13,6 +13,7 @@
   (substitute-key-definition
    'minibuffer-complete-word
    'self-insert-command
-   minibuffer-local-completion-map))
+   minibuffer-local-completion-map)
+  (set-repl-handler! 'scala-mode #'run-scala))
 
 (add-hook 'scala-mode-hook #'lsp!)
