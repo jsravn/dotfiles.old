@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sudo pacman -Sy --noconfirm \
-    rg \
+    ripgrep \
     zsh \
     chromium \
     emacs \
