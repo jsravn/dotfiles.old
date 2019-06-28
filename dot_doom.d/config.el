@@ -35,5 +35,13 @@
 (after! treemacs
   (treemacs-follow-mode 1))
 
-;; Modules
-(load! "+scala")
+;; Disable smartparens comment continuation behaviour
+(after! smartparens
+  (advice-remove #'newline-and-indent #'+default*newline-indent-and-continue-comments))
+
+;; Scala
+(add-hook! scala-mode
+  (map!
+   :leader
+   :prefix "c"
+   :desc "Run scalafmt" "f" #'lsp-format-buffer))
