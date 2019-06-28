@@ -24,9 +24,6 @@
   :config
   (super-save-mode 1)
 
-;; Start maximized
-(toggle-frame-maximized)
-
 ;; Markdown
 (add-hook! markdown-mode
   (visual-line-mode 1))
@@ -66,4 +63,5 @@
              (call-interactively #'comment-indent-new-line))))))
 
 (setq scala-indent:use-javadoc-style nil)
+(setq scala-indent:align-parameters nil)
 (setq-hook! 'scala-mode-hook comment-line-break-function #'+scala-comment-indent-new-line)
