@@ -45,6 +45,7 @@
 [core]
 	editor = /usr/bin/vim
 	excludesfile = ~/.gitignore
+	pager = /usr/share/git/diff-highlight/diff-highlight | less -R
 [credential]
 	helper = cache --timeout=86400
 [fetch]
