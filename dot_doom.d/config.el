@@ -12,6 +12,9 @@
         (append '(".metals") projectile-globally-ignored-directories))
 )
 
+;; org-mode
+(setq org-directory "~/Dropbox/Notes")
+
 ;; Clipboard stuff
 (setq select-enable-primary t)
 (setq select-enable-clipboard t)
