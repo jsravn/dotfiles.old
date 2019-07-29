@@ -5,6 +5,9 @@
 (setq doom-theme 'doom-one)
 (setq doom-font (font-spec :family "DejaVu Sans Mono"))
 
+;; Common settings
+(setq-default fill-column 120)
+
 ;; Projectile
 (setq projectile-project-search-path '("~/lightbend/" "~/devel/"))
 (after! projectile
@@ -34,6 +37,16 @@
 ;; Treemacs
 (after! treemacs
   (treemacs-follow-mode 1))
+
+(defun +private/treemacs-back-and-forth ()
+  (interactive)
+  (if (treemacs-is-treemacs-window-selected?)
+      (aw-flip-window)
+    (treemacs-select-window)))
+
+(map! :after treemacs
+      :leader
+      :n "-" #'+private/treemacs-back-and-forth)
 
 ;; Scala
 (defun +scala-comment-indent-new-line (&rest _)
