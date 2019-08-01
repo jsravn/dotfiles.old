@@ -25,9 +25,6 @@ checkout = git clone 'git@github.com:lightbend/cinnamon.git' 'cinnamon'
 [lightbend/console-api]
 checkout = git clone 'git@github.com:lightbend/console-api.git' 'console-api'
 
-[lightbend/console-charts]
-checkout = git clone 'git@github.com:lightbend/console-charts.git' 'console-charts'
-
 [lightbend/console-docs]
 checkout = git clone 'git@github.com:lightbend/console-docs.git' 'console-docs'
 
