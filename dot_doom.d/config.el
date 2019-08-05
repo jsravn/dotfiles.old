@@ -48,6 +48,9 @@
       :leader
       :n "-" #'+private/treemacs-back-and-forth)
 
+;; Popup mode
+(set-popup-rule! "^\\*Treemacs" :ignore t)
+
 ;; Scala
 (defun +scala-comment-indent-new-line (&rest _)
   "Fix scaladoc comments"
