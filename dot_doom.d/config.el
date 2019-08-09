@@ -15,6 +15,9 @@
         (append '(".metals") projectile-globally-ignored-directories))
 )
 
+;; centered-window-mode
+(setq cwm-centered-window-width 140)
+
 ;; org-mode
 (setq org-directory "~/Dropbox/Notes")
 
