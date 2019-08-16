@@ -37,6 +37,10 @@
 (add-hook! markdown-mode
   (visual-line-mode 1))
 
+;; Magit
+(after! magit-todos
+  (magit-todos-mode nil))
+
 ;; Treemacs
 (after! treemacs
   (treemacs-follow-mode 1))
