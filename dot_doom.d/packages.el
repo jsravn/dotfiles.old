@@ -9,3 +9,4 @@
 (package! super-save)
 (package! scala-mode)
 (package! sbt-mode)
+(package! magit-todos :disable t)
