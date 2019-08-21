@@ -25,6 +25,19 @@
 (setq select-enable-primary t)
 (setq select-enable-clipboard t)
 
+;; jsonnet
+(setq jsonnet-library-search-directories (list "vendor"))
+(after! flycheck (flycheck-define-checker jsonnetvendor
+  "A Jsonnet syntax checker using the jsonnet binary.
+See URL `https://jsonnet.org'."
+  :command ("jsonnet" "-J" "vendor" source-inplace)
+  :error-patterns
+  ((error line-start "STATIC ERROR: " (file-name) ":" line ":" column (zero-or-one (group "-" (one-or-more digit))) ": " (message) line-end)
+   (error line-start "RUNTIME ERROR: " (message) "\n" (one-or-more space) (file-name) ":" (zero-or-one "(") line ":" column (zero-or-more not-newline) line-end))
+  :modes jsonnet-mode)
+  (add-to-list 'flycheck-checkers 'jsonnetvendor)
+)
+
 ;; Auto save
 (def-package! super-save
   :init
