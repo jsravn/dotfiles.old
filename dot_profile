@@ -1,9 +1,13 @@
-export PATH="$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/godev/bin:$HOME/.emacs.d/bin:$PATH"
 export EDITOR=vim
 export FIGNORE=.svn
 export BROWSER=chromium
 export GOPATH=$HOME/go:$HOME/godev
 export GRADLE_OPTS='-Xmx2g'
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/godev/bin:$HOME/.emacs.d/bin:$PATH"
 
 # jabba
 [ -s "/home/james/.jabba/jabba.sh" ] && source "/home/james/.jabba/jabba.sh"
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then eval "$(pyenv init -)"; fi
