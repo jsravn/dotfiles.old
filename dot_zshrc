@@ -99,15 +99,3 @@ fi
 # scm_breeze
 setopt no_complete_aliases
 [ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && . "$HOME/.scm_breeze/scm_breeze.sh"
-
-# rbenv
-which rbenv > /dev/null && eval "$(rbenv init -)"
-
-# added by travis gem
-[ -f /home/james/.travis/travis.sh ] && source /home/james/.travis/travis.sh
-
-# nvm
-[ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
-
-# rust
-[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
