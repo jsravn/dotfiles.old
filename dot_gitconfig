@@ -1,6 +1,7 @@
 [user]
 	email = james@r-vn.org
 	name = James Ravn
+	signingkey = 63CA1A1AC2FF1376
 [alias]
     s = status
 	b = branch -vv

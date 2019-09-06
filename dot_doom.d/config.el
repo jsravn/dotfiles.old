@@ -39,7 +39,7 @@ See URL `https://jsonnet.org'."
 )
 
 ;; Auto save
-(def-package! super-save
+(use-package! super-save
   :init
   (setq super-save-auto-save-when-idle t)
   (setq auto-save-default nil))
