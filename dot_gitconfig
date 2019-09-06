@@ -1,7 +1,7 @@
 [user]
 	email = james@r-vn.org
 	name = James Ravn
-	signingkey = 63CA1A1AC2FF1376
+	signingkey = 67407A79FE849E47
 [alias]
     s = status
 	b = branch -vv
@@ -51,3 +51,5 @@
 	helper = cache --timeout=86400
 [fetch]
 	prune = true
+[commit]
+	gpgsign = true
