@@ -49,7 +49,7 @@ See URL `https://jsonnet.org'."
 ;; Markdown
 (add-hook! markdown-mode
   (visual-line-mode 1)
-  (flycheck-mode 0)
+  (flycheck-mode 0))
 
 ;; Treemacs
 (after! treemacs
