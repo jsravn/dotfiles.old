@@ -3,7 +3,7 @@
 ;; Place your private configuration here
 ;; Change doom theme
 (setq doom-theme 'doom-one)
-(setq doom-font (font-spec :family "DejaVu Sans Mono"))
+(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 15))
 
 ;; Common settings
 (setq-default fill-column 120)
@@ -49,11 +49,13 @@ See URL `https://jsonnet.org'."
 ;; Markdown
 (add-hook! markdown-mode
   (visual-line-mode 1)
-  (flycheck-mode 0))
+  (flycheck-mode 0)
+  (setq fill-column 100))
 
 ;; Treemacs
 (after! treemacs
-  (treemacs-follow-mode 1))
+  (treemacs-follow-mode 1)
+  (setq treemacs-width 50))
 
 (defun +private/treemacs-back-and-forth ()
   (interactive)
