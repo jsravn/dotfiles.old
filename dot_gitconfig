@@ -53,3 +53,5 @@
 	prune = true
 [commit]
 	gpgsign = true
+[github]
+	user = jsravn
