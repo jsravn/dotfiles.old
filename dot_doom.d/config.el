@@ -69,3 +69,6 @@ See URL `https://jsonnet.org'."
 
 ;; Popup mode
 (set-popup-rule! "^\\*Treemacs" :ignore t)
+
+;; magit tweaks
+(setq magit-prefer-remote-upstream t)
