@@ -72,3 +72,5 @@ See URL `https://jsonnet.org'."
 
 ;; magit tweaks
 (setq magit-prefer-remote-upstream t)
+; when doing b-l on a remote branch, it will set the upstream to origin/master
+(setq magit-branch-adjust-remote-upstream-alist '(("origin/master" "master")))
