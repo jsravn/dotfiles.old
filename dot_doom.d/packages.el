@@ -8,3 +8,4 @@
 
 (package! super-save)
 (package! magit-todos :disable t)
+(package! olivetti)

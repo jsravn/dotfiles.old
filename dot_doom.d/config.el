@@ -38,6 +38,13 @@ See URL `https://jsonnet.org'."
   (add-to-list 'flycheck-checkers 'jsonnetvendor)
 )
 
+;; olivetti
+(setq olivetti-body-width 160)
+
+;; python
+;; assumes mspyls installed from microsoft-python-language-server package
+(setq lsp-python-ms-executable "/usr/bin/mspyls")
+
 ;; Auto save
 (use-package! super-save
   :init
