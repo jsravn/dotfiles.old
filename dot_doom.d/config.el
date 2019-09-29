@@ -4,6 +4,7 @@
 ;; Change doom theme
 (setq doom-theme 'doom-one)
 (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 15))
+(setq doom-unicode-font (font-spec :family "Noto Sans Mono" :size 15))
 
 ;; Common settings
 (setq-default fill-column 120)
