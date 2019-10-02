@@ -78,3 +78,11 @@ See URL `https://jsonnet.org'."
 (setq magit-prefer-remote-upstream t)
 ; when doing b-l on a remote branch, it will set the upstream to origin/master
 (setq magit-branch-adjust-remote-upstream-alist '(("origin/master" "master")))
+
+; clear cache after checking out a new branch
+(defun +private/projectile-invalidate-cache (&rest _args)
+  (projectile-invalidate-cache nil))
+(advice-add 'magit-checkout
+            :after #'+private/projectile-invalidate-cache)
+(advice-add 'magit-branch-and-checkout
+            :after #'+private/projectile-invalidate-cache)
