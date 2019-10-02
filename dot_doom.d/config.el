@@ -16,6 +16,19 @@
         (append '(".metals") projectile-globally-ignored-directories))
 )
 
+; clear cache after checking out a new branch
+(defun +private/projectile-invalidate-cache (&rest _args)
+  (projectile-invalidate-cache nil))
+(advice-add 'magit-checkout
+            :after #'+private/projectile-invalidate-cache)
+(advice-add 'magit-branch-and-checkout
+            :after #'+private/projectile-invalidate-cache)
+
+;; New code actions
+(map! :leader
+      (:prefix "c"
+        :desc "Action at point (LSP)" "a" #'lsp-execute-code-action))
+
 ;; centered-window-mode
 (setq cwm-centered-window-width 140)
 
@@ -78,11 +91,3 @@ See URL `https://jsonnet.org'."
 (setq magit-prefer-remote-upstream t)
 ; when doing b-l on a remote branch, it will set the upstream to origin/master
 (setq magit-branch-adjust-remote-upstream-alist '(("origin/master" "master")))
-
-; clear cache after checking out a new branch
-(defun +private/projectile-invalidate-cache (&rest _args)
-  (projectile-invalidate-cache nil))
-(advice-add 'magit-checkout
-            :after #'+private/projectile-invalidate-cache)
-(advice-add 'magit-branch-and-checkout
-            :after #'+private/projectile-invalidate-cache)
