@@ -8,6 +8,7 @@
 
 ;; Common settings
 (setq-default fill-column 120)
+(setq delete-by-moving-to-trash t)
 
 ;; Projectile
 (setq projectile-project-search-path '("~/lightbend/" "~/devel/"))
