@@ -5,6 +5,7 @@
 (setq doom-theme 'doom-one)
 (setq doom-font (font-spec :family "Iosevka" :size 15))
 (setq doom-unicode-font (font-spec :family "Noto Sans Mono" :size 15))
+(setq doom-themes-treemacs-enable-variable-pitch nil)
 
 ;; Common settings
 (setq-default fill-column 120)
@@ -92,3 +93,6 @@ See URL `https://jsonnet.org'."
 (setq magit-prefer-remote-upstream t)
 ; when doing b-l on a remote branch, it will set the upstream to origin/master
 (setq magit-branch-adjust-remote-upstream-alist '(("origin/master" "master")))
+
+;; lsp-mode tweaks
+(setq lsp-auto-guess-root nil)
