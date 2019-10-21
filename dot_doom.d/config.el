@@ -3,7 +3,7 @@
 ;; Place your private configuration here
 ;; Change doom theme
 (setq doom-theme 'doom-one)
-(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 15))
+(setq doom-font (font-spec :family "Iosevka" :size 15))
 (setq doom-unicode-font (font-spec :family "Noto Sans Mono" :size 15))
 
 ;; Common settings
