@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Unclutter
+Type=Application
+Terminal=true
+Comment=Run unclutter
+Exec=unclutter -b --timeout 3
