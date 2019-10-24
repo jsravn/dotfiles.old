@@ -3,7 +3,7 @@
 ;; Place your private configuration here
 ;; Change doom theme
 (setq doom-theme 'doom-one)
-(setq doom-font (font-spec :family "Iosevka" :size 16))
+(setq doom-font (font-spec :family "Iosevka" :size 16 :adstyle "Regular"))
 (setq doom-unicode-font (font-spec :family "Noto Sans Mono" :size 16))
 (setq doom-themes-treemacs-enable-variable-pitch nil)
 
