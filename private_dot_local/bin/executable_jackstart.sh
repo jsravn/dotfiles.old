@@ -10,6 +10,8 @@
 
 set -eu
 
+# stop jack if running
+jack_control stop
 # start up jack
 jack_control ds alsa
 jack_control dps device hw:$1
