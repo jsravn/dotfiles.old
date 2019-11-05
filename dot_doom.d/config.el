@@ -11,6 +11,12 @@
 (setq-default fill-column 120)
 (setq delete-by-moving-to-trash t)
 
+;; Save on focus switch.
+(add-hook! '(doom-switch-window-hook
+             doom-switch-buffer-hook
+             focus-out-hook) ; frames
+  (save-some-buffers t))
+
 ;; Projectile
 (setq projectile-project-search-path '("~/lightbend/" "~/devel/"))
 (after! projectile
