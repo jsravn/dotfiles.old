@@ -41,6 +41,7 @@
 	decorate = true
 [merge]
 	defaultToUpstream = true
+	conflictStyle = diff3
 [push]
 	default = upstream
 [core]
