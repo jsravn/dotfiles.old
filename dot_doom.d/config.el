@@ -11,6 +11,9 @@
 (setq-default fill-column 120)
 (setq delete-by-moving-to-trash t)
 
+;; Workarounds
+(fset 'battery-update #'ignore)
+
 ;; Enable auto save
 (setq auto-save-default t)
 
