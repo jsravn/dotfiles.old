@@ -99,3 +99,6 @@ fi
 # scm_breeze
 setopt no_complete_aliases
 [ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && . "$HOME/.scm_breeze/scm_breeze.sh"
+
+# kubectl completion
+command -v kubectl > /dev/null && source <(kubectl completion zsh) 
