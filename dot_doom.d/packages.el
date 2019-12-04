@@ -7,4 +7,3 @@
 ;; (package! builtin-package :disable t)
 
 (package! magit-todos :disable t)
-(package! olivetti)

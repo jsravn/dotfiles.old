@@ -24,7 +24,7 @@
         (append '(".metals") projectile-globally-ignored-directories))
   )
 
-                                        ; clear cache after checking out a new branch
+;; clear cache after checking out a new branch
 (defun +private/projectile-invalidate-cache (&rest _args)
   (projectile-invalidate-cache nil))
 (advice-add 'magit-checkout
@@ -36,9 +36,6 @@
 (map! :leader
       (:prefix "c"
         :desc "Action at point (LSP)" "a" #'lsp-execute-code-action))
-
-;; centered-window-mode
-(setq cwm-centered-window-width 140)
 
 ;; org-mode
 (setq org-directory "~/Dropbox/Notes")
@@ -59,9 +56,6 @@ See URL `https://jsonnet.org'."
                    :modes jsonnet-mode)
   (add-to-list 'flycheck-checkers 'jsonnetvendor)
   )
-
-;; olivetti
-(setq olivetti-body-width 160)
 
 ;; Markdown
 (add-hook! markdown-mode
@@ -89,9 +83,9 @@ See URL `https://jsonnet.org'."
 
 ;; magit tweaks
 (setq magit-prefer-remote-upstream t)
-                                        ; when doing b-l on a remote branch, it will set the upstream to origin/master
+;; when doing b-l on a remote branch, it will set the upstream to origin/master
 (setq magit-branch-adjust-remote-upstream-alist '(("origin/master" "master")))
-                                        ; when doing b-c default origin/master as the branching point when possible
+;; when doing b-c default origin/master as the branching point when possible
 (setq magit-branch-prefer-remote-upstream '("master"))
 
 ;; lsp-mode tweaks
