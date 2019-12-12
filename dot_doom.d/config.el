@@ -78,9 +78,6 @@ See URL `https://jsonnet.org'."
       :leader
       :n "-" #'+private/treemacs-back-and-forth)
 
-;; Popup mode
-(set-popup-rule! "^\\*Treemacs" :ignore t)
-
 ;; magit tweaks
 (setq magit-prefer-remote-upstream t)
 ;; when doing b-l on a remote branch, it will set the upstream to origin/master
