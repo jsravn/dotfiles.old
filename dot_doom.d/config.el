@@ -87,3 +87,6 @@ See URL `https://jsonnet.org'."
 
 ;; lsp-mode tweaks
 (setq lsp-auto-guess-root nil)
+
+;; scala-mode tweaks
+(after! scala-mode (setq scala-indent:align-parameters nil))
