@@ -18,7 +18,7 @@
 (setq auto-save-default t)
 
 ;; Projectile
-(setq projectile-project-search-path '("~/lightbend/" "~/devel/"))
+(setq projectile-project-search-path '("~/lightbend/" "~/devel/" "~/sky/"))
 (after! projectile
   (setq projectile-globally-ignored-directories
         (append '(".metals") projectile-globally-ignored-directories))
