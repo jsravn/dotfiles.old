@@ -18,7 +18,7 @@
 (setq auto-save-default t)
 
 ;; Projectile
-(setq projectile-project-search-path '("~/lightbend/" "~/devel/" "~/sky/"))
+(setq projectile-project-search-path '("~/lightbend/" "~/devel/" "~/sky/" "~/Dropbox"))
 (after! projectile
   (setq projectile-globally-ignored-directories
         (append '(".metals") projectile-globally-ignored-directories))
@@ -38,8 +38,25 @@
         :desc "Action at point (LSP)" "a" #'lsp-execute-code-action))
 
 ;; org-mode
-(setq org-directory "~/Dropbox/Notes")
-
+(after! org
+  (setq org-directory "~/Dropbox/Notes")
+  (setq org-capture-templates '(("t" "Todo [inbox]" entry
+                                 (file+headline "~/Dropbox/Notes/inbox.org" "Tasks")
+                                 "* TODO %i%?")
+                                ("T" "Tickler" entry
+                                 (file+headline "~/Dropbox/Notes/tickler.org" "Tickler")
+                                 "* %i%? \n %U")))
+  (setq org-refile-targets '(("~/Dropbox/Notes/todo.org" :maxlevel . 3)
+                             ("~/Dropbox/Notes/tickler.org" :maxlevel . 2)
+                             ("~/Dropbox/Notes/someday.org" :maxlevel . 2)))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+  (setq org-agenda-custom-commands
+        '(("o" "At the office" tags-todo "@office"
+           ((org-agenda-overriding-header "Office")))
+          ("h" "At home" tags-todo "@home"
+           ((org-agenda-overriding-header "Home"))
+           )))
+  )
 ;; Clipboard stuff
 (setq select-enable-primary t)
 (setq select-enable-clipboard t)
