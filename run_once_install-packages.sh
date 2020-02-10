@@ -10,4 +10,6 @@ sudo pacman -Sy --noconfirm --needed \
     editorconfig-core-c \
     fd \
     fzf \
-    pyenv
+    pyenv \
+    zsh-autosuggestions \
+    zsh-syntax-highlighting
