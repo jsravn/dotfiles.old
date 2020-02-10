@@ -102,3 +102,6 @@ setopt no_complete_aliases
 
 # kubectl completion
 command -v kubectl > /dev/null && source <(kubectl completion zsh) 
+
+# broot
+[ -s "$HOME/.config/broot/launcher/bash/br" ] && . "$HOME/.config/broot/launcher/bash/br" 
