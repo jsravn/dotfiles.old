@@ -45,10 +45,10 @@
 (setq org-directory "~/Dropbox/Notes")
 (after! org
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                                 (file+headline "~/Dropbox/Notes/inbox.org" "Inbox")
+                                 (file "~/Dropbox/Notes/inbox.org")
                                  "* TODO %i%?")
                                 ("e" "Event [inbox]" entry
-                                 (file+headline "~/Dropbox/Notes/inbox.org" "Event")
+                                 (file "~/Dropbox/Notes/inbox.org")
                                  "* %i%? \n %U")))
   (setq org-todo-keywords '((sequence "TODO(t)" "PROG(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (setq org-log-done 'time)
