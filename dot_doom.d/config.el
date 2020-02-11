@@ -18,7 +18,7 @@
 (setq auto-save-default t)
 (add-hook! '(doom-switch-window-hook
              doom-switch-buffer-hook
-             focus-out-hook) ; frames
+             doom-switch-frame-hook) ; frames
   (save-some-buffers t))
 
 ;; Projectile
