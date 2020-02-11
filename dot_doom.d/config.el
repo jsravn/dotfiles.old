@@ -47,7 +47,9 @@
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                  (file+headline "~/Dropbox/Notes/inbox.org" "Inbox")
                                  "* TODO %i%?")
-                                ))
+                                ("e" "Event [inbox]" entry
+                                 (file+headline "~/Dropbox/Notes/inbox.org" "Event")
+                                 "* %i%? \n %U")))
   (setq org-todo-keywords '((sequence "TODO(t)" "PROG(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (setq org-log-done 'time)
   (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("@omscs" . ?o)))
