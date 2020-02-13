@@ -2,13 +2,15 @@
 
 set -eu
 
-sudo pacman -Sy --noconfirm go
-export GOPATH=/home/james/go
+if command -v pacman >/dev/null; then
+  sudo pacman -Sy --noconfirm go
+fi
+export GOPATH=$HOME/go
 mkdir -p $GOPATH
-go get -u github.com/motemen/gore/cmd/gore
-go get -u github.com/mdempsky/gocode
-go get -u golang.org/x/tools/cmd/godoc
-go get -u golang.org/x/tools/cmd/goimports
-go get -u golang.org/x/tools/cmd/gorename
-go get -u golang.org/x/tools/cmd/guru
-go get -u golang.org/x/tools/cmd/gopls
+go get github.com/motemen/gore/cmd/gore
+go get github.com/mdempsky/gocode
+go get golang.org/x/tools/cmd/godoc
+go get golang.org/x/tools/cmd/goimports
+go get golang.org/x/tools/cmd/gorename
+go get golang.org/x/tools/cmd/guru
+GO111MODULE=on go get golang.org/x/tools/gopls@master golang.org/x/tools@master

@@ -46,6 +46,10 @@ plugins=(autojump zsh-syntax-highlighting zsh-autosuggestions)
 [ -e /usr/share/fzf/key-bindings.zsh ] && . /usr/share/fzf/key-bindings.zsh
 [ -e /usr/share/fzf/completion.zsh ] && . /usr/share/fzf/completion.zsh
 
+# fzf - homebrew
+[ -e /usr/local/opt/fzf/shell/key-bindings.zsh ] && . /usr/local/opt/fzf/shell/key-bindings.zsh
+[ -e /usr/local/opt/fzf/shell/completion.zsh ] && . /usr/local/opt/fzf/shell/completion.zsh
+
 # kubectl aliases
 [ -e ~/.kubectl_aliases ] && source ~/.kubectl_aliases
 

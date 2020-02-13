@@ -7,7 +7,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/godev/bin:$HOME/.emacs.d/bin:$PATH"
 
 # jabba
-[ -s "/home/james/.jabba/jabba.sh" ] && source "/home/james/.jabba/jabba.sh"
+[ -s "$HOME/.jabba/jabba.sh" ] && source "$HOME/.jabba/jabba.sh"
 
 # pyenv
 if command -v pyenv 1>/dev/null 2>&1; then eval "$(pyenv init -)"; fi

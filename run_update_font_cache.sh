@@ -1,3 +1,5 @@
 #!/bin/sh
 
-fc-cache
+if command -v fc-cache >/dev/null; then
+    fc-cache
+fi

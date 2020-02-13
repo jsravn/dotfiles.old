@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=JACK - Non Session Manager
-Comment=Audio session manager from the land of Non
-Exec=/usr/bin/bash -c "/home/james/.local/bin/jackstart.sh USB20 && /usr/bin/non-session-manager"
-Terminal=false
-Type=Application
-Icon=non-session-manager
-Categories=AudioVideo;Audio;
