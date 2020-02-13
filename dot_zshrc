@@ -108,6 +108,9 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
+# gpg fix on darwin
+GPG_TTY=$(tty)
+
 # aliases
 [ -s "$HOME/.zsh_aliases" ] && . ~/.zsh_aliases
 
