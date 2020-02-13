@@ -13,4 +13,6 @@ go get golang.org/x/tools/cmd/godoc
 go get golang.org/x/tools/cmd/goimports
 go get golang.org/x/tools/cmd/gorename
 go get golang.org/x/tools/cmd/guru
+go get github.com/fatih/gomodifytags
+go get github.com/cweill/gotests/...
 GO111MODULE=on go get golang.org/x/tools/gopls@master golang.org/x/tools@master
