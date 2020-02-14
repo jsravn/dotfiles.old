@@ -18,7 +18,8 @@
 (setq auto-save-default t)
 (add-hook! '(doom-switch-window-hook
              doom-switch-buffer-hook
-             doom-switch-frame-hook) ; frames
+             doom-switch-frame-hook
+             focus-out-hook) ; frames
   (save-some-buffers t))
 
 ;; Projectile
@@ -50,7 +51,7 @@
                                 ("e" "Event [inbox]" entry
                                  (file "~/Dropbox/Notes/inbox.org")
                                  "* %i%? \n %U")))
-  (setq org-todo-keywords '((sequence "TODO(t)" "PROG(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (setq org-log-done 'time)
   (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("@omscs" . ?o)))
   (setq org-fast-tag-selection-single-key t)
@@ -58,6 +59,23 @@
                                   (bookmark-jump . lineage)
                                   (isearch . lineage)
                                   (default . ancestors)))
+  ;; agenda
+  (setq org-agenda-todo-ignore-with-date 'far)
+  (setq org-agenda-files '("~/Dropbox/Notes/todo.org"
+                           "~/Dropbox/Notes/inbox.org"
+                           "~/Dropbox/Notes/events.org"))
+  (setq org-agenda-custom-commands
+        '(
+          ("h" "Home Tasks" tags-todo "@home"
+           ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+            ))
+          ("w" "Work Tasks" tags-todo "@work"
+           ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+            ))
+          ("o" "OMSCS Tasks" tags-todo "@omscs"
+           ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+            ))
+          ))
   )
 ;; Clipboard stuff
 (setq select-enable-primary t)
