@@ -59,6 +59,10 @@
                                   (bookmark-jump . lineage)
                                   (isearch . lineage)
                                   (default . ancestors)))
+  (setq org-refile-targets '(("~/Dropbox/Notes/todo.org" :maxlevel . 1)
+                             ("~/Dropbox/Notes/someday.org" :maxlevel . 1)
+                             ("~/Dropbox/Notes/events.org" :maxlevel . 1)
+                             ("~/Dropbox/Notes/notes.org" :maxlevel . 1)))
   ;; agenda
   (setq org-agenda-todo-ignore-with-date 'far)
   (setq org-agenda-files '("~/Dropbox/Notes/todo.org"
@@ -68,15 +72,35 @@
         '(
           ("h" "Home Tasks" tags-todo "@home"
            ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)
             ))
           ("w" "Work Tasks" tags-todo "@work"
            ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)
             ))
           ("o" "OMSCS Tasks" tags-todo "@omscs"
            ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)
             ))
           ))
   )
+
+(defun my-org-agenda-skip-all-siblings-but-first ()
+  "Skip all but the first non-done entry."
+  (let (should-skip-entry)
+    (unless (org-current-is-todo)
+      (setq should-skip-entry t))
+    (save-excursion
+      (while (and (not should-skip-entry) (org-goto-sibling t))
+        (when (org-current-is-todo)
+          (setq should-skip-entry t))))
+    (when should-skip-entry
+      (or (outline-next-heading)
+          (goto-char (point-max))))))
+
+(defun org-current-is-todo ()
+  (string= "TODO" (org-get-todo-state)))
+
 ;; Clipboard stuff
 (setq select-enable-primary t)
 (setq select-enable-clipboard t)
