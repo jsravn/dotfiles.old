@@ -139,6 +139,7 @@
         ;;+hugo            ; use Emacs for hugo blogging
         ;;+jupyter        ; ipython/jupyter support for babel
         +pandoc          ; pandoc integration into org's exporter
+        +journal
         ;;+pomodoro        ; be fruitful with the tomato technique
         +present)        ; using Emacs for presentations
        ;;perl              ; write code no one else can comprehend

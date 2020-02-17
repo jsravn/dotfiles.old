@@ -61,45 +61,64 @@
                                   (default . ancestors)))
   (setq org-refile-targets '(("~/Dropbox/Notes/todo.org" :maxlevel . 1)
                              ("~/Dropbox/Notes/someday.org" :maxlevel . 1)
-                             ("~/Dropbox/Notes/events.org" :maxlevel . 1)
+                             ("~/Dropbox/Notes/tickler.org" :maxlevel . 1)
                              ("~/Dropbox/Notes/notes.org" :maxlevel . 1)))
   ;; agenda
   (setq org-agenda-todo-ignore-with-date 'far)
   (setq org-agenda-files '("~/Dropbox/Notes/todo.org"
                            "~/Dropbox/Notes/inbox.org"
-                           "~/Dropbox/Notes/events.org"))
+                           "~/Dropbox/Notes/tickler.org"))
   (setq org-agenda-custom-commands
         '(
-          ("h" "Home Tasks" tags-todo "@home"
+          ("h" "Home agenda"
+           ((agenda "" ((org-agenda-span 7)
+                        (org-agenda-start-day "-1d")))
+            (tags-todo "@home"))
            ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)
+            (org-agenda-tag-filter-preset '("+@home"))
             ))
-          ("w" "Work Tasks" tags-todo "@work"
+
+          ("w" "Work agenda"
+           ((agenda "" ((org-agenda-span 7)
+                        (org-agenda-start-day "-1d")))
+            (tags-todo "@work"))
            ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)
+            (org-agenda-tag-filter-preset '("+@work"))
             ))
-          ("o" "OMSCS Tasks" tags-todo "@omscs"
+
+          ("o" "OMSCS agenda"
+           ((agenda "" ((org-agenda-span 7)
+                        (org-agenda-start-day "-1d")))
+            (tags-todo "@omscs"))
            ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)
+            (org-agenda-tag-filter-preset '("+@omscs"))
             ))
           ))
   )
 
-(defun my-org-agenda-skip-all-siblings-but-first ()
-  "Skip all but the first non-done entry."
-  (let (should-skip-entry)
-    (unless (org-current-is-todo)
-      (setq should-skip-entry t))
-    (save-excursion
-      (while (and (not should-skip-entry) (org-goto-sibling t))
-        (when (org-current-is-todo)
-          (setq should-skip-entry t))))
-    (when should-skip-entry
-      (or (outline-next-heading)
-          (goto-char (point-max))))))
+;; WIP - unused
+(after! org-journal
+  (setq org-journal-file-type 'yearly)
+  (setq org-journal-file-format "journal-%Y%m%d.org")
+  (setq org-journal-enable-agenda-integration t)
+  (setq org-journal-date-format "%e %b %Y (%A)")
+  (setq org-journal-file-header "#+TITLE: Journal\n#+CATEGORY: journal\n#+STARTUP: folded")
+  (setq org-journal-time-format "")
+  (setq org-journal-find-file 'find-file)
+  (setq org-journal-dir org-directory
+        org-journal-cache-file (concat doom-cache-dir "org-journal")
+        org-journal-file-pattern (org-journal-dir-and-format->regex
+                                  org-journal-dir org-journal-file-format))
+  (add-to-list 'auto-mode-alist (cons org-journal-file-pattern 'org-journal-mode))
+  )
 
-(defun org-current-is-todo ()
-  (string= "TODO" (org-get-todo-state)))
+(add-hook 'org-journal-after-entry-create-hook
+          (lambda ()
+            (save-excursion
+              (let ((template "#+TITLE: Journal\n#+CATEGORY: journal\n#+STARTUP: folded"))
+                (beginning-of-buffer)
+                (unless (search-forward template nil t)
+                  (insert template "\n\n"))))))
 
 ;; Clipboard stuff
 (setq select-enable-primary t)
