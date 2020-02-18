@@ -66,6 +66,7 @@
                              ("~/Dropbox/Notes/notes.org" :maxlevel . 1)))
   ;; agenda
   (setq org-agenda-todo-ignore-with-date 'far)
+  (setq org-deadline-warning-days 7)
   (setq org-agenda-files '("~/Dropbox/Notes/todo.org"
                            "~/Dropbox/Notes/inbox.org"
                            "~/Dropbox/Notes/tickler.org"))
@@ -89,7 +90,8 @@
            (
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")))
-            (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))))
+            (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                (org-agenda-overriding-header "Todo")))
             )
            (
             ;; only way to filter agenda by tag
@@ -101,7 +103,8 @@
            (
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")))
-            (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))))
+            (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                (org-agenda-overriding-header "Todo")))
             )
            (
             ;; only way to filter agenda by tag
@@ -113,7 +116,8 @@
            (
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")))
-            (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))))
+            (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                 (org-agenda-overriding-header "Todo")))
             )
            (
             ;; only way to filter agenda by tag
