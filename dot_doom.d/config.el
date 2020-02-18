@@ -128,10 +128,10 @@
           ))
   )
 
-;; WIP - unused
+;; org-journal
 (after! org-journal
   (setq org-journal-file-type 'yearly)
-  (setq org-journal-file-format "journal-%Y%m%d.org")
+  (setq org-journal-file-format "%Y.org")
   (setq org-journal-enable-agenda-integration t)
   (setq org-journal-date-format "%e %b %Y (%A)")
   (setq org-journal-file-header "#+TITLE: Journal\n#+CATEGORY: journal\n#+STARTUP: folded")
@@ -141,16 +141,9 @@
         org-journal-cache-file (concat doom-cache-dir "org-journal")
         org-journal-file-pattern (org-journal-dir-and-format->regex
                                   org-journal-dir org-journal-file-format))
+
   (add-to-list 'auto-mode-alist (cons org-journal-file-pattern 'org-journal-mode))
   )
-
-(add-hook 'org-journal-after-entry-create-hook
-          (lambda ()
-            (save-excursion
-              (let ((template "#+TITLE: Journal\n#+CATEGORY: journal\n#+STARTUP: folded"))
-                (beginning-of-buffer)
-                (unless (search-forward template nil t)
-                  (insert template "\n\n"))))))
 
 ;; Clipboard stuff
 (setq select-enable-primary t)

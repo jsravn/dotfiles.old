@@ -47,7 +47,7 @@
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
-       file-templates    ; auto-snippets for empty files
+       ;;file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
        (format)         ; automated prettiness, can add +onsave
        ;;god               ; run Emacs commands without modifier keys
@@ -136,10 +136,10 @@
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +dragndrop       ; file drag & drop support
+        +journal
         ;;+hugo            ; use Emacs for hugo blogging
         ;;+jupyter        ; ipython/jupyter support for babel
         +pandoc          ; pandoc integration into org's exporter
-        +journal
         ;;+pomodoro        ; be fruitful with the tomato technique
         +present)        ; using Emacs for presentations
        ;;perl              ; write code no one else can comprehend
