@@ -10,6 +10,7 @@
 ;; Common settings
 (setq-default fill-column 120)
 (setq delete-by-moving-to-trash t)
+(add-hook 'window-setup-hook #'toggle-frame-maximized)
 
 ;; Workarounds
 (fset 'battery-update #'ignore)
@@ -70,29 +71,56 @@
                            "~/Dropbox/Notes/tickler.org"))
   (setq org-agenda-custom-commands
         '(
-          ("h" "Home agenda"
-           ((agenda "" ((org-agenda-span 7)
+          ("A" "All agenda"
+           (
+            (todo "" ((org-agenda-files '("~/Dropbox/Notes/inbox.org"))
+                      (org-agenda-overriding-header "Inbox")))
+            (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")))
-            (tags-todo "@home"))
-           ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-            (org-agenda-tag-filter-preset '("+@home"))
+            (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                (org-agenda-overriding-header "Home")))
+            (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                (org-agenda-overriding-header "Work")))
+            (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                 (org-agenda-overriding-header "OMSCS")))
             ))
+
+          ("h" "Home agenda"
+           (
+            (agenda "" ((org-agenda-span 7)
+                        (org-agenda-start-day "-1d")))
+            (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))))
+            )
+           (
+            ;; only way to filter agenda by tag
+            (org-agenda-tag-filter-preset '("+@home"))
+            )
+           )
 
           ("w" "Work agenda"
-           ((agenda "" ((org-agenda-span 7)
+           (
+            (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")))
-            (tags-todo "@work"))
-           ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+            (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))))
+            )
+           (
+            ;; only way to filter agenda by tag
             (org-agenda-tag-filter-preset '("+@work"))
-            ))
+            )
+           )
 
           ("o" "OMSCS agenda"
-           ((agenda "" ((org-agenda-span 7)
+           (
+            (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")))
-            (tags-todo "@omscs"))
-           ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+            (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))))
+            )
+           (
+            ;; only way to filter agenda by tag
             (org-agenda-tag-filter-preset '("+@omscs"))
-            ))
+            )
+           )
+
           ))
   )
 
