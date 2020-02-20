@@ -128,6 +128,9 @@
           ))
   )
 
+(add-hook! org-mode
+  (visual-line-mode 1))
+
 ;; org-journal
 (after! org-journal
   (setq org-journal-file-type 'yearly)
