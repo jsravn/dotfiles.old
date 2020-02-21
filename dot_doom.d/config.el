@@ -67,9 +67,6 @@
   ;; agenda
   (setq org-agenda-todo-ignore-with-date 'far)
   (setq org-deadline-warning-days 7)
-  (setq org-agenda-files '("~/Dropbox/Notes/todo.org"
-                           "~/Dropbox/Notes/inbox.org"
-                           "~/Dropbox/Notes/tickler.org"))
   (setq org-agenda-custom-commands
         '(
           ("A" "All agenda"
@@ -77,7 +74,10 @@
             (todo "" ((org-agenda-files '("~/Dropbox/Notes/inbox.org"))
                       (org-agenda-overriding-header "Inbox")))
             (agenda "" ((org-agenda-span 7)
-                        (org-agenda-start-day "-1d")))
+                        (org-agenda-start-day "-1d")
+                        (org-agenda-files '("~/Dropbox/Notes/todo.org"
+                                            "~/Dropbox/Notes/inbox.org"
+                                            "~/Dropbox/Notes/tickler.org"))))
             (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Home")))
             (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
@@ -175,16 +175,8 @@ See URL `https://jsonnet.org'."
 (after! treemacs
   (treemacs-follow-mode 1)
   (setq treemacs-width 50))
-
-(defun +private/treemacs-back-and-forth ()
-  (interactive)
-  (if (treemacs-is-treemacs-window-selected?)
-      (aw-flip-window)
-    (treemacs-select-window)))
-
-(map! :after treemacs
-      :leader
-      :n "-" #'+private/treemacs-back-and-forth)
+;; Doesn't work yet.
+;;(setq treemacs-set-scope-type 'Perspectives)
 
 ;; magit tweaks
 (setq magit-prefer-remote-upstream t)
