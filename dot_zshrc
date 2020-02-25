@@ -60,7 +60,9 @@ setopt interactivecomments
 
 # needed for zsh-autosuggestion to use completion for suggestions
 zmodload zsh/zpty
-ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
+ZSH_AUTOSUGGEST_USE_ASYNC=yes
+bindkey '^ ' autosuggest-accept
 
 # Fix bindings - from https://wiki.archlinux.org/index.php/Zsh#Key_bindings
 # create a zkbd compatible hash;
