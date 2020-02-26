@@ -3,8 +3,9 @@
 ;; Place your private configuration here
 ;; Change doom theme
 (setq doom-theme 'doom-one)
-(setq doom-font (font-spec :family "Iosevka" :size 16 :adstyle "Regular"))
-(setq doom-unicode-font (font-spec :family "Noto Sans Mono" :size 16))
+(setq doom-font (font-spec :family "PragmataPro Liga" :size 16 :adstyle "Regular"))
+(setq +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
+;;(setq doom-unicode-font (font-spec :family "Noto Sans Mono" :size 16))
 (setq doom-themes-treemacs-enable-variable-pitch nil)
 
 ;; Common settings
@@ -13,7 +14,7 @@
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
 
 ;; Workarounds
-(fset 'battery-update #'ignore)
+;;(fset 'battery-update #'ignore)
 
 ;; Enable auto save
 (setq auto-save-default t)
@@ -67,6 +68,7 @@
   ;; agenda
   (setq org-agenda-todo-ignore-with-date 'far)
   (setq org-deadline-warning-days 7)
+  ;; default agenda files
   (setq org-agenda-custom-commands
         '(
           ("A" "All agenda"
@@ -75,21 +77,24 @@
                       (org-agenda-overriding-header "Inbox")))
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
-                        (org-agenda-files '("~/Dropbox/Notes/todo.org"
-                                            "~/Dropbox/Notes/inbox.org"
-                                            "~/Dropbox/Notes/tickler.org"))))
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"))))
             (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Home")))
             (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Work")))
             (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                  (org-agenda-overriding-header "OMSCS")))
+            (tags "-{.*}" ((org-agenda-files '("~/Dropbox/Notes/todo.org"
+                                               "~/Dropbox/Notes/tickler.org"
+                                               "~/Dropbox/Notes/someday.org"))
+                           (org-agenda-overriding-header "Untagged")))
             ))
 
           ("h" "Home agenda"
            (
             (agenda "" ((org-agenda-span 7)
-                        (org-agenda-start-day "-1d")))
+                        (org-agenda-start-day "-1d")
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"))))
             (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Todo")))
             )
@@ -102,7 +107,8 @@
           ("w" "Work agenda"
            (
             (agenda "" ((org-agenda-span 7)
-                        (org-agenda-start-day "-1d")))
+                        (org-agenda-start-day "-1d")
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"))))
             (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Todo")))
             )
@@ -115,7 +121,8 @@
           ("o" "OMSCS agenda"
            (
             (agenda "" ((org-agenda-span 7)
-                        (org-agenda-start-day "-1d")))
+                        (org-agenda-start-day "-1d")
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"))))
             (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                  (org-agenda-overriding-header "Todo")))
             )

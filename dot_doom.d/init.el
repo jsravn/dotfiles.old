@@ -35,7 +35,7 @@
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
        (pretty-code      ; replace bits of code with pretty symbols
-        +iosevka)
+        +pragmata-pro)
        ;;tabs              ; an tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
@@ -136,12 +136,13 @@
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +dragndrop       ; file drag & drop support
-        +journal
+        ;;+journal
         ;;+hugo            ; use Emacs for hugo blogging
         ;;+jupyter        ; ipython/jupyter support for babel
-        +pandoc          ; pandoc integration into org's exporter
+        ;;+pandoc          ; pandoc integration into org's exporter
         ;;+pomodoro        ; be fruitful with the tomato technique
-        +present)        ; using Emacs for presentations
+        ;;+present)        ; using Emacs for presentations
+        )
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
