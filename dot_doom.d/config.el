@@ -77,7 +77,8 @@
                       (org-agenda-overriding-header "Inbox")))
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
-                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"))))
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
+                                            "~/Dropbox/Notes/todo.org"))))
             (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Home")))
             (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
@@ -94,7 +95,8 @@
            (
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
-                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"))))
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
+                                            "~/Dropbox/Notes/todo.org"))))
             (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Todo")))
             )
@@ -108,7 +110,8 @@
            (
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
-                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"))))
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
+                                            "~/Dropbox/Notes/todo.org"))))
             (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Todo")))
             )
@@ -122,7 +125,8 @@
            (
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
-                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"))))
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
+                                            "~/Dropbox/Notes/todo.org"))))
             (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                  (org-agenda-overriding-header "Todo")))
             )
