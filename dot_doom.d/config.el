@@ -61,10 +61,10 @@
                                   (bookmark-jump . lineage)
                                   (isearch . lineage)
                                   (default . ancestors)))
-  (setq org-refile-targets '(("~/Dropbox/Notes/todo.org" :maxlevel . 1)
+  (setq org-refile-targets '(("~/Dropbox/Notes/todo.org" :maxlevel . 2)
                              ("~/Dropbox/Notes/someday.org" :maxlevel . 1)
                              ("~/Dropbox/Notes/tickler.org" :maxlevel . 1)
-                             ("~/Dropbox/Notes/notes.org" :maxlevel . 1)))
+                             ("~/Dropbox/Notes/notes.org" :maxlevel . 2)))
   ;; agenda
   (setq org-agenda-todo-ignore-with-date 'far)
   (setq org-deadline-warning-days 7)
@@ -147,7 +147,7 @@
 
 (defun my-org-agenda-skip-all-siblings-but-first ()
   "Skip all but the first non-done entry that is inside a project (a subheading)."
-  (when (> (car (org-heading-components)) 1)
+  (when (> (car (org-heading-components)) 2)
     (let (should-skip-entry)
       (save-excursion
         (while (and (not should-skip-entry) (org-goto-sibling t))
