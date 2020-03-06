@@ -5,16 +5,12 @@
 (setq doom-theme 'doom-one)
 (setq doom-font (font-spec :family "PragmataPro Liga" :size 16 :adstyle "Regular"))
 (setq +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
-;;(setq doom-unicode-font (font-spec :family "Noto Sans Mono" :size 16))
 (setq doom-themes-treemacs-enable-variable-pitch nil)
 
 ;; Common settings
 (setq-default fill-column 120)
 (setq delete-by-moving-to-trash t)
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
-
-;; Workarounds
-;;(fset 'battery-update #'ignore)
 
 ;; Enable auto save
 (setq auto-save-default t)
@@ -81,10 +77,10 @@
                                             "~/Dropbox/Notes/todo.org"))))
             (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Home")
-                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+                                (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
             (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Work")
-                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+                                (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
             (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                  (org-agenda-overriding-header "OMSCS")
                                  (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
@@ -161,21 +157,34 @@
   (visual-line-mode 1))
 
 ;; org-journal
-(after! org-journal
-  (setq org-journal-file-type 'yearly)
-  (setq org-journal-file-format "%Y.org")
-  (setq org-journal-enable-agenda-integration t)
-  (setq org-journal-date-format "%e %b %Y (%A)")
-  (setq org-journal-file-header "#+TITLE: Journal\n#+CATEGORY: journal\n#+STARTUP: folded")
-  (setq org-journal-time-format "")
-  (setq org-journal-find-file 'find-file)
-  (setq org-journal-dir org-directory
-        org-journal-cache-file (concat doom-cache-dir "org-journal")
-        org-journal-file-pattern (org-journal-dir-and-format->regex
-                                  org-journal-dir org-journal-file-format))
+;; (after! org-journal
+;;   (setq org-journal-file-type 'yearly)
+;;   (setq org-journal-file-format "%Y.org")
+;;   (setq org-journal-enable-agenda-integration t)
+;;   (setq org-journal-date-format "%e %b %Y (%A)")
+;;   (setq org-journal-file-header "#+TITLE: Journal\n#+CATEGORY: journal\n#+STARTUP: folded")
+;;   (setq org-journal-time-format "")
+;;   (setq org-journal-find-file 'find-file)
+;;   (setq org-journal-dir org-directory
+;;         org-journal-cache-file (concat doom-cache-dir "org-journal")
+;;         org-journal-file-pattern (org-journal-dir-and-format->regex
+;;                                   org-journal-dir org-journal-file-format))
 
-  (add-to-list 'auto-mode-alist (cons org-journal-file-pattern 'org-journal-mode))
-  )
+;;   (add-to-list 'auto-mode-alist (cons org-journal-file-pattern 'org-journal-mode))
+;;   )
+
+;; org-caldav
+;; (use-package! org-caldav
+;;   :config
+;;   (setq org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/james@r-vn.org/")
+;;   (setq org-caldav-sync-direction 'cal->org)
+;;   (setq org-caldav-inbox "~/Dropbox/Notes/calendar.org")
+;;   (setq org-caldav-files '("~/Dropbox/Notes/calendar.org"))
+;;   (setq org-caldav-calendars
+;;         '((:calendar-id "0a220cb3-0ee8-49a9-af76-15c60bde70da")
+;;           (:calendar-id "aff1aa1e-d794-4b7f-b1d4-c89cf7c883d1")
+;;           (:calendar-id "175657cc-7c91-4a2b-bec7-272306dc0892")))
+;;   (setq org-icalendar-timezone "Europe/London"))
 
 ;; Clipboard stuff
 (setq select-enable-primary t)
@@ -203,7 +212,13 @@ See URL `https://jsonnet.org'."
 ;; Treemacs
 (after! treemacs
   (treemacs-follow-mode 1)
+
+  (defun treemacs-ignore-icon (filename absolute-path)
+    (string-equal filename "Icon"))
+  (add-to-list 'treemacs-ignored-file-predicates #'treemacs-ignore-icon)
+
   (setq treemacs-width 50))
+
 ;; Doesn't work yet.
 ;;(setq treemacs-set-scope-type 'Perspectives)
 

@@ -7,4 +7,5 @@
 ;; (package! builtin-package :disable t)
 
 (package! magit-todos :disable t)
-(package! org-journal)
+;; (package! org-journal)
+;; (package! org-caldav)
