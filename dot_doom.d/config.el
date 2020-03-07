@@ -74,7 +74,8 @@
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                            "~/Dropbox/Notes/todo.org"))))
+                                            "~/Dropbox/Notes/todo.org"))
+                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
             (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Home")
                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
@@ -95,7 +96,8 @@
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                            "~/Dropbox/Notes/todo.org"))))
+                                            "~/Dropbox/Notes/todo.org"))
+                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
             (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Todo")
                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
@@ -111,7 +113,8 @@
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                            "~/Dropbox/Notes/todo.org"))))
+                                            "~/Dropbox/Notes/todo.org"))
+                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
             (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                 (org-agenda-overriding-header "Todo")
                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
@@ -127,7 +130,8 @@
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                            "~/Dropbox/Notes/todo.org"))))
+                                            "~/Dropbox/Notes/todo.org"))
+                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
             (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                  (org-agenda-overriding-header "Todo")
                                  (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
@@ -150,41 +154,17 @@
           (when (string= "TODO" (org-get-todo-state))
             (setq should-skip-entry t))))
       (when should-skip-entry
-        (or (outline-next-heading)
+
             (goto-char (point-max)))))))
+
+(defun my-org-agenda-skip-scheduled-if-in-todo ()
+  "Skip scheduled items that have been moved to todo.org."
+  (when (and (string= "todo.org" (file-name-nondirectory (buffer-file-name)))
+             (org-entry-get nil "SCHEDULED"))
+    (or (outline-next-heading) (goto-char (point-max)))))
 
 (add-hook! org-mode
   (visual-line-mode 1))
-
-;; org-journal
-;; (after! org-journal
-;;   (setq org-journal-file-type 'yearly)
-;;   (setq org-journal-file-format "%Y.org")
-;;   (setq org-journal-enable-agenda-integration t)
-;;   (setq org-journal-date-format "%e %b %Y (%A)")
-;;   (setq org-journal-file-header "#+TITLE: Journal\n#+CATEGORY: journal\n#+STARTUP: folded")
-;;   (setq org-journal-time-format "")
-;;   (setq org-journal-find-file 'find-file)
-;;   (setq org-journal-dir org-directory
-;;         org-journal-cache-file (concat doom-cache-dir "org-journal")
-;;         org-journal-file-pattern (org-journal-dir-and-format->regex
-;;                                   org-journal-dir org-journal-file-format))
-
-;;   (add-to-list 'auto-mode-alist (cons org-journal-file-pattern 'org-journal-mode))
-;;   )
-
-;; org-caldav
-;; (use-package! org-caldav
-;;   :config
-;;   (setq org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/james@r-vn.org/")
-;;   (setq org-caldav-sync-direction 'cal->org)
-;;   (setq org-caldav-inbox "~/Dropbox/Notes/calendar.org")
-;;   (setq org-caldav-files '("~/Dropbox/Notes/calendar.org"))
-;;   (setq org-caldav-calendars
-;;         '((:calendar-id "0a220cb3-0ee8-49a9-af76-15c60bde70da")
-;;           (:calendar-id "aff1aa1e-d794-4b7f-b1d4-c89cf7c883d1")
-;;           (:calendar-id "175657cc-7c91-4a2b-bec7-272306dc0892")))
-;;   (setq org-icalendar-timezone "Europe/London"))
 
 ;; Clipboard stuff
 (setq select-enable-primary t)
@@ -228,6 +208,8 @@ See URL `https://jsonnet.org'."
 (setq magit-branch-adjust-remote-upstream-alist '(("origin/master" "master")))
 ;; when doing b-c default origin/master as the branching point when possible
 (setq magit-branch-prefer-remote-upstream '("master"))
+;; limit status buffer to 15 open topics and 5 closed topics
+(setq forge-topic-list-limit '(15 . 5))
 
 ;; lsp-mode tweaks
 (setq lsp-auto-guess-root nil)
