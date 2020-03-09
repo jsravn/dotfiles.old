@@ -12,6 +12,11 @@
 (setq delete-by-moving-to-trash t)
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
 
+;; Calendar
+(setq calendar-latitude 51.468)
+(setq calendar-longitude -0.276)
+(setq calendar-location-name "London, UK")
+
 ;; Enable auto save
 (setq auto-save-default t)
 (add-hook! '(doom-switch-window-hook
@@ -42,6 +47,10 @@
 
 ;; org-mode
 (setq org-directory "~/Dropbox/Notes")
+(map!
+ :after org
+ :map org-mode-map
+ :ni [M-return] #'org-insert-heading-respect-content)
 (after! org
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                  (file "~/Dropbox/Notes/inbox.org")
@@ -154,8 +163,7 @@
           (when (string= "TODO" (org-get-todo-state))
             (setq should-skip-entry t))))
       (when should-skip-entry
-
-            (goto-char (point-max)))))))
+        (or (outline-next-heading) (goto-char (point-max)))))))
 
 (defun my-org-agenda-skip-scheduled-if-in-todo ()
   "Skip scheduled items that have been moved to todo.org."
