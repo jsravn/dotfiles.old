@@ -68,7 +68,7 @@
                                   (default . ancestors)))
   (setq org-refile-targets '(("~/Dropbox/Notes/todo.org" :maxlevel . 2)
                              ("~/Dropbox/Notes/someday.org" :maxlevel . 1)
-                             ("~/Dropbox/Notes/tickler.org" :maxlevel . 1)
+                             ("~/Dropbox/Notes/tickler.org" :maxlevel . 2)
                              ("~/Dropbox/Notes/notes.org" :maxlevel . 2)))
   ;; agenda
   (setq org-agenda-todo-ignore-with-date 'far)
