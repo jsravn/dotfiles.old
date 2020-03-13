@@ -12,6 +12,9 @@
 (setq delete-by-moving-to-trash t)
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
 
+;; evil-snipe
+(evil-snipe-override-mode 1)
+
 ;; Calendar
 (setq calendar-latitude 51.468)
 (setq calendar-longitude -0.276)
@@ -72,7 +75,7 @@
                              ("~/Dropbox/Notes/notes.org" :maxlevel . 2)))
   ;; agenda
   (setq org-agenda-todo-ignore-with-date 'far)
-  (setq org-deadline-warning-days 7)
+  (setq org-deadline-warning-days 14)
   ;; default agenda files
   (setq org-agenda-custom-commands
         '(
@@ -80,6 +83,10 @@
            (
             (todo "" ((org-agenda-files '("~/Dropbox/Notes/inbox.org"))
                       (org-agenda-overriding-header "Inbox")))
+            (tags "-{.*}" ((org-agenda-files '("~/Dropbox/Notes/todo.org"
+                                               "~/Dropbox/Notes/tickler.org"
+                                               "~/Dropbox/Notes/someday.org"))
+                           (org-agenda-overriding-header "Untagged")))
             (agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
@@ -94,10 +101,6 @@
             (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                  (org-agenda-overriding-header "OMSCS")
                                  (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-            (tags "-{.*}" ((org-agenda-files '("~/Dropbox/Notes/todo.org"
-                                               "~/Dropbox/Notes/tickler.org"
-                                               "~/Dropbox/Notes/someday.org"))
-                           (org-agenda-overriding-header "Untagged")))
             ))
 
           ("h" "Home agenda"
