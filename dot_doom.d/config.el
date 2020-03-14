@@ -1,5 +1,4 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
-
 ;; Place your private configuration here
 ;; Change doom theme
 (setq doom-theme 'doom-one)
@@ -175,7 +174,8 @@
     (or (outline-next-heading) (goto-char (point-max)))))
 
 (add-hook! org-mode
-  (visual-line-mode 1))
+  (visual-line-mode 1)
+  (auto-fill-mode -1))
 
 ;; Clipboard stuff
 (setq select-enable-primary t)
