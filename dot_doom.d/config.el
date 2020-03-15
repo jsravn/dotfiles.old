@@ -9,7 +9,7 @@
 ;; Common settings
 (setq-default fill-column 120)
 (setq delete-by-moving-to-trash t)
-(add-hook 'window-setup-hook #'toggle-frame-maximized)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; evil-snipe
 (evil-snipe-override-mode 1)
@@ -28,7 +28,7 @@
   (save-some-buffers t))
 
 ;; Projectile
-(setq projectile-project-search-path '("~/lightbend/" "~/devel/" "~/sky/" "~/Dropbox"))
+(setq projectile-project-search-path '("~/lightbend/" "~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
 (after! projectile
   (setq projectile-globally-ignored-directories
         (append '(".metals") projectile-globally-ignored-directories))
