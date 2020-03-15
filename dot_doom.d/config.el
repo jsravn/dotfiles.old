@@ -19,6 +19,16 @@
 (setq calendar-longitude -0.276)
 (setq calendar-location-name "London, UK")
 
+;; Nicer wrapping in text modes - don't do hard breaks, use soft wraps.
+(remove-hook 'text-mode-hook #'auto-fill-mode)
+(add-hook 'text-mode-hook #'word-wrap-mode)
+
+;; zen
+(after! writeroom-mode
+  (setq +zen-text-scale 0
+        writeroom-mode-line t
+        writeroom-width 160))
+
 ;; Enable auto save
 (setq auto-save-default t)
 (add-hook! '(doom-switch-window-hook
@@ -172,10 +182,6 @@
   (when (and (string= "todo.org" (file-name-nondirectory (buffer-file-name)))
              (org-entry-get nil "SCHEDULED"))
     (or (outline-next-heading) (goto-char (point-max)))))
-
-(add-hook! org-mode
-  (visual-line-mode 1)
-  (auto-fill-mode -1))
 
 ;; Clipboard stuff
 (setq select-enable-primary t)
