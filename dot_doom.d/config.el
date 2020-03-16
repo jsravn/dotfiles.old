@@ -21,11 +21,12 @@
 
 ;; Nicer wrapping in text modes - don't do hard breaks, use soft wraps.
 (remove-hook 'text-mode-hook #'auto-fill-mode)
-(add-hook 'text-mode-hook #'word-wrap-mode)
+(add-hook 'text-mode-hook #'+word-wrap-mode)
 
 ;; zen
 (after! writeroom-mode
   (setq +zen-text-scale 0
+        +zen-mixed-pitch-modes nil
         writeroom-mode-line t
         writeroom-width 160))
 
