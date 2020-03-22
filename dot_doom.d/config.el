@@ -120,9 +120,12 @@
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
                                             "~/Dropbox/Notes/todo.org"))
                         (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-            (tags-todo "@home" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                (org-agenda-overriding-header "Todo")
-                                (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@home/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                      (org-agenda-overriding-header "Todo")
+                                      (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@home/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                         (org-agenda-overriding-header "Waiting")
+                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
             )
            (
             ;; only way to filter agenda by tag
@@ -137,9 +140,12 @@
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
                                             "~/Dropbox/Notes/todo.org"))
                         (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-            (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                (org-agenda-overriding-header "Todo")
-                                (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@work/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                      (org-agenda-overriding-header "Todo")
+                                      (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@work/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                         (org-agenda-overriding-header "Waiting")
+                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
             )
            (
             ;; only way to filter agenda by tag
@@ -154,9 +160,12 @@
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
                                             "~/Dropbox/Notes/todo.org"))
                         (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-            (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                 (org-agenda-overriding-header "Todo")
-                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@omscs/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                       (org-agenda-overriding-header "Todo")
+                                       (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@omscs/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                          (org-agenda-overriding-header "Todo")
+                                          (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
             )
            (
             ;; only way to filter agenda by tag
