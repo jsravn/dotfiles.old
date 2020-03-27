@@ -84,6 +84,10 @@
                              ("~/Dropbox/Notes/tickler.org" :maxlevel . 2)
                              ("~/Dropbox/Notes/notes.org" :maxlevel . 2)))
   ;; agenda
+  ;; include archive files when searching
+  (setq org-agenda-text-search-extra-files '(agenda-archives))
+  ;; use lazy boolean search rather than strict by default
+  (setq org-agenda-search-view-always-boolean t)
   (setq org-agenda-todo-ignore-with-date 'far)
   (setq org-deadline-warning-days 14)
   ;; default agenda files
