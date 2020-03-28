@@ -1,6 +1,6 @@
 # vim:fileencoding=utf-8:ft=conf:foldmethod=marker
 
-#: Fonts {{{
+#: Fonts
 
 #: kitty has very powerful font management. You can configure
 #: individual font faces and even specify special fonts for particular
@@ -23,8 +23,12 @@
 #:     italic_font      Operator Mono Book Italic
 #:     bold_italic_font Operator Mono Medium Italic
 
-font_family PragmataPro Liga
+font_family PragmataPro Mono Liga
+{{- if eq .chezmoi.os "darwin" }}
 font_size 16.0
+{{- else }}
+font_size 12.0
+{{- end }}
 
 # font_size 11.0
 
@@ -140,9 +144,9 @@ disable_ligatures cursor
 #: monitor DPI to arrive at a pixel value. There must be four values
 #: corresponding to thin, normal, thick, and very thick lines.
 
-#: }}}
+#:
 
-#: Cursor customization {{{
+#: Cursor customization
 
 # cursor #cccccc
 
@@ -170,9 +174,9 @@ cursor_shape underline
 #: Stop blinking cursor after the specified number of seconds of
 #: keyboard inactivity.  Set to zero to never stop blinking.
 
-#: }}}
+#:
 
-#: Scrollback {{{
+#: Scrollback
 
 # scrollback_lines 2000
 
@@ -214,9 +218,9 @@ cursor_shape underline
 #: for high precision scrolling devices on platforms such as macOS and
 #: Wayland. Use negative numbers to change scroll direction.
 
-#: }}}
+#:
 
-#: Mouse {{{
+#: Mouse
 
 # mouse_hide_wait 0.0
 
@@ -298,9 +302,9 @@ copy_on_select yes
 #: The shape of the mouse pointer when the program running in the
 #: terminal grabs the mouse. Valid values are: arrow, beam and hand
 
-#: }}}
+#:
 
-#: Performance tuning {{{
+#: Performance tuning
 
 #repaint_delay 0
 
@@ -329,9 +333,9 @@ input_delay 0
 #: keyboard repeat rate, you may notice some slight input latency. If
 #: so, set this to no.
 
-#: }}}
+#:
 
-#: Terminal bell {{{
+#: Terminal bell
 
 # enable_audio_bell yes
 
@@ -358,9 +362,9 @@ input_delay 0
 
 #: Program to run when a bell occurs.
 
-#: }}}
+#:
 
-#: Window layout {{{
+#: Window layout
 
 # remember_window_size  yes
 # initial_window_width  640
@@ -477,9 +481,9 @@ input_delay 0
 #: when resizing the OS window. Note that this does not currently work
 #: on Wayland.
 
-#: }}}
+#:
 
-#: Tab bar {{{
+#: Tab bar
 
 # tab_bar_edge bottom
 
@@ -549,9 +553,9 @@ input_delay 0
 #: Background color for the tab bar. Defaults to using the terminal
 #: background color.
 
-#: }}}
+#:
 
-#: Color scheme {{{
+#: Color scheme
 
 # From https://github.com/dracula/kitty/blob/master/dracula.conf
 foreground            #f8f8f2
@@ -715,9 +719,9 @@ inactive_tab_background #6272a4
 
 #: Color for marks of type 1 (violet)
 
-#: }}}
+#:
 
-#: Advanced {{{
+#: Advanced
 
 # shell .
 
@@ -810,9 +814,9 @@ inactive_tab_background #6272a4
 #: from key-presses, to colors, to various advanced features may not
 #: work.
 
-#: }}}
+#:
 
-#: OS specific tweaks {{{
+#: OS specific tweaks
 
 # macos_titlebar_color system
 
@@ -884,9 +888,9 @@ macos_option_as_alt left
 #: backend based on the system state is chosen automatically. Set it
 #: to x11 or wayland to force the choice.
 
-#: }}}
+#:
 
-#: Keyboard shortcuts {{{
+#: Keyboard shortcuts
 
 #: For a list of key names, see: GLFW keys
 #: <https://www.glfw.org/docs/latest/group__keys.html>. The name to
@@ -962,7 +966,7 @@ macos_option_as_alt left
 #: kitty +kitten hints --hints-offset to zero for all mappings,
 #: including the builtin ones.
 
-#: Clipboard {{{
+#: Clipboard
 
 # map kitty_mod+c copy_to_clipboard
 
@@ -990,9 +994,9 @@ macos_option_as_alt left
 
 #:     map kitty_mod+y new_window less @selection
 
-#: }}}
+#:
 
-#: Scrolling {{{
+#: Scrolling
 
 # map kitty_mod+up        scroll_line_up
 # map alt+cmd+page_up     scroll_line_up
@@ -1022,9 +1026,9 @@ macos_option_as_alt left
 #: For more details on piping screen and buffer contents to external
 #: programs, see launch.
 
-#: }}}
+#:
 
-#: Window management {{{
+#: Window management
 
 # map kitty_mod+enter new_window
 
@@ -1089,9 +1093,9 @@ macos_option_as_alt left
 # map kitty_mod+9 ninth_window
 # map cmd+9       ninth_window
 # map kitty_mod+0 tenth_window
-#: }}}
+#:
 
-#: Tab management {{{
+#: Tab management
 
 # map kitty_mod+right next_tab
 # map ctrl+tab        next_tab
@@ -1121,9 +1125,9 @@ macos_option_as_alt left
 #: the current tab rather than at the end of the tabs list, use::
 
 #:     map ctrl+t new_tab !neighbor [optional cmd to run]
-#: }}}
+#:
 
-#: Layout management {{{
+#: Layout management
 
 # map kitty_mod+l next_layout
 
@@ -1135,9 +1139,9 @@ macos_option_as_alt left
 #: Similarly, to switch back to the previous layout::
 
 #:    map ctrl+alt+p last_used_layout
-#: }}}
+#:
 
-#: Font sizes {{{
+#: Font sizes
 
 #: You can change the font size for all top-level kitty OS windows at
 #: a time or only the current one.
@@ -1157,9 +1161,9 @@ macos_option_as_alt left
 #: size::
 
 #:     map kitty_mod+f6 change_font_size current 10.0
-#: }}}
+#:
 
-#: Select and act on visible text {{{
+#: Select and act on visible text
 
 #: Use the hints kitten to select text and either pass it to an
 #: external program or insert it into the terminal or copy it to the
@@ -1203,9 +1207,9 @@ macos_option_as_alt left
 
 #: The hints kitten has many more modes of operation that you can map
 #: to different shortcuts. For a full description see kittens/hints.
-#: }}}
+#:
 
-#: Miscellaneous {{{
+#: Miscellaneous
 
 # map kitty_mod+f11    toggle_fullscreen
 # map kitty_mod+f10    toggle_maximized
@@ -1266,6 +1270,6 @@ macos_option_as_alt left
 #:     map ctrl+alt+a send_text normal Word\x1b[H
 #:     map ctrl+alt+a send_text application Word\x1bOH
 
-#: }}}
+#:
 
-# }}}
+#
