@@ -83,6 +83,7 @@
                              ("~/Dropbox/Notes/someday.org" :maxlevel . 1)
                              ("~/Dropbox/Notes/tickler.org" :maxlevel . 2)
                              ("~/Dropbox/Notes/notes.org" :maxlevel . 2)))
+  (setq org-archive-subtree-add-inherited-tags t)
   ;; agenda
   ;; include archive files when searching
   (setq org-agenda-text-search-extra-files '(agenda-archives))
