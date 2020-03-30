@@ -22,6 +22,8 @@ set $term kitty
 #set $menu "rofi -combi-modi window,drun -show combi -show-icons"
 set $menu "wofi --show drun"
 
+set $locker 'swaylock -f -e -c 1d2021 --inside-color 000000b3'
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -37,10 +39,11 @@ output DP-2 mode 2560x1440@165Hz
 
 ### Idle configuration
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * dpms off"' \
+         timeout 900 $locker \
+         timeout 300 'swaymsg "output * dpms off"' \
+         timeout 15 'if pgrep -x swaylock; then swaymsg "output * dpms off"; fi' \
          resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep $locker
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -48,6 +51,9 @@ exec swayidle -w \
 
 # Autostart desktop entries
 exec dex -a
+
+# mako for notifications
+exec mako
 
 ### Input configuration
 #
@@ -78,6 +84,9 @@ input "*" repeat_rate 40
 
     # Start your launcher
     bindsym $mod+d exec $menu
+
+    # Lock screen
+    bindsym $mod+Shift+z exec $locker
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.

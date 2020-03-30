@@ -39,7 +39,7 @@
   (save-some-buffers t))
 
 ;; Projectile
-(setq projectile-project-search-path '("~/lightbend/" "~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
+(setq projectile-project-search-path '("~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
 (after! projectile
   (setq projectile-globally-ignored-directories
         (append '(".metals") projectile-globally-ignored-directories))
