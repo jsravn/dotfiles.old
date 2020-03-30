@@ -1,42 +1,49 @@
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
-#
-# This config file uses keycodes (bindsym) and was written for the QWERTY
-# layout.
-#
-# To get a config file with the same key positions, but for your current
-# layout, use the i3-config-wizard
-#
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
+# Config
 font pango:PragmataPro Mono 10
+set $left h
+set $down j
+set $up k
+set $right l
+set $mod Mod4
+set $term kitty
+set $menu "rofi -combi-modi window,drun,run -show combi -show-icons"
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:extra"
+set $ws9 "9:extra"
+set $ws10 "10:extra"
 
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+# i3gnome: https://github.com/i3-gnome/i3-gnome/wiki/Tips-&-Tricks
+exec --no-startup-id gnome-flashback
+exec --no-startup-id nm-applet
 
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
-
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
-# Set keyboard rate
+# utilities
 exec --no-startup-id xset r rate 250 40
 
-# gnome settings
-exec --no-startup-id /usr/lib/gsd-xsettings
-exec_always --no-startup-id gnome-power-manager
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id gnome-flashback
-exec --no-startup-id /usr/bin/gnome-screensaver
+# workspace layout
+workspace_layout tabbed
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+# autostart applications in particular workspaces
+assign [class="Chromium"] $ws1
+assign [class="Emacs"] $ws3
+for_window [class="Spotify"] move to workspace $ws5
+assign [class="Slack"] $ws6
+assign [class="Evolution"] $ws7
+exec --no-startup-id i3-msg 'workspace $ws2; exec kitty tmux; workspace $ws1'
+exec --no-startup-id spotify
+exec --no-startup-id slack
+exec --no-startup-id evolution
+exec --no-startup-id emacs
+exec --no-startup-id chromium
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -45,32 +52,17 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-# use these keys for focus, movement, and resize directions when reaching for
-# the arrows is not convenient
-set $left h
-set $down j
-set $up k
-set $right l
-
-set $mod Mod4
-
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-set $term kitty
 bindsym $mod+Return exec $term
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-set $menu "rofi -combi-modi window,drun -show combi -show-icons"
+# start menu
 bindsym $mod+d exec $menu
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+$left focus left
@@ -131,16 +123,6 @@ bindsym $mod+minus scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -171,13 +153,14 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # lock screen
 bindsym $mod+Shift+z exec "dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock"
 
 # resize window (you can also use the mouse for that)
-mode "resize" {
+set $mode_resize "Resize"
+mode $mode_resize {
         # These bindings trigger as soon as you enter the resize mode
 
         # Pressing left will shrink the window’s width.
@@ -200,25 +183,28 @@ mode "resize" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
+bindsym $mod+r mode $mode_resize
 
-bindsym $mod+r mode "resize"
+# system exit
+set $mode_system "System exit: [l]ock [s]uspend [r]eboot [h]alt [q]uit"
+mode $mode_system {
+        bindsym l exec "dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock", mode "default"
+        bindsym s exec systemctl suspend, mode "default"
+        bindsym r exec systemctl reboot, mode "default"
+        bindsym h exec systemctl poweroff, mode "default"
+        bindsym q exit
+
+        # back to normal: Enter or Escape
+        bindsym Return mode default
+        bindsym Escape mode default
+}
+bindsym $mod+Shift+e mode $mode_system
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
         position top
+        strip_workspace_numbers yes
         #status_command i3status
         status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
 }
-
-#######################################################################
-# automatically start i3-config-wizard to offer the user to create a
-# keysym-based config which used their favorite modifier (alt or windows)
-#
-# i3-config-wizard will not launch if there already is a config file
-# in ~/.config/i3/config (or $XDG_CONFIG_HOME/i3/config if set) or
-# ~/.i3/config.
-#
-# Please remove the following exec line:
-#######################################################################
-exec i3-config-wizard
