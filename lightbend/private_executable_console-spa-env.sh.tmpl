@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# Used by es-console-spa build.
-
-export LB_NPM_API_USER=jsravn
-export LB_NPM_API_EMAIL=james.ravn@lightbend.com
-export LB_NPM_API_TOKEN={{ trim (index (lastpass "keys/bintray") 0).note.npmToken }}
