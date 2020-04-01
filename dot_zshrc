@@ -63,8 +63,8 @@ zmodload zsh/zpty
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 ZSH_AUTOSUGGEST_USE_ASYNC=yes
 # Rebind tab to complete the auto suggestion, and ctrl-space to the old zsh behavior.
-bindkey '	' autosuggest-accept
-bindkey '^ ' complete-word
+#bindkey '	' autosuggest-accept
+#bindkey '^ ' complete-word
 
 # Fix bindings - from https://wiki.archlinux.org/index.php/Zsh#Key_bindings
 # create a zkbd compatible hash;
