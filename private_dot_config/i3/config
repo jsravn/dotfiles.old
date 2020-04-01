@@ -30,7 +30,6 @@ exec --no-startup-id dunst
 # network
 exec --no-startup-id nm-applet
 # keyboard rate
-
 exec --no-startup-id xset r rate 250 40
 # audio
 exec --no-startup-id pasystray
@@ -38,6 +37,10 @@ exec --no-startup-id pasystray
 exec --no-startup-id xrandr --output DP-2 --mode 2560x1440 --rate 165
 # autolock
 exec --no-startup-id xautolock -time 15 -locker $lock
+# redshift
+exec --no-startup-id redshift-gtk
+# unclutter
+exec --no-startup-id unclutter --timeout 3
 
 # autostart applications in particular workspaces
 exec --no-startup-id i3-msg 'workspace $ws2; exec emacs; workspace $ws1; exec chromium'
