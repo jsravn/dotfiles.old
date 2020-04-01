@@ -21,7 +21,7 @@ set $ws4 "4:"
 set $ws5 "5:"
 set $ws6 "6:"
 set $ws7 "7:"
-set $ws8 "8:"
+set $ws8 "8:"
 set $ws9 "9:"
 set $ws10 "10:"
 set $lock "$HOME/.config/sway/lock.sh"
@@ -37,11 +37,12 @@ exec redshift -m wayland
 exec swaymsg 'workspace $ws2; exec emacs; workspace $ws1; exec chromium'
 for_window [class="Spotify"] move to workspace $ws5
 assign [class="Slack"] $ws6
-assign [app_id="evolution"] $ws7
+assign [class="Thunderbird"] $ws7
+assign [class="Keybase"] $ws8
 exec spotify
 exec slack
-exec evolution
-exec KEYBASE_AUTOSTART=1 keybase-gui
+exec thunderbird
+exec keybase-gui
 
 # monitors
 output DP-1 mode 2560x1440@165Hz
