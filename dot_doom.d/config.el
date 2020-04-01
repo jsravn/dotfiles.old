@@ -45,6 +45,14 @@
         (append '(".metals") projectile-globally-ignored-directories))
   )
 
+;; Atomic chrome for editing browser text boxes
+(use-package! atomic-chrome
+  :after-call focus-out-hook
+  :config
+  (setq atomic-chrome-default-major-mode 'markdown-mode
+        atomic-chrome-buffer-open-style 'frame)
+  (atomic-chrome-start-server))
+
 ;; clear cache after checking out a new branch
 (defun +private/projectile-invalidate-cache (&rest _args)
   (projectile-invalidate-cache nil))
