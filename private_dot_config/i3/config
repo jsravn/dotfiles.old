@@ -11,9 +11,9 @@ set $right l
 set $mod Mod4
 set $term kitty
 set $menu "rofi -combi-modi drun,run -show combi -show-icons"
-set $switcher "switcher.sh"
+set $switcher "rofi -show window -show-icons"
 set $ws1 "1:"
-set $ws2 "2:"
+set $ws2 "2:"
 set $ws3 "3:"
 set $ws4 "4:"
 set $ws5 "5:"
@@ -35,17 +35,13 @@ workspace_layout default
 workspace_auto_back_and_forth yes
 
 # autostart applications in particular workspaces
-assign [class="Chromium"] $ws1
-assign [class="Emacs"] $ws3
+exec --no-startup-id i3-msg 'workspace $ws2; exec emacs; workspace $ws1; exec chromium'
 for_window [class="Spotify"] move to workspace $ws5
 assign [class="Slack"] $ws6
 assign [class="Evolution"] $ws7
-exec --no-startup-id i3-msg 'workspace $ws2; exec kitty tmux; workspace $ws1'
 exec --no-startup-id spotify
 exec --no-startup-id slack
 exec --no-startup-id evolution
-exec --no-startup-id emacs
-exec --no-startup-id chromium
 
 # always float windows
 for_window [class="Gnome-calculator"] floating enable
@@ -216,7 +212,9 @@ bindsym $mod+Shift+e mode $mode_system
 # finds out, if available)
 bar {
         position top
+        tray_padding 2
         #strip_workspace_numbers yes
         #status_command i3status
-        status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+        #status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+        status_command i3blocks
 }
