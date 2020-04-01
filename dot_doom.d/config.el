@@ -60,10 +60,10 @@
 
 ;; org-mode
 (setq org-directory "~/Dropbox/Notes")
-(map!
- :after org
- :map org-mode-map
- :ni [M-return] #'org-insert-heading-respect-content)
+;; (map!
+;;  :after org
+;;  :map org-mode-map
+;;  :ni [M-return] #'org-insert-heading-respect-content)
 (after! org
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                  (file "~/Dropbox/Notes/inbox.org")
@@ -84,6 +84,13 @@
                              ("~/Dropbox/Notes/tickler.org" :maxlevel . 2)
                              ("~/Dropbox/Notes/notes.org" :maxlevel . 2)))
   (setq org-archive-subtree-add-inherited-tags t)
+
+  (defadvice! +org--fix-inconsistent-uuidgen-case (orig-fn &rest args)
+    "Ensure uuidgen always produces lowercase output regardless of system."
+    :around #'org-id-new
+    (if (equal org-id-method 'uuid)
+        (downcase (apply orig-fn args))
+      (apply orig-fn args)))
   ;; agenda
   ;; include archive files when searching
   (setq org-agenda-text-search-extra-files '(agenda-archives))
