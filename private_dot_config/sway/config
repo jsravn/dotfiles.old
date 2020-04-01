@@ -4,8 +4,19 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+# Requirements:
+# * mako
+# * redshift-wlr-gamma-control-git
+# * gnome-polkit
+# * i3blocks
+# * rofi
+#
+# Start with ~/.local/bin/startsway.sh which initializes SSH_AUTH_KEY and Java GUI apps.
+
 # config
-font pango:DejaVu Sans Mono 10
+font pango:
+
+DejaVu Sans Mono 10
 set $left h
 set $down j
 set $up k
@@ -32,6 +43,13 @@ exec mako
 # redshift
 # requires redshift-wlr-gamma-control-git
 exec redshift -m wayland
+
+# dbus activation
+exec systemctl --user import-environment DISPLAY XAUTHORITY
+exec dbus-update-activation-environment DISPLAY XAUTHORITY
+
+# polkit authentication agent
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # autostart applications in particular workspaces
 exec swaymsg 'workspace $ws2; exec emacs; workspace $ws1; exec chromium'
