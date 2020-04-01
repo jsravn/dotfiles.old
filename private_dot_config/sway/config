@@ -10,13 +10,12 @@
 # * gnome-polkit
 # * i3blocks
 # * rofi
+# * gnome-keyring started via PAM (https://wiki.archlinux.org/index.php/GNOME/Keyring#PAM_method)
 #
-# Start with ~/.local/bin/startsway.sh which initializes SSH_AUTH_KEY and Java GUI apps.
+# Start with ~/.local/bin/startsway.sh which initializes gnome-keyring's SSH_AUTH_KEY and Java GUI apps.
 
-# config
-font pango:
-
-DejaVu Sans Mono 10
+# variables
+font pango: DejaVu Sans Mono 10
 set $left h
 set $down j
 set $up k
