@@ -57,10 +57,10 @@ assign [class="Slack"] $ws6
 assign [class="Thunderbird"] $ws7
 assign [class="davmail-DavGateway"] $ws7
 assign [class="Keybase"] $ws8
+assign [app_id="evolution"] $ws7
 exec spotify
 exec slack
-exec thunderbird
-exec davmail
+exec evolution
 exec keybase-gui
 
 # monitors
