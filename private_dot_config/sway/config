@@ -15,7 +15,7 @@
 # Start with ~/.local/bin/startsway.sh which initializes gnome-keyring's SSH_AUTH_KEY and Java GUI apps.
 
 # variables
-font pango: DejaVu Sans Mono 10
+font pango: DejaVu Sans Mono, FontAwesome 10
 set $left h
 set $down j
 set $up k
@@ -52,7 +52,7 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # autostart applications in particular workspaces
 exec swaymsg 'workspace $ws2; exec emacs; workspace $ws1; exec chromium'
-for_window [class="Spotify"] move to workspace $ws5
+for_window [class="Spotify"] move window to workspace $ws5
 assign [class="Slack"] $ws6
 assign [class="Thunderbird"] $ws7
 assign [class="davmail-DavGateway"] $ws7
@@ -238,8 +238,9 @@ mode $mode_resize {
 bindsym $mod+r mode $mode_resize
 
 # the top bar
+# relies on i3status-rust
 bar {
         position top
         tray_padding 2
-        status_command i3blocks
+        status_command i3status-rs ~/.config/i3status-rs/config.toml
 }

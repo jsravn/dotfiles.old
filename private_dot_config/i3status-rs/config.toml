@@ -1,0 +1,29 @@
+[theme]
+name = "slick"
+
+[theme.overrides]
+separator = ""
+
+[icons]
+name = "awesome"
+
+[[block]]
+block = "music"
+player = "spotify"
+max_width = 21
+marquee = false
+buttons = ["prev", "play", "next"]
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{Mup}%"
+
+[[block]]
+block = "load"
+format = "{1m}"
+
+[[block]]
+block = "time"
+interval = 1
+format = "%a %b%e, %H:%M"
