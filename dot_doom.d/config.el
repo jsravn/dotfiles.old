@@ -227,8 +227,7 @@ See URL `https://jsonnet.org'."
                    ((error line-start "STATIC ERROR: " (file-name) ":" line ":" column (zero-or-one (group "-" (one-or-more digit))) ": " (message) line-end)
                     (error line-start "RUNTIME ERROR: " (message) "\n" (one-or-more space) (file-name) ":" (zero-or-one "(") line ":" column (zero-or-more not-newline) line-end))
                    :modes jsonnet-mode)
-  (add-to-list 'flycheck-checkers 'jsonnetvendor)
-  )
+  (add-to-list 'flycheck-checkers 'jsonnetvendor))
 
 ;; Markdown
 (add-hook! markdown-mode
@@ -237,14 +236,32 @@ See URL `https://jsonnet.org'."
   (setq fill-column 100))
 
 ;; Treemacs
+(use-package! treemacs-persp
+  :when (featurep! :ui workspaces)
+  :after (treemacs persp-mode)
+  :config
+  (treemacs-set-scope-type 'Perspectives))
+
 (after! treemacs
+  (defun +treemacs--init ()
+    (require 'treemacs)
+    (let ((origin-buffer (current-buffer)))
+      (cl-letf (((symbol-function 'treemacs-workspace->is-empty?)
+                 (symbol-function 'ignore)))
+        (treemacs--init))
+      (unless (bound-and-true-p persp-mode)
+        (dolist (project (treemacs-workspace->projects (treemacs-current-workspace)))
+          (treemacs-do-remove-project-from-workspace project)))
+      (with-current-buffer origin-buffer
+        (let ((project-root (or (doom-project-root) default-directory)))
+          (treemacs-do-add-project-to-workspace
+           (treemacs--canonical-path project-root)
+           (doom-project-name project-root)))
+        (setq treemacs--ready-to-follow t)
+        (when (or treemacs-follow-after-init treemacs-follow-mode)
+          (treemacs--follow)))))
   (treemacs-follow-mode 1)
-
-  (defun treemacs-ignore-icon (filename absolute-path)
-    (string-equal filename "Icon"))
-  (add-to-list 'treemacs-ignored-file-predicates #'treemacs-ignore-icon)
-
-  (setq treemacs-width 50))
+  (setq treemacs-width 40))
 
 ;; Doesn't work yet.
 ;;(setq treemacs-set-scope-type 'Perspectives)

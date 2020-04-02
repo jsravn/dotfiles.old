@@ -8,3 +8,4 @@
 
 (package! magit-todos :disable t)
 (package! atomic-chrome)
+(package! treemacs-persp)
