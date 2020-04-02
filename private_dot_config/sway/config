@@ -82,7 +82,7 @@ seat * hide_cursor 3000
 # keyboard rate
 input type:keyboard {
   repeat_delay 250
-  repeat_rate 40
+  repeat_rate 35
 }
 
 # workspace layout
