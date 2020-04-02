@@ -1,1 +1,1 @@
-[ -z "$PROFILE_SOURCED" ] && source $HOME/.profile
+. $HOME/.profile
