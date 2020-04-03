@@ -10,7 +10,7 @@ name = "awesome"
 [[block]]
 block = "music"
 player = "spotify"
-max_width = 21
+max_width = 40
 marquee = false
 buttons = ["prev", "play", "next"]
 

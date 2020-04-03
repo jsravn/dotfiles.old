@@ -10,6 +10,7 @@
 # * gnome-polkit
 # * i3blocks
 # * rofi
+# * grim, slurp, wl-clipboard
 # * gnome-keyring started via PAM (https://wiki.archlinux.org/index.php/GNOME/Keyring#PAM_method)
 #
 # Start with ~/.local/bin/startsway.sh which initializes gnome-keyring's SSH_AUTH_KEY and Java GUI apps.
@@ -35,6 +36,9 @@ set $ws8 "8:"
 set $ws9 "9:"
 set $ws10 "10:"
 set $lock "$HOME/.config/sway/lock.sh"
+
+# swaynag
+swaynag_command swaynag --debug
 
 # autostart
 # notifications
@@ -65,6 +69,9 @@ exec keybase-gui
 
 # monitors
 output DP-1 mode 2560x1440@165Hz
+
+# background
+output * bg ~/Pictures/publicenemy1HDfree.jpg fill
 
 # autolock
 exec swayidle -w \
@@ -104,6 +111,16 @@ bindsym $mod+Return exec $term
 
 # dismiss notifications
 bindsym $mod+n exec makoctl dismiss -a
+
+# capture screen
+# capture all screens to clipboard
+bindsym Shift+Print exec grim - | wl-copy
+
+# capture the specified screen area to clipboard
+bindsym Shift+Alt+Print exec grim -g "$(slurp)" - | wl-copy
+
+# capture the focused monitor to clipboard
+bindsym Shift+Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
 
 # kill focused window
 bindsym $mod+Shift+q kill
