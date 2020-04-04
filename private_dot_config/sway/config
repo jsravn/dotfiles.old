@@ -29,10 +29,10 @@ set $ws1 "1:"
 set $ws2 "2:"
 set $ws3 "3:"
 set $ws4 "4:"
-set $ws5 "5:"
+set $ws5 "5:"
 set $ws6 "6:"
 set $ws7 "7:"
-set $ws8 "8:"
+set $ws8 "8:"
 set $ws9 "9:"
 set $ws10 "10:"
 set $lock "$HOME/.config/sway/lock.sh"
@@ -67,6 +67,7 @@ exec slack
 exec swaymsg 'workspace $ws6; layout tabbed; workspace $ws1'
 exec evolution
 exec keybase-gui
+exec dropbox
 
 # monitors
 output DP-1 mode 2560x1440@165Hz
