@@ -1,5 +1,8 @@
 alias k=kubectl
 alias ec='emacsclient -n'
+{{- if eq .chezmoi.os "linux" }}
+alias open=xdgopen
+{{- end }}
 gfmt() {
     goimports -w $(find . -path ./vendor -prune -o -name '*.go' -print)
 }
