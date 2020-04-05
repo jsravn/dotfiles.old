@@ -25,7 +25,7 @@ set $mod Mod4
 set $term kitty
 set $menu "rofi -combi-modi drun,run -show combi -show-icons"
 set $switcher "$HOME/.config/sway/switcher.py"
-set $ws1 "1:"
+set $ws1 "1:"
 set $ws2 "2:"
 set $ws3 "3:"
 set $ws4 "4:"
@@ -47,15 +47,15 @@ exec mako
 # requires redshift-wlr-gamma-control-git
 exec redshift -m wayland
 
-# dbus activation
-exec dbus-update-activation-environment
+# dbus activation - needs DISPLAY for things like lastpass to work
+exec dbus-update-activation-environment DISPLAY
 
 # polkit authentication agent
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # autostart applications in particular workspaces
 exec swaymsg 'workspace $ws2; exec emacs; workspace $ws1; exec chromium'
-for_window [class="Spotify"] move container to workspace $ws5
+for_window [class="Spotify"] move container to workspace $ws6
 assign [class="Slack"] $ws6
 assign [class="Thunderbird"] $ws7
 assign [class="davmail-DavGateway"] $ws7
