@@ -213,6 +213,12 @@
              (org-entry-get nil "SCHEDULED"))
     (or (outline-next-heading) (goto-char (point-max)))))
 
+;; org-dragndrop
+(after! org-download
+  (setq org-download-screenshot-method
+        (cond (IS-MAC "screencapture -i %s")
+              (IS-LINUX "~/.config/sway/capture.sh %s"))))
+
 ;; Clipboard stuff
 (setq select-enable-primary t)
 (setq select-enable-clipboard t)
