@@ -48,8 +48,7 @@ exec mako
 exec redshift -m wayland
 
 # dbus activation
-exec systemctl --user import-environment DISPLAY XAUTHORITY
-exec dbus-update-activation-environment DISPLAY XAUTHORITY
+exec dbus-update-activation-environment
 
 # polkit authentication agent
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -65,6 +64,7 @@ assign [app_id="evolution"] $ws7
 exec spotify
 exec slack
 exec swaymsg 'workspace $ws6; layout tabbed; workspace $ws1'
+exec swaymsg 'workspace $ws5; layout tabbed; workspace $ws1'
 exec evolution
 exec keybase-gui
 exec dropbox
