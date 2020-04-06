@@ -31,7 +31,6 @@
         writeroom-width 160))
 
 ;; Enable auto save
-(setq auto-save-default t)
 (add-hook! '(doom-switch-window-hook
              doom-switch-buffer-hook
              doom-switch-frame-hook
@@ -40,19 +39,6 @@
 
 ;; Projectile
 (setq projectile-project-search-path '("~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
-(after! projectile
-  (setq projectile-globally-ignored-directories
-        (append '(".metals") projectile-globally-ignored-directories))
-  ;; Override projectile's dirconfig file '.projectile' with doom's project marker '.project'.
-  (defun projectile-dirconfig-file ()
-    "Return the absolute path to the project's dirconfig file.
-
-By default this will be `.project' in the root of the project.
-If a `.projectile' file exists, it will use that instead."
-    (cond
-     ;; Prefers '.projectile' to maintain compatibility with existing projects.
-     ((file-exists-p! (or ".projectile" ".project") (projectile-project-root)))
-     ((expand-file-name ".project" (projectile-project-root))))))
 
 ;; Atomic chrome for editing browser text boxes
 (use-package! atomic-chrome
