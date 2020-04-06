@@ -37,9 +37,6 @@ set $ws9 "9:"
 set $ws10 "10:"
 set $lock "$HOME/.config/sway/lock.sh"
 
-# swaynag
-swaynag_command swaynag --debug
-
 # autostart
 # notifications
 exec mako
@@ -48,21 +45,19 @@ exec mako
 exec redshift -m wayland
 
 # dbus activation - needs DISPLAY for things like lastpass to work
-exec dbus-update-activation-environment DISPLAY
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XCURSOR_SIZE
 
 # polkit authentication agent
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # autostart applications in particular workspaces
 exec swaymsg 'workspace $ws2; exec emacs; workspace $ws1; exec chromium'
-for_window [class="Spotify"] move container to workspace $ws6
+for_window [class="Spotify"] move container to workspace $ws8
 assign [class="Slack"] $ws6
 assign [class="Thunderbird"] $ws7
 assign [class="davmail-DavGateway"] $ws7
 assign [class="Keybase"] $ws6
 assign [app_id="evolution"] $ws7
-exec spotify
-exec slack
 exec swaymsg 'workspace $ws6; layout tabbed; workspace $ws1'
 exec swaymsg 'workspace $ws5; layout tabbed; workspace $ws1'
 exec evolution
@@ -75,7 +70,7 @@ output DP-1 mode 2560x1440@165Hz
 # background
 output * bg ~/Pictures/publicenemy1HDfree.jpg fill
 
-# autolock
+# fill
 exec swayidle -w \
   timeout 600 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
@@ -90,7 +85,7 @@ seat * hide_cursor 3000
 
 # keyboard rate
 input type:keyboard {
-  repeat_delay 250
+  repeat_delay 270
   repeat_rate 35
 }
 
