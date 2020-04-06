@@ -1,0 +1,20 @@
+[Unit]
+Description=sway
+Documentation=man:sway(5)
+BindsTo=graphical-session.target
+Wants=graphical-session-pre.target
+After=graphical-session-pre.target
+
+[Service]
+Type=simple
+Environment=_JAVA_AWT_WM_NONREPARENTING=1
+# From gnome-keyring-daemon.
+Environment=SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+# Ensure gnome-keyring has the correct components to support ssh, etc.
+ExecStartPre=/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+# Unset dynamic environment that may have been set due to a prior running of sway.
+ExecStartPre=systemctl --user unset-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XCURSOR_SIZE
+ExecStart=/usr/bin/sway -d --unsupported-gpu
+Restart=on-failure
+RestartSec=1
+TimeoutStopSec=10
