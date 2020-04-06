@@ -10,6 +10,8 @@ Type=simple
 Environment=_JAVA_AWT_WM_NONREPARENTING=1
 # From gnome-keyring-daemon.
 Environment=SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+# Try to fix issues with multi-gpu crashes on resume.
+Environment=WLR_DRM_DEVICES=/dev/dri/card0
 # Ensure gnome-keyring has the correct components to support ssh, etc.
 ExecStartPre=/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
 # Unset dynamic environment that may have been set due to a prior running of sway.
