@@ -30,11 +30,10 @@
         writeroom-mode-line t
         writeroom-width 160))
 
-;; Enable auto save
-(add-hook! '(doom-switch-window-hook
-             doom-switch-buffer-hook
-             doom-switch-frame-hook
-             focus-out-hook) ; frames
+;; Enable auto save when emacs frame is switched
+(add-hook! '(doom-switch-frame-hook
+             doom-switch-window-hook
+             doom-switch-buffer-hook)
   (save-some-buffers t))
 
 ;; Projectile
@@ -65,7 +64,8 @@
 (setq org-directory "~/Dropbox/Notes/"
       org-archive-location (concat org-directory ".archive/%s::")
       org-roam-directory (concat org-directory "roam/")
-      deft-directory org-roam-directory)
+      deft-directory org-roam-directory
+      deft-auto-save-interval -1.0)
 (after! org-journal
   (setq org-journal-date-prefix "#+TITLE: "
         org-journal-file-format "%Y-%m-%d.org"
@@ -95,12 +95,8 @@
                              ("~/Dropbox/Notes/notes.org" :maxlevel . 2)))
   (setq org-archive-subtree-add-inherited-tags t)
 
-  (defadvice! +org--fix-inconsistent-uuidgen-case (orig-fn &rest args)
-    "Ensure uuidgen always produces lowercase output regardless of system."
-    :around #'org-id-new
-    (if (equal org-id-method 'uuid)
-        (downcase (apply orig-fn args))
-      (apply orig-fn args)))
+  ;; org-roam
+  (org-roam-mode)
   ;; agenda
   ;; include archive files when searching
   (setq org-agenda-text-search-extra-files '(agenda-archives))
