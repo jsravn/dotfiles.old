@@ -1,5 +1,4 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
-;; Place your private configuration here
 ;; Change doom theme
 (setq doom-theme 'doom-one)
 (setq doom-font (font-spec :family "PragmataPro Liga" :size 16 :adstyle "Regular"))
@@ -10,15 +9,13 @@
 (setq-default fill-column 120)
 (setq delete-by-moving-to-trash t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-; never split windows automatically
-(setq split-width-threshold nil)
 
 ;; evil-snipe everywhere
 (evil-snipe-override-mode 1)
 
 ;; Calendar
-(setq calendar-latitude 51.468)
-(setq calendar-longitude -0.276)
+(setq calendar-latitude 51.508166)
+(setq calendar-longitude -0.075971)
 (setq calendar-location-name "London, UK")
 
 ;; Nicer wrapping in text modes - don't do hard breaks, use soft wraps.
@@ -66,8 +63,8 @@
 (setq org-directory "~/Dropbox/Notes/"
       org-archive-location (concat org-directory ".archive/%s::")
       org-roam-directory (concat org-directory "roam/")
-      deft-directory org-roam-directory
-      deft-auto-save-interval -1.0)
+      deft-directory org-roam-directory)
+
 (after! org-journal
   (setq org-journal-date-prefix "#+TITLE: "
         org-journal-file-format "%Y-%m-%d.org"
@@ -100,7 +97,6 @@
   ;; org-roam
   (org-roam-mode)
   ;; agenda
-  (setq org-agenda-inhibit-startup nil)
   ;; include archive files when searching
   (setq org-agenda-text-search-extra-files '(agenda-archives))
   ;; use lazy boolean search rather than strict by default
