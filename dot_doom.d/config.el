@@ -10,8 +10,10 @@
 (setq-default fill-column 120)
 (setq delete-by-moving-to-trash t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+; never split windows automatically
+(setq split-width-threshold nil)
 
-;; evil-snipe
+;; evil-snipe everywhere
 (evil-snipe-override-mode 1)
 
 ;; Calendar
@@ -98,6 +100,7 @@
   ;; org-roam
   (org-roam-mode)
   ;; agenda
+  (setq org-agenda-inhibit-startup nil)
   ;; include archive files when searching
   (setq org-agenda-text-search-extra-files '(agenda-archives))
   ;; use lazy boolean search rather than strict by default
