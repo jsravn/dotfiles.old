@@ -1,33 +1,25 @@
-;;; init.el -*- lexical-binding: t; -*-
-
-;; Copy this file to ~/.doom.d/init.el or ~/.config/doom/init.el ('doom install'
-;; will do this for you). The `doom!' block below controls what modules are
-;; enabled and in what order they will be loaded. Remember to run 'doom refresh'
-;; after modifying it.
-;;
-;; More information about these modules (and what flags they support) can be
-;; found in modules/README.org.
+;;; ~/.doom.d/init.el -*- lexical-binding: t; -*-
 
 (doom! :input
        ;;chinese
        ;;japanese
 
        :completion
-       company           ; the ultimate code completion backend
-       helm              ; the *other* search engine for love and life
+       (company +childframe)
+       ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ;;ivy               ; a search engine for love and life
+       ivy               ; a search engine for love and life
 
        :ui
-       deft              ; notational velocity for Emacs
+       ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
-       doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
        ;;hydra
        ;;indent-guides     ; highlighted indent columns
-       modeline          ; snazzy, Atom-inspired modeline, plus API
+       (modeline +light) ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
@@ -57,12 +49,12 @@
        ;;parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
-       (word-wrap)         ; soft wrapping with language-aware indent
+       word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
        dired            ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
-       ibuffer           ; interactive buffer management
+       ;;ibuffer           ; interactive buffer management
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -74,7 +66,7 @@
        :checkers
        syntax              ; tasing you for every semicolon you forget
        spell             ; tasing you for misspelling mispelling
-       grammar           ; tasing grammar mistake every you make
+       ;;grammar           ; tasing grammar mistake every you make
 
        :tools
        ansible
@@ -176,5 +168,4 @@
 
        :config
        ;;literate
-
        (default +bindings +smartparens))

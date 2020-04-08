@@ -5,10 +5,14 @@
 (setq +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
 (setq doom-themes-treemacs-enable-variable-pitch nil)
 
+
 ;; Common settings
 (setq-default fill-column 120)
 (setq delete-by-moving-to-trash t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; less aggressive window splitting
+(setq split-width-threshold 240)
 
 ;; evil-snipe everywhere
 (evil-snipe-override-mode 1)
@@ -22,6 +26,9 @@
 (remove-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'text-mode-hook #'+word-wrap-mode)
 
+;; ivy - sort search list by name
+;;(add-to-list 'ivy-re-builders-alist '(counsel-projectile-find-file . ivy--regex-plus))
+
 ;; zen
 (after! writeroom-mode
   (setq +zen-text-scale 0
@@ -32,7 +39,8 @@
 ;; Enable auto save when emacs frame is switched
 (add-hook! '(doom-switch-frame-hook
              doom-switch-window-hook
-             doom-switch-buffer-hook)
+             doom-switch-buffer-hook
+             focus-out-hook)
   (save-some-buffers t))
 
 ;; Projectile
@@ -54,11 +62,6 @@
 (advice-add 'magit-branch-and-checkout
             :after #'+private/projectile-invalidate-cache)
 
-;; New code actions
-(map! :leader
-      (:prefix "c"
-        :desc "Action at point (LSP)" "a" #'lsp-execute-code-action))
-
 ;; org-mode
 (setq org-directory "~/Dropbox/Notes/"
       org-archive-location (concat org-directory ".archive/%s::")
@@ -70,6 +73,7 @@
         org-journal-file-format "%Y-%m-%d.org"
         org-journal-dir org-roam-directory
         org-journal-date-format "%A, %d %B %Y"))
+
 (after! org
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                  (file (concat org-directory "inbox.org"))
@@ -79,36 +83,31 @@
                                  "* %i%? \n %U")
                                 ("n" "Note [inbox]" entry
                                  (file (concat org-directory "inbox.org"))
-                                 "* %?")))
-  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
-  (setq org-log-done 'time)
-  (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("@omscs" . ?o)))
-  (setq org-fast-tag-selection-single-key t)
-  (setq org-show-context-detail '((agenda . local)
+                                 "* %?"))
+        org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))
+        org-log-done 'time
+        org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("@omscs" . ?o))
+        org-fast-tag-selection-single-key t
+        org-show-context-detail '((agenda . local)
                                   (bookmark-jump . lineage)
                                   (isearch . lineage)
-                                  (default . ancestors)))
-  (setq org-refile-targets '(("~/Dropbox/Notes/todo.org" :maxlevel . 2)
+                                  (default . ancestors))
+        org-refile-targets '(("~/Dropbox/Notes/todo.org" :maxlevel . 2)
                              ("~/Dropbox/Notes/someday.org" :maxlevel . 1)
                              ("~/Dropbox/Notes/tickler.org" :maxlevel . 2)
-                             ("~/Dropbox/Notes/notes.org" :maxlevel . 2)))
-  (setq org-archive-subtree-add-inherited-tags t)
+                             ("~/Dropbox/Notes/notes.org" :maxlevel . 2))
+        org-archive-subtree-add-inherited-tags t
 
-  ;; org-roam
-  (org-roam-mode)
-  ;; agenda
-  ;; include archive files when searching
-  (setq org-agenda-text-search-extra-files '(agenda-archives))
-  ;; use lazy boolean search rather than strict by default
-  (setq org-agenda-search-view-always-boolean t)
-  (setq org-agenda-todo-ignore-with-date 'far)
-  (setq org-deadline-warning-days 14)
-  ;; default agenda files
+        ;; agenda
+        org-agenda-text-search-extra-files '(agenda-archives)
+        org-agenda-search-view-always-boolean t
+        org-agenda-todo-ignore-with-date 'far
+        org-deadline-warning-days 14)
+
+  ;; Custom agendas
   (setq org-agenda-custom-commands
-        '(
-          ("A" "All agenda"
-           (
-            (todo "" ((org-agenda-files '("~/Dropbox/Notes/inbox.org"))
+        '(("A" "All agenda"
+           ((todo "" ((org-agenda-files '("~/Dropbox/Notes/inbox.org"))
                       (org-agenda-overriding-header "Inbox")))
             (tags "-{.*}" ((org-agenda-files '("~/Dropbox/Notes/todo.org"
                                                "~/Dropbox/Notes/tickler.org"
@@ -127,12 +126,10 @@
                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
             (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                  (org-agenda-overriding-header "OMSCS")
-                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-            ))
+                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
 
           ("h" "Home agenda"
-           (
-            (agenda "" ((org-agenda-span 7)
+           ((agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
                                             "~/Dropbox/Notes/todo.org"))
@@ -142,17 +139,11 @@
                                       (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
             (tags-todo "@home/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                          (org-agenda-overriding-header "Waiting")
-                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-            )
-           (
-            ;; only way to filter agenda by tag
-            (org-agenda-tag-filter-preset '("+@home"))
-            )
-           )
+                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
+           ((org-agenda-tag-filter-preset '("+@home"))))
 
           ("w" "Work agenda"
-           (
-            (agenda "" ((org-agenda-span 7)
+           ((agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
                                             "~/Dropbox/Notes/todo.org"))
@@ -162,17 +153,11 @@
                                       (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
             (tags-todo "@work/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                          (org-agenda-overriding-header "Waiting")
-                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-            )
-           (
-            ;; only way to filter agenda by tag
-            (org-agenda-tag-filter-preset '("+@work"))
-            )
-           )
+                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
+           ((org-agenda-tag-filter-preset '("+@work"))))
 
           ("o" "OMSCS agenda"
-           (
-            (agenda "" ((org-agenda-span 7)
+           ((agenda "" ((org-agenda-span 7)
                         (org-agenda-start-day "-1d")
                         (org-agenda-files '("~/Dropbox/Notes/tickler.org"
                                             "~/Dropbox/Notes/todo.org"))
@@ -182,16 +167,8 @@
                                        (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
             (tags-todo "@omscs/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
                                           (org-agenda-overriding-header "Todo")
-                                          (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-            )
-           (
-            ;; only way to filter agenda by tag
-            (org-agenda-tag-filter-preset '("+@omscs"))
-            )
-           )
-
-          ))
-  )
+                                          (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
+           ((org-agenda-tag-filter-preset '("+@omscs")))))))
 
 (defun my-org-agenda-skip-all-siblings-but-first ()
   "Skip all but the first non-done entry that is inside a project (a subheading)."
