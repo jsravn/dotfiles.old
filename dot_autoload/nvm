@@ -1,0 +1,3 @@
+unset -f $0
+source /usr/share/nvm/init-nvm.sh
+$0 $@

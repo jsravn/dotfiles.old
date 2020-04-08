@@ -1,0 +1,3 @@
+unset -f $0
+source "$HOME/.jabba/jabba.sh"
+$0 $@

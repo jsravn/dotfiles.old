@@ -1,0 +1,3 @@
+unset -f $0
+eval "$(pyenv init - --no-rehash)"
+$0 $@
