@@ -62,18 +62,25 @@
         :desc "Action at point (LSP)" "a" #'lsp-execute-code-action))
 
 ;; org-mode
-(setq org-directory "~/Dropbox/Notes")
-;; (map!
-;;  :after org
-;;  :map org-mode-map
-;;  :ni [M-return] #'org-insert-heading-respect-content)
+(setq org-directory "~/Dropbox/Notes/"
+      org-archive-location (concat org-directory ".archive/%s::")
+      org-roam-directory (concat org-directory "roam/")
+      deft-directory org-roam-directory)
+(after! org-journal
+  (setq org-journal-date-prefix "#+TITLE: "
+        org-journal-file-format "%Y-%m-%d.org"
+        org-journal-dir org-roam-directory
+        org-journal-date-format "%A, %d %B %Y"))
 (after! org
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                                 (file "~/Dropbox/Notes/inbox.org")
+                                 (file (concat org-directory "inbox.org"))
                                  "* TODO %i%?")
                                 ("e" "Event [inbox]" entry
-                                 (file "~/Dropbox/Notes/inbox.org")
-                                 "* %i%? \n %U")))
+                                 (file (concat org-directory "inbox.org"))
+                                 "* %i%? \n %U")
+                                ("n" "Note [inbox]" entry
+                                 (file (concat org-directory "inbox.org"))
+                                 "* %?")))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (setq org-log-done 'time)
   (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("@omscs" . ?o)))
