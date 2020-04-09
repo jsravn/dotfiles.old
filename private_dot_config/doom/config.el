@@ -105,67 +105,70 @@
         org-deadline-warning-days 14)
 
   ;; Custom agendas
-  (let ((tags-todo-template (lambda (tags header) '(tags-todo tags ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                                                    (org-agenda-overriding-header header)
-                                                                    (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))))
-    (setq org-agenda-custom-commands
-          '(("A" "All agenda"
-             ((todo "" ((org-agenda-files '("~/Dropbox/Notes/inbox.org"))
-                        (org-agenda-overriding-header "Inbox")))
-              (tags "-{.*}" ((org-agenda-files '("~/Dropbox/Notes/todo.org"
-                                                 "~/Dropbox/Notes/tickler.org"
-                                                 "~/Dropbox/Notes/someday.org"))
-                             (org-agenda-overriding-header "Untagged")))
-              (agenda "" ((org-agenda-span 7)
-                          (org-agenda-start-day "-1d")
-                          (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                              "~/Dropbox/Notes/todo.org"))
-                          (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-              (tags-todo "@home" (funcall tags-todo-config "Home"))
-              (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                  (org-agenda-overriding-header "Work")
-                                  (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-              (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                   (org-agenda-overriding-header "OMSCS")
-                                   (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
+  (setq org-agenda-custom-commands
+        '(("A" "All agenda"
+           ((todo "" ((org-agenda-files '("~/Dropbox/Notes/inbox.org"))
+                      (org-agenda-overriding-header "Inbox")))
+            (tags "-{.*}" ((org-agenda-files '("~/Dropbox/Notes/todo.org"
+                                               "~/Dropbox/Notes/tickler.org"
+                                               "~/Dropbox/Notes/someday.org"))
+                           (org-agenda-overriding-header "Untagged")))
+            (agenda "" ((org-agenda-span 7)
+                        (org-agenda-start-day "-1d")
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
+                                            "~/Dropbox/Notes/todo.org"))
+                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
+            (tags-todo "@home"  ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                 (org-agenda-overriding-header "Work")
+                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                (org-agenda-overriding-header "Work")
+                                (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                 (org-agenda-overriding-header "OMSCS")
+                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
 
-            ("h" "Home agenda"
-             ((agenda "" ((org-agenda-span 7)
-                          (org-agenda-start-day "-1d")
-                          (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                              "~/Dropbox/Notes/todo.org"))
-                          (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-              (funcall tags-todo-template "@home/!TODO" "Todo")
-              (funcall tags-todo-template "@home/!WAITING" "Waiting"))
-             ((org-agenda-tag-filter-preset '("+@home"))))
+          ("h" "Home agenda"
+           ((agenda "" ((org-agenda-span 7)
+                        (org-agenda-start-day "-1d")
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
+                                            "~/Dropbox/Notes/todo.org"))
+                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
+            (tags-todo "@home/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                      (org-agenda-overriding-header "Todo")
+                                      (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@home/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                         (org-agenda-overriding-header "Waiting")
+                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
+           ((org-agenda-tag-filter-preset '("+@home"))))
 
-            ("w" "Work agenda"
-             ((agenda "" ((org-agenda-span 7)
-                          (org-agenda-start-day "-1d")
-                          (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                              "~/Dropbox/Notes/todo.org"))
-                          (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-              (tags-todo "@work/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                        (org-agenda-overriding-header "Todo")
-                                        (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-              (tags-todo "@work/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                           (org-agenda-overriding-header "Waiting")
-                                           (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
-             ((org-agenda-tag-filter-preset '("+@work"))))
+          ("w" "Work agenda"
+           ((agenda "" ((org-agenda-span 7)
+                        (org-agenda-start-day "-1d")
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
+                                            "~/Dropbox/Notes/todo.org"))
+                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
+            (tags-todo "@work/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                      (org-agenda-overriding-header "Todo")
+                                      (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@work/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                         (org-agenda-overriding-header "Waiting")
+                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
+           ((org-agenda-tag-filter-preset '("+@work"))))
 
-            ("o" "OMSCS agenda"
-             ((agenda "" ((org-agenda-span 7)
-                          (org-agenda-start-day "-1d")
-                          (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                              "~/Dropbox/Notes/todo.org"))
-                          (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-              (tags-todo "@omscs/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                         (org-agenda-overriding-header "Todo")
-                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-              (tags-todo "@omscs/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                            (org-agenda-overriding-header "Todo")
-                                            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
-             ((org-agenda-tag-filter-preset '("+@omscs"))))))))
+          ("o" "OMSCS agenda"
+           ((agenda "" ((org-agenda-span 7)
+                        (org-agenda-start-day "-1d")
+                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
+                                            "~/Dropbox/Notes/todo.org"))
+                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
+            (tags-todo "@omscs/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                       (org-agenda-overriding-header "Todo")
+                                       (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+            (tags-todo "@omscs/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
+                                          (org-agenda-overriding-header "Todo")
+                                          (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
+           ((org-agenda-tag-filter-preset '("+@omscs")))))))
 
 (defun my-org-agenda-skip-all-siblings-but-first ()
   "Skip all but the first non-done entry that is inside a project (a subheading)."
