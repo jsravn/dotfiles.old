@@ -1,4 +1,4 @@
-;;; ~/.doom.d/init.el -*- lexical-binding: t; -*-
+;;; ~/.config/doom/init.el -*- lexical-binding: t; -*-
 
 (doom! :input
        ;;chinese

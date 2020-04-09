@@ -1,23 +1,26 @@
-;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
+;;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
 
-;; Change doom theme
+;; UI
 (setq doom-theme 'doom-one)
 (setq doom-font (font-spec :family "PragmataPro Liga" :size 16 :adstyle "Regular"))
 (setq +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
 (setq doom-themes-treemacs-enable-variable-pitch nil)
-
-;; Common settings
 (setq-default fill-column 120)
-(setq delete-by-moving-to-trash t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(setq split-width-threshold (* fill-column 2))
 
-;; less aggressive window splitting
-(setq split-width-threshold 240)
-
-;; evil-snipe everywhere
+;; core behavior
+(setq delete-by-moving-to-trash t)
 (evil-snipe-override-mode 1)
+(setq select-enable-primary t)
+(setq select-enable-clipboard t)
 
-;; Calendar
+;; always create a new workspace when switching projects
+(setq +workspaces-on-switch-project-behavior t)
+
+;; Modules
+
+;; calendar
 (setq calendar-latitude 51.508166)
 (setq calendar-longitude -0.075971)
 (setq calendar-location-name "London, UK")
@@ -26,9 +29,6 @@
 (remove-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'text-mode-hook #'+word-wrap-mode)
 
-;; ivy - sort search list by name
-;;(add-to-list 'ivy-re-builders-alist '(counsel-projectile-find-file . ivy--regex-plus))
-
 ;; zen
 (after! writeroom-mode
   (setq +zen-text-scale 0
@@ -36,17 +36,16 @@
         writeroom-mode-line t
         writeroom-width 160))
 
-;; Enable auto save when emacs frame is switched
+;; Enable auto save when emacs frame is switched.
 (add-hook! '(doom-switch-frame-hook
-             doom-switch-window-hook
              doom-switch-buffer-hook
              focus-out-hook)
   (save-some-buffers t))
 
-;; Projectile
+;; projectile
 (setq projectile-project-search-path '("~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
 
-;; Atomic chrome for editing browser text boxes
+;; Atomic chrome for editing browser text boxes.
 (use-package! atomic-chrome
   :after-call focus-out-hook
   :config
@@ -54,7 +53,7 @@
         atomic-chrome-buffer-open-style 'frame)
   (atomic-chrome-start-server))
 
-;; clear cache after checking out a new branch
+;; Clear cache after checking out a new branch.
 (defun +private/projectile-invalidate-cache (&rest _args)
   (projectile-invalidate-cache nil))
 (advice-add 'magit-checkout
@@ -63,6 +62,7 @@
             :after #'+private/projectile-invalidate-cache)
 
 ;; org-mode
+(load! "+org")
 (setq org-directory "~/Dropbox/Notes/"
       org-archive-location (concat org-directory ".archive/%s::")
       org-roam-directory (concat org-directory "roam/")
@@ -102,100 +102,16 @@
         org-agenda-text-search-extra-files '(agenda-archives)
         org-agenda-search-view-always-boolean t
         org-agenda-todo-ignore-with-date 'far
-        org-deadline-warning-days 14)
+        org-deadline-warning-days 14
+        org-agenda-custom-commands (list (jsravn-all-agenda)
+                                         (jsravn-agenda "home")
+                                         (jsravn-agenda "work")
+                                         (jsravn-agenda "omscs"))))
 
-  ;; Custom agendas
-  (setq org-agenda-custom-commands
-        '(("A" "All agenda"
-           ((todo "" ((org-agenda-files '("~/Dropbox/Notes/inbox.org"))
-                      (org-agenda-overriding-header "Inbox")))
-            (tags "-{.*}" ((org-agenda-files '("~/Dropbox/Notes/todo.org"
-                                               "~/Dropbox/Notes/tickler.org"
-                                               "~/Dropbox/Notes/someday.org"))
-                           (org-agenda-overriding-header "Untagged")))
-            (agenda "" ((org-agenda-span 7)
-                        (org-agenda-start-day "-1d")
-                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                            "~/Dropbox/Notes/todo.org"))
-                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-            (tags-todo "@home"  ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                 (org-agenda-overriding-header "Work")
-                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-            (tags-todo "@work" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                (org-agenda-overriding-header "Work")
-                                (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-            (tags-todo "@omscs" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                 (org-agenda-overriding-header "OMSCS")
-                                 (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
-
-          ("h" "Home agenda"
-           ((agenda "" ((org-agenda-span 7)
-                        (org-agenda-start-day "-1d")
-                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                            "~/Dropbox/Notes/todo.org"))
-                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-            (tags-todo "@home/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                      (org-agenda-overriding-header "Todo")
-                                      (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-            (tags-todo "@home/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                         (org-agenda-overriding-header "Waiting")
-                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
-           ((org-agenda-tag-filter-preset '("+@home"))))
-
-          ("w" "Work agenda"
-           ((agenda "" ((org-agenda-span 7)
-                        (org-agenda-start-day "-1d")
-                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                            "~/Dropbox/Notes/todo.org"))
-                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-            (tags-todo "@work/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                      (org-agenda-overriding-header "Todo")
-                                      (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-            (tags-todo "@work/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                         (org-agenda-overriding-header "Waiting")
-                                         (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
-           ((org-agenda-tag-filter-preset '("+@work"))))
-
-          ("o" "OMSCS agenda"
-           ((agenda "" ((org-agenda-span 7)
-                        (org-agenda-start-day "-1d")
-                        (org-agenda-files '("~/Dropbox/Notes/tickler.org"
-                                            "~/Dropbox/Notes/todo.org"))
-                        (org-agenda-skip-function #'my-org-agenda-skip-scheduled-if-in-todo)))
-            (tags-todo "@omscs/!TODO" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                       (org-agenda-overriding-header "Todo")
-                                       (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-            (tags-todo "@omscs/!WAITING" ((org-agenda-files '("~/Dropbox/Notes/todo.org"))
-                                          (org-agenda-overriding-header "Todo")
-                                          (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))
-           ((org-agenda-tag-filter-preset '("+@omscs")))))))
-
-(defun my-org-agenda-skip-all-siblings-but-first ()
-  "Skip all but the first non-done entry that is inside a project (a subheading)."
-  (when (> (car (org-heading-components)) 2)
-    (let (should-skip-entry)
-      (save-excursion
-        (while (and (not should-skip-entry) (org-goto-sibling t))
-          (when (string= "TODO" (org-get-todo-state))
-            (setq should-skip-entry t))))
-      (when should-skip-entry
-        (or (outline-next-heading) (goto-char (point-max)))))))
-
-(defun my-org-agenda-skip-scheduled-if-in-todo ()
-  "Skip scheduled items that have been moved to todo.org."
-  (when (and (string= "todo.org" (file-name-nondirectory (buffer-file-name)))
-             (org-entry-get nil "SCHEDULED"))
-    (or (outline-next-heading) (goto-char (point-max)))))
-
-;; org-dragndrop
 (after! org-download
   (setq org-download-screenshot-method
         (cond (IS-MAC "screencapture -i %s")
               (IS-LINUX "~/.config/sway/capture.sh %s"))))
-
-;; Clipboard stuff
-(setq select-enable-primary t)
-(setq select-enable-clipboard t)
 
 ;; jsonnet
 (setq jsonnet-library-search-directories (list "vendor"))
@@ -209,7 +125,7 @@ See URL `https://jsonnet.org'."
                    :modes jsonnet-mode)
   (add-to-list 'flycheck-checkers 'jsonnetvendor))
 
-;; Markdown
+;; markdown
 (add-hook! markdown-mode
   (visual-line-mode 1)
   (flycheck-mode 0)
@@ -218,9 +134,6 @@ See URL `https://jsonnet.org'."
 (after! treemacs
   (treemacs-follow-mode 1)
   (setq treemacs-width 40))
-
-;; Always create a new workspace.
-(setq +workspaces-on-switch-project-behavior t)
 
 ;; magit tweaks
 (setq magit-prefer-remote-upstream t)
@@ -232,6 +145,7 @@ See URL `https://jsonnet.org'."
 (setq forge-topic-list-limit '(15 . 5))
 
 ;; lsp-mode tweaks
+;; causes an interactive prompt always - useful for subprojects
 (setq lsp-auto-guess-root nil)
 
 ;; scala-mode tweaks
