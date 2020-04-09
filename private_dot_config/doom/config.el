@@ -103,15 +103,23 @@
         org-agenda-search-view-always-boolean t
         org-agenda-todo-ignore-with-date 'far
         org-deadline-warning-days 14
-        org-agenda-custom-commands (list (jsravn-all-agenda)
-                                         (jsravn-agenda "home")
-                                         (jsravn-agenda "work")
-                                         (jsravn-agenda "omscs"))))
+        org-agenda-custom-commands (list (jsravn--all-agenda)
+                                         (jsravn--agenda "home")
+                                         (jsravn--agenda "work")
+                                         (jsravn--agenda "omscs"))))
 
 (after! org-download
   (setq org-download-screenshot-method
         (cond (IS-MAC "screencapture -i %s")
               (IS-LINUX "~/.config/sway/capture.sh %s"))))
+
+(after! org-roam
+  (add-hook 'doom-switch-buffer-hook #'jsravn--open-org-roam)
+  (defadvice! jsravn--tweak-org-roam-window ()
+    :after #'org-roam
+    (when (eq 'visible (org-roam--current-visibility))
+      (let ((w (get-buffer-window org-roam-buffer)))
+        (set-window-parameter w 'no-delete-other-windows t)))))
 
 ;; jsonnet
 (setq jsonnet-library-search-directories (list "vendor"))
