@@ -3,4 +3,4 @@
 
 (package! magit-todos :disable t)
 (package! atomic-chrome)
-(package! org-roam :recipe (:local-repo "~/devel/org-roam"))
+(package! org-roam :pin "4af4d2e4d5f18422fe0f90d5d83fe4c10ef1a20f")
