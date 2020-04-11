@@ -37,19 +37,13 @@
         writeroom-width 160))
 
 ;; Enable auto save when emacs frame loses focus.
-(defvar jsravn--inhibit-save-buffers nil)
-(defun jsravn--save-buffers () (unless jsravn--inhibit-save-buffers (save-some-buffers t)))
+(defun jsravn--save-buffers ()
+  ;; Avoid saving when switching to a special buffer, like an ivy popup.
+  (if (buffer-file-name) (save-some-buffers t)))
 (add-hook! '(doom-switch-buffer-hook
              doom-switch-window-hook
              focus-out-hook)
            #'jsravn--save-buffers)
-
-;; Inhibit auto-save for certain operations.
-(defadvice! jsravn--inhibit-save-buffers (orig-fn &rest args)
-  :around #'org-insert-link
-  (setq jsravn--inhibit-save-buffers t)
-  (apply orig-fn args)
-  (setq jsravn--inhibit-save-buffers nil))
 
 ;; projectile
 (setq projectile-project-search-path '("~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
