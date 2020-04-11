@@ -26,4 +26,4 @@ format = "{1m}"
 [[block]]
 block = "time"
 interval = 1
-format = "%a %b%e, %H:%M"
+format = "%a %b %e, %H:%M"
