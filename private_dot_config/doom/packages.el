@@ -3,3 +3,4 @@
 
 (package! magit-todos :disable t)
 (package! atomic-chrome)
+(package! org-roam :recipe (:local-repo "~/devel/org-roam"))

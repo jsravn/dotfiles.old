@@ -36,11 +36,20 @@
         writeroom-mode-line t
         writeroom-width 160))
 
-;; Enable auto save when emacs frame is switched.
-(add-hook! '(doom-switch-frame-hook
-             doom-switch-buffer-hook
+;; Enable auto save when emacs frame loses focus.
+(defvar jsravn--inhibit-save-buffers nil)
+(defun jsravn--save-buffers () (unless jsravn--inhibit-save-buffers (save-some-buffers t)))
+(add-hook! '(doom-switch-buffer-hook
+             doom-switch-window-hook
              focus-out-hook)
-  (save-some-buffers t))
+           #'jsravn--save-buffers)
+
+;; Inhibit auto-save for certain operations.
+(defadvice! jsravn--inhibit-save-buffers (orig-fn &rest args)
+  :around #'org-insert-link
+  (setq jsravn--inhibit-save-buffers t)
+  (apply orig-fn args)
+  (setq jsravn--inhibit-save-buffers nil))
 
 ;; projectile
 (setq projectile-project-search-path '("~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
@@ -75,14 +84,14 @@
         org-journal-date-format "%A, %d %B %Y"))
 
 (after! org
-  (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                                 (file (concat org-directory "inbox.org"))
+  (setq org-capture-templates `(("t" "Todo [inbox]" entry
+                                 (file ,(concat org-directory "inbox.org"))
                                  "* TODO %i%?")
                                 ("e" "Event [inbox]" entry
-                                 (file (concat org-directory "inbox.org"))
+                                 (file ,(concat org-directory "inbox.org"))
                                  "* %i%? \n %U")
                                 ("n" "Note [inbox]" entry
-                                 (file (concat org-directory "inbox.org"))
+                                 (file ,(concat org-directory "inbox.org"))
                                  "* %?"))
         org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))
         org-log-done 'time
@@ -113,13 +122,9 @@
         (cond (IS-MAC "screencapture -i %s")
               (IS-LINUX "~/.config/sway/capture.sh %s"))))
 
+(setq org-roam-buffer-no-delete-other-windows t)
 (after! org-roam
-  (add-hook 'doom-switch-buffer-hook #'jsravn--open-org-roam)
-  (defadvice! jsravn--tweak-org-roam-window ()
-    :after #'org-roam
-    (when (eq 'visible (org-roam--current-visibility))
-      (let ((w (get-buffer-window org-roam-buffer)))
-        (set-window-parameter w 'no-delete-other-windows t)))))
+  (add-hook 'doom-switch-buffer-hook #'jsravn--open-org-roam))
 
 ;; jsonnet
 (setq jsonnet-library-search-directories (list "vendor"))
