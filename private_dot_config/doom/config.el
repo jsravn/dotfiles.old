@@ -92,7 +92,10 @@
                                  "* %i%? \n %U")
                                 ("n" "Note [inbox]" entry
                                  (file ,(concat org-directory "inbox.org"))
-                                 "* %?"))
+                                 "* %?")
+                                ("s" "Shopping [todo]" checkitem
+                                 (file+olp ,(concat org-directory "todo.org") "Home" "Shopping")
+                                 "- [ ] %?"))
         org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))
         org-log-done 'time
         org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("@omscs" . ?o))
