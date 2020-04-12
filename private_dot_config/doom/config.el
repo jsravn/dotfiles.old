@@ -11,7 +11,6 @@
 
 ;; core behavior
 (setq delete-by-moving-to-trash t)
-(evil-snipe-override-mode 1)
 (setq select-enable-primary t)
 (setq select-enable-clipboard t)
 
@@ -44,6 +43,9 @@
              doom-switch-window-hook
              focus-out-hook)
            #'jsravn--save-buffers)
+
+;; Create auto-save files in case the system crashes.
+(setq auto-save-default t)
 
 ;; projectile
 (setq projectile-project-search-path '("~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
