@@ -1,0 +1,29 @@
+{
+  "layer": "top",
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["clock"],
+  "modules-right": ["custom/spotify", "memory", "cpu", "idle_inhibitor", "tray"],
+  "clock": {
+    "format": "{:%a %b %e, %H:%M}"
+  },
+  "memory": {
+    "format": " {percentage}%"
+  },
+  "cpu": {
+    "format": " {usage}%"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "custom/spotify": {
+    "format": " {}",
+    "return-type": "json",
+    "max-length": 40,
+    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null",
+    "exec-if": "pgrep spotify"
+  }
+}

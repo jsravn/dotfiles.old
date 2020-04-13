@@ -75,7 +75,6 @@ exec swayidle -w \
   timeout 600 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
   timeout 900 '$lock' \
-  #timeout 1800 'systemctl suspend' \
   before-sleep '$lock' \
   timeout 30 'if pgrep swaylock; then swaymsg "output * dpms off"; fi' \
     resume 'swaymsg "output * dpms on"'
@@ -252,9 +251,6 @@ mode $mode_resize {
 bindsym $mod+r mode $mode_resize
 
 # the top bar
-# relies on i3status-rust
 bar {
-        position top
-        tray_padding 2
-        status_command i3status-rs ~/.config/i3status-rs/config.toml
+        swaybar_command waybar
 }
