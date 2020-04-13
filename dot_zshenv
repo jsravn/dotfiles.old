@@ -1,5 +1,5 @@
 # autoloads
-fpath=(.autoload $fpath)
+fpath=(~/.autoload $fpath)
 autoload -Uz jabba
 autoload -Uz java
 autoload -Uz nvm
