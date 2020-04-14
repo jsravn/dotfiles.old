@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copied from https://github.com/Alexays/Waybar/blob/master/resources/custom_modules/mediaplayer.py
 import argparse
 import logging
 import sys
