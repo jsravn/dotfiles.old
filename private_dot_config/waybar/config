@@ -2,7 +2,7 @@
   "layer": "top",
   "modules-left": ["sway/workspaces", "sway/mode"],
   "modules-center": ["clock"],
-  "modules-right": ["custom/spotify", "memory", "cpu", "idle_inhibitor", "tray"],
+  "modules-right": ["custom/spotify", "memory", "cpu", "temperature", "idle_inhibitor", "tray"],
   "clock": {
     "format": "{:%a %b %e, %H:%M}"
   },
@@ -11,6 +11,12 @@
   },
   "cpu": {
     "format": " {usage}%"
+  },
+ "temperature": {
+	 "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+	 "critical-threshold": 40,
+	 "format-critical": "{temperatureC}°C ",
+	 "format": "{temperatureC}°C "
   },
   "idle_inhibitor": {
     "format": "{icon}",
