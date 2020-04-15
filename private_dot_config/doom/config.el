@@ -158,7 +158,8 @@ See URL `https://jsonnet.org'."
 
 ;; lsp-mode tweaks
 ;; causes an interactive prompt always - useful for subprojects
-(setq lsp-auto-guess-root nil)
+(setq lsp-auto-guess-root nil
+      lsp-enable-symbol-highlighting nil)
 
 ;; scala-mode tweaks
 (after! scala-mode (setq scala-indent:align-parameters nil))
