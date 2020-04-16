@@ -148,18 +148,19 @@ See URL `https://jsonnet.org'."
   (setq treemacs-width 40))
 
 ;; magit tweaks
-(setq magit-prefer-remote-upstream t)
-;; when doing b-l on a remote branch, it will set the upstream to origin/master
-(setq magit-branch-adjust-remote-upstream-alist '(("origin/master" "master")))
-;; when doing b-c default origin/master as the branching point when possible
-(setq magit-branch-prefer-remote-upstream '("master"))
-;; limit status buffer to 15 open topics and 5 closed topics
-(setq forge-topic-list-limit '(15 . 5))
+(setq magit-prefer-remote-upstream t
+      ;; when doing b-l on a remote branch, it will set the upstream to origin/master
+      magit-branch-adjust-remote-upstream-alist '(("origin/master" "master"))
+      ;; when doing b-c default origin/master as the branching point when possible
+      magit-branch-prefer-remote-upstream '("master")
+      ;; limit status buffer to 15 open topics and 5 closed topics
+      forge-topic-list-limit '(15 . 5))
 
 ;; lsp-mode tweaks
 ;; causes an interactive prompt always - useful for subprojects
 (setq lsp-auto-guess-root nil
-      lsp-enable-symbol-highlighting nil)
+      lsp-enable-symbol-highlighting nil
+      lsp-enable-links nil)
 
 ;; scala-mode tweaks
 (after! scala-mode (setq scala-indent:align-parameters nil))
