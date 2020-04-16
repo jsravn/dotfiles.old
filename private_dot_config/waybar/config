@@ -1,7 +1,7 @@
 {
   "layer": "top",
   "modules-left": ["sway/workspaces", "sway/mode"],
-  "modules-center": ["clock"],
+  "modules-center": ["sway/window"],
   "modules-right": [
     "custom/spotify",
     "custom/weather",
@@ -9,6 +9,7 @@
     "cpu",
     "temperature",
     "idle_inhibitor",
+    "clock",
     "tray"
   ],
   "clock": {

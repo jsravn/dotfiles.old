@@ -16,7 +16,7 @@
 # Start with ~/.local/bin/startsway.sh which initializes gnome-keyring's SSH_AUTH_KEY and Java GUI apps.
 
 # variables
-font pango: DejaVu Sans Mono, FontAwesome 10
+font pango: DejaVu Sans, FontAwesome 10
 set $left h
 set $down j
 set $up k
@@ -94,6 +94,9 @@ workspace_auto_back_and_forth yes
 # gaps
 gaps inner 3
 smart_gaps on
+
+# hide title
+default_border pixel 2
 
 # always float windows
 for_window [app_id="gnome-calculator"] floating enable
