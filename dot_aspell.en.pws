@@ -1,8 +1,10 @@
-personal_ws-1.1 en 30 
+personal_ws-1.1 en 37 
 Biometrics
 Bolognese
+CNI
 Cyber
 DCSS
+DNS
 Flyspell
 Golang
 IAM
@@ -14,7 +16,9 @@ OTT
 SADB
 SPD
 SPI
+SRV
 TLS
+TXT
 Transactional
 XSRF
 XSS
@@ -24,8 +28,11 @@ anonymizing
 buildkit
 buildkitd
 cyber
+etcd
+http
 jsravn
 judgement
+localhost
 namespace
 personalization
 unsanitized
