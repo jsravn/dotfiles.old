@@ -37,12 +37,21 @@ set $ws9 "9:"
 set $ws10 "10:"
 set $lock "$HOME/.config/sway/lock.sh"
 
+# assign applications to particular workspaces
+for_window [class="Spotify"] move container to workspace $ws8
+assign [class="Slack"] $ws6
+assign [class="Thunderbird"] $ws7
+assign [class="davmail-DavGateway"] $ws7
+assign [class="Keybase"] $ws6
+assign [app_id="evolution"] $ws7
+
 # autostart
-# notifications
 exec mako
-# redshift
-# requires redshift-wlr-gamma-control-git
 exec redshift -m wayland
+exec swaymsg 'workspace $ws2; exec emacs; workspace $ws1; exec chromium'
+exec evolution
+exec keybase-gui
+exec dropbox
 
 # dbus activation - needs DISPLAY for things like lastpass to work
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XCURSOR_SIZE
@@ -50,27 +59,13 @@ exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSO
 # polkit authentication agent
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-# autostart applications in particular workspaces
-exec swaymsg 'workspace $ws2; exec emacs; workspace $ws1; exec chromium'
-for_window [class="Spotify"] move container to workspace $ws8
-assign [class="Slack"] $ws6
-assign [class="Thunderbird"] $ws7
-assign [class="davmail-DavGateway"] $ws7
-assign [class="Keybase"] $ws6
-assign [app_id="evolution"] $ws7
-exec swaymsg 'workspace $ws6; layout tabbed; workspace $ws1'
-exec swaymsg 'workspace $ws5; layout tabbed; workspace $ws1'
-exec evolution
-exec keybase-gui
-exec dropbox
-
 # monitors
 output DP-1 mode 2560x1440@165Hz
 
 # background
 output * bg ~/Pictures/publicenemy1HDfree.jpg fill
 
-# fill
+# idle
 exec swayidle -w \
   timeout 600 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
@@ -108,7 +103,6 @@ bindsym $mod+Return exec $term
 # dismiss notifications
 bindsym $mod+n exec makoctl dismiss -a
 
-# capture screen
 # capture all screens to clipboard
 bindsym $mod+Print exec grim - | wl-copy
 
@@ -172,9 +166,6 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
-
 # focus the urgent window
 bindsym $mod+u [urgent=latest] focus
 
@@ -218,7 +209,8 @@ bindsym --whole-window --border $mod+button5 workspace prev_on_output
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+
+# restart inplace (preserves layout/session, can be used to upgrade)
 bindsym $mod+Shift+r restart
 
 # exit menu
@@ -227,8 +219,6 @@ bindsym $mod+Shift+e exec $HOME/.config/sway/power.sh
 # resize window (you can also use the mouse for that)
 set $mode_resize "Resize"
 mode $mode_resize {
-        # These bindings trigger as soon as you enter the resize mode
-
         # Pressing left will shrink the window’s width.
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
