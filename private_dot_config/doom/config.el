@@ -71,7 +71,10 @@
 (setq org-directory "~/Dropbox/Notes/"
       org-archive-location (concat org-directory ".archive/%s::")
       org-roam-directory (concat org-directory "roam/")
-      deft-directory org-roam-directory)
+      deft-directory org-roam-directory
+      ;; taken from https://github.com/hlissner/doom-emacs-private/blob/master/config.el
+      org-ellipsis " ▼ "
+      org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷" "☷" "☷" "☷"))
 
 (after! org-journal
   (setq org-journal-date-prefix "#+TITLE: "
@@ -80,6 +83,7 @@
         org-journal-date-format "%A, %d %B %Y"))
 
 (after! org
+  (add-to-list 'org-modules 'org-habit t)
   (setq org-capture-templates `(("t" "Todo [inbox]" entry
                                  (file ,(concat org-directory "inbox.org"))
                                  "* TODO %i%?")
@@ -122,8 +126,8 @@
               (IS-LINUX "~/.config/sway/capture.sh %s"))))
 
 (setq org-roam-buffer-no-delete-other-windows t)
-(after! org-roam
-  (add-hook 'doom-switch-buffer-hook #'jsravn--open-org-roam))
+ (after! org-roam
+   (add-hook 'doom-switch-buffer-hook #'jsravn--open-org-roam))
 
 ;; jsonnet
 (setq jsonnet-library-search-directories (list "vendor"))
