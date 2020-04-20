@@ -40,8 +40,7 @@ set $lock "$HOME/.config/sway/lock.sh"
 # assign applications to particular workspaces
 for_window [class="Spotify"] move container to workspace $ws8
 assign [class="Slack"] $ws6
-assign [class="Thunderbird"] $ws7
-assign [class="davmail-DavGateway"] $ws7
+assign [class="discord"] $ws6
 assign [class="Keybase"] $ws6
 assign [app_id="evolution"] $ws7
 
@@ -52,6 +51,9 @@ exec swaymsg 'workspace $ws2; exec emacs; workspace $ws1; exec chromium'
 exec evolution
 exec keybase-gui
 exec dropbox
+exec spotify
+exec slack
+exec discord
 
 # dbus activation - needs DISPLAY for things like lastpass to work
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XCURSOR_SIZE
