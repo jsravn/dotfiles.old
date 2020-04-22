@@ -352,7 +352,7 @@ the =STYLE= property (=C-x C-p=) set to =habit=.  See [[https://orgmode.org/manu
 
 #+BEGIN_SRC emacs-lisp
 (after! org
-  (add-to-list 'org-modulles 'org-habit t))
+  (add-to-list 'org-modules 'org-habit t))
 #+END_SRC
 
 ***** Custom Agendas
@@ -459,14 +459,14 @@ Agenda search is usually accessed via =SPC o A s= and allows quick searching of 
 I like to include archived tasks in the search.
 
 #+BEGIN_SRC emacs-lisp
-(after! org (setq org-agenda-text-search-extra-files '(agenda-archives))
+(after! org (setq org-agenda-text-search-extra-files '(agenda-archives)))
 #+END_SRC
 
 Also use the more intuitive boolean search method, where each word is searched independently rather than being treated
 as a single phrase. A single phrase can be forced by enclosing in quotations.
 
 #+BEGIN_SRC emacs-lisp
-(after! org (setq org-agenda-search-view-always-boolean t)
+(after! org (setq org-agenda-search-view-always-boolean t))
 #+END_SRC
 
 **** Notes
