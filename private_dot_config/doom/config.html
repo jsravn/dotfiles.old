@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-23 Thu 15:22 -->
+<!-- 2020-04-23 Thu 18:26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Doom Emacs Configuration</title>
@@ -377,1653 +377,6 @@
    ::-webkit-scrollbar-thumb:hover { background:#888; }
 </style>
 <!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
 <script type="text/javascript">
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
 <!--/*--><![CDATA[/*><!--*/
@@ -2056,109 +409,109 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgbc92107">1. Intro</a></li>
-<li><a href="#org1c1bce7">2. General configuration</a>
+<li><a href="#org860da7d">1. Intro</a></li>
+<li><a href="#org44eb734">2. General configuration</a>
 <ul>
-<li><a href="#orgf766cca">2.1. File variables</a></li>
-<li><a href="#org78e62c5">2.2. Personal information</a></li>
-<li><a href="#org642564a">2.3. Visual Settings</a>
+<li><a href="#org59b36ca">2.1. File variables</a></li>
+<li><a href="#org881a61f">2.2. Personal information</a></li>
+<li><a href="#org1c952b5">2.3. Visual Settings</a>
 <ul>
-<li><a href="#orga9bb351">2.3.1. Theme</a></li>
-<li><a href="#org98fe4c7">2.3.2. Maximize</a></li>
+<li><a href="#org23a27f9">2.3.1. Theme</a></li>
+<li><a href="#org49b169d">2.3.2. Maximize</a></li>
 </ul>
 </li>
-<li><a href="#org043dfc0">2.4. Editor behavior</a>
+<li><a href="#org3e7dbd9">2.4. Editor behavior</a>
 <ul>
-<li><a href="#org09fb9e4">2.4.1. Deletion</a></li>
-<li><a href="#org08b1d4f">2.4.2. Auto-save</a></li>
-<li><a href="#orge6da8c0">2.4.3. Line wrapping</a></li>
-<li><a href="#org3b1405b">2.4.4. Window splitting</a></li>
-<li><a href="#orgcc08d43">2.4.5. Clipboard</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org0a9f83b">3. Packages</a>
-<ul>
-<li><a href="#org5331dc8">3.1. Package loading</a>
-<ul>
-<li><a href="#orga32d0ff">3.1.1. atomic-chrome</a></li>
-<li><a href="#org3f0ca19">3.1.2. org-roam</a></li>
-</ul>
-</li>
-<li><a href="#orgff87567">3.2. Package configuration</a>
-<ul>
-<li><a href="#org28e0e6e">3.2.1. atomic-chrome</a></li>
+<li><a href="#org4a254b2">2.4.1. Deletion</a></li>
+<li><a href="#orgbe1a1b9">2.4.2. Auto-save</a></li>
+<li><a href="#org93dd55d">2.4.3. Line wrapping</a></li>
+<li><a href="#org1ec2f01">2.4.4. Window splitting</a></li>
+<li><a href="#org892e92f">2.4.5. Clipboard</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org9e0eded">4. Modules</a>
+<li><a href="#orgdf0dc43">3. Packages</a>
 <ul>
-<li><a href="#org2227aab">4.1. Core configuration</a>
+<li><a href="#org1aa5791">3.1. Package loading</a>
 <ul>
-<li><a href="#org493fdab">4.1.1. Projects</a></li>
+<li><a href="#org7cb3308">3.1.1. atomic-chrome</a></li>
+<li><a href="#orgbf3a5a4">3.1.2. org-roam</a></li>
 </ul>
 </li>
-<li><a href="#orgc5af75f">4.2. UI configuration</a>
+<li><a href="#org09976c8">3.2. Package configuration</a>
 <ul>
-<li><a href="#org6b7e69a">4.2.1. Workspaces</a></li>
-<li><a href="#orgaba0933">4.2.2. Zen</a></li>
-<li><a href="#org3b149a3">4.2.3. Treemacs</a></li>
-</ul>
-</li>
-<li><a href="#orgbc2fe30">4.3. Checkers configuration</a>
-<ul>
-<li><a href="#org78eab81">4.3.1. Flyspell</a></li>
-</ul>
-</li>
-<li><a href="#org08efaf1">4.4. Language configuration</a>
-<ul>
-<li><a href="#org3faefa0">4.4.1. Golang</a></li>
-<li><a href="#orgabace40">4.4.2. Org Mode</a>
-<ul>
-<li><a href="#org2d4aa32">4.4.2.1. General settings</a>
-<ul>
-<li><a href="#orge0b9f7c">4.4.2.1.1. Editor</a></li>
-<li><a href="#org6e400cd">4.4.2.1.2. Visuals</a></li>
-<li><a href="#orga92d0d4">4.4.2.1.3. Archiving</a></li>
-<li><a href="#org9b24032">4.4.2.1.4. Download</a></li>
-<li><a href="#org2f01d0b">4.4.2.1.5. Exporting (General)</a></li>
-<li><a href="#org65cfecd">4.4.2.1.6. Exporting to HTML</a></li>
-<li><a href="#org25916ac">4.4.2.1.7. Exporting to Beamer</a></li>
-<li><a href="#orga7e9719">4.4.2.1.8. Exporting to GFM</a></li>
-</ul>
-</li>
-<li><a href="#org5ac3c71">4.4.2.2. Task management</a>
-<ul>
-<li><a href="#org26241ef">4.4.2.2.1. Task settings</a></li>
-<li><a href="#org679d13f">4.4.2.2.2. Contexts</a></li>
-<li><a href="#org4a570f4">4.4.2.2.3. Refile targets</a></li>
-<li><a href="#org01c72f2">4.4.2.2.4. Habits</a></li>
-<li><a href="#orgb380353">4.4.2.2.5. Custom Agendas</a>
-<ul>
-<li><a href="#orge0f0c95">4.4.2.2.5.1. All Agenda Function</a></li>
-<li><a href="#org708f6dd">4.4.2.2.5.2. Context Agenda Function</a></li>
-<li><a href="#orgd693950">4.4.2.2.5.3. Agenda Support Functions</a></li>
-</ul>
-</li>
-<li><a href="#orgfbf01fd">4.4.2.2.6. Agenda Searches</a></li>
-</ul>
-</li>
-<li><a href="#orgaef6225">4.4.2.3. Notes</a>
-<ul>
-<li><a href="#orgbd2ecc4">4.4.2.3.1. org-roam</a></li>
-<li><a href="#org23eacdf">4.4.2.3.2. org-journal</a></li>
+<li><a href="#orgda3b3fc">3.2.1. atomic-chrome</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li><a href="#org3487038">4. Modules</a>
+<ul>
+<li><a href="#org2a0fcec">4.1. Core configuration</a>
+<ul>
+<li><a href="#orga31ca9e">4.1.1. Projects</a></li>
 </ul>
 </li>
-<li><a href="#org57b6029">4.5. Tools configuration</a>
+<li><a href="#org268f2c2">4.2. UI configuration</a>
 <ul>
-<li><a href="#org099a62b">4.5.1. Language Server Protocol (LSP)</a></li>
-<li><a href="#org1a77313">4.5.2. Magit</a></li>
+<li><a href="#orgc4035bd">4.2.1. Workspaces</a></li>
+<li><a href="#org8300a26">4.2.2. Zen</a></li>
+<li><a href="#org60e6846">4.2.3. Treemacs</a></li>
+</ul>
+</li>
+<li><a href="#org46901cf">4.3. Checkers configuration</a>
+<ul>
+<li><a href="#orga7fe769">4.3.1. Flyspell</a></li>
+</ul>
+</li>
+<li><a href="#orgc20dd26">4.4. Language configuration</a>
+<ul>
+<li><a href="#org21c4633">4.4.1. Golang</a></li>
+<li><a href="#orgfe4dcf3">4.4.2. Org Mode</a>
+<ul>
+<li><a href="#org238496e">4.4.2.1. General settings</a>
+<ul>
+<li><a href="#org5c1618a">4.4.2.1.1. Editor</a></li>
+<li><a href="#org02ffb76">4.4.2.1.2. Visuals</a></li>
+<li><a href="#orgdc9e05e">4.4.2.1.3. Archiving</a></li>
+<li><a href="#org3822429">4.4.2.1.4. Download</a></li>
+<li><a href="#orga9b144f">4.4.2.1.5. Exporting (General)</a></li>
+<li><a href="#orgd87397a">4.4.2.1.6. Exporting to HTML</a></li>
+<li><a href="#orgfdae9c7">4.4.2.1.7. Exporting to Beamer</a></li>
+<li><a href="#org61bce74">4.4.2.1.8. Exporting to GFM</a></li>
+</ul>
+</li>
+<li><a href="#orgbda9fe6">4.4.2.2. Task management</a>
+<ul>
+<li><a href="#orgc9c148b">4.4.2.2.1. Task settings</a></li>
+<li><a href="#org3a8b83f">4.4.2.2.2. Contexts</a></li>
+<li><a href="#orgb5c8879">4.4.2.2.3. Refile targets</a></li>
+<li><a href="#org1554d05">4.4.2.2.4. Habits</a></li>
+<li><a href="#org809145e">4.4.2.2.5. Custom Agendas</a>
+<ul>
+<li><a href="#orgbc9874b">4.4.2.2.5.1. All Agenda Function</a></li>
+<li><a href="#org7061765">4.4.2.2.5.2. Context Agenda Function</a></li>
+<li><a href="#orgc193e96">4.4.2.2.5.3. Agenda Support Functions</a></li>
+</ul>
+</li>
+<li><a href="#org6d1f19f">4.4.2.2.6. Agenda Searches</a></li>
+</ul>
+</li>
+<li><a href="#org2306aa2">4.4.2.3. Notes</a>
+<ul>
+<li><a href="#org6fe449d">4.4.2.3.1. org-roam</a></li>
+<li><a href="#org15fec92">4.4.2.3.2. org-journal</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org31e1ca3">4.5. Tools configuration</a>
+<ul>
+<li><a href="#orge429177">4.5.1. Language Server Protocol (LSP)</a></li>
+<li><a href="#orgbc42409">4.5.2. Magit</a></li>
 </ul>
 </li>
 </ul>
@@ -2167,8 +520,8 @@
 </div>
 </div>
 
-<div id="outline-container-orgbc92107" class="outline-2">
-<h2 id="orgbc92107"><span class="section-number-2">1</span> Intro</h2>
+<div id="outline-container-org860da7d" class="outline-2">
+<h2 id="org860da7d"><span class="section-number-2">1</span> Intro</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This is my foray into the world of literate Emacs configuration. I think I may have finally lost it. But let&rsquo;s give it a
@@ -2194,12 +547,12 @@ The source for this file is located in my <a href="https://github.com/jsravn/dot
 </div>
 </div>
 
-<div id="outline-container-org1c1bce7" class="outline-2">
-<h2 id="org1c1bce7"><span class="section-number-2">2</span> General configuration</h2>
+<div id="outline-container-org44eb734" class="outline-2">
+<h2 id="org44eb734"><span class="section-number-2">2</span> General configuration</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgf766cca" class="outline-3">
-<h3 id="orgf766cca"><span class="section-number-3">2.1</span> File variables</h3>
+<div id="outline-container-org59b36ca" class="outline-3">
+<h3 id="org59b36ca"><span class="section-number-3">2.1</span> File variables</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 This configures the file variables for <kbd>config.el</kbd>. Apparently <a href="https://nullprogram.com/blog/2016/12/22/">enabling lexical binding</a> makes it faster to process.
@@ -2212,8 +565,8 @@ This configures the file variables for <kbd>config.el</kbd>. Apparently <a href=
 </div>
 </div>
 
-<div id="outline-container-org78e62c5" class="outline-3">
-<h3 id="org78e62c5"><span class="section-number-3">2.2</span> Personal information</h3>
+<div id="outline-container-org881a61f" class="outline-3">
+<h3 id="org881a61f"><span class="section-number-3">2.2</span> Personal information</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 This contains various bits about myself that Emacs likes to use in various modules.
@@ -2230,16 +583,16 @@ This contains various bits about myself that Emacs likes to use in various modul
 </div>
 </div>
 
-<div id="outline-container-org642564a" class="outline-3">
-<h3 id="org642564a"><span class="section-number-3">2.3</span> Visual Settings</h3>
+<div id="outline-container-org1c952b5" class="outline-3">
+<h3 id="org1c952b5"><span class="section-number-3">2.3</span> Visual Settings</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 This tweaks the visuals to my liking.
 </p>
 </div>
 
-<div id="outline-container-orga9bb351" class="outline-4">
-<h4 id="orga9bb351"><span class="section-number-4">2.3.1</span> Theme</h4>
+<div id="outline-container-org23a27f9" class="outline-4">
+<h4 id="org23a27f9"><span class="section-number-4">2.3.1</span> Theme</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <p>
 Use the default doom-one theme, and the very nice <a href="https://www.fsd.it/shop/fonts/pragmatapro/">PragmataPro</a> font.
@@ -2265,8 +618,8 @@ Disable variable-pitch font for <kbd>treemacs</kbd> to keep the font face the sa
 </div>
 </div>
 
-<div id="outline-container-org98fe4c7" class="outline-4">
-<h4 id="org98fe4c7"><span class="section-number-4">2.3.2</span> Maximize</h4>
+<div id="outline-container-org49b169d" class="outline-4">
+<h4 id="org49b169d"><span class="section-number-4">2.3.2</span> Maximize</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <p>
 Maximize the frame when doom starts. I prefer it always opening up this way. Note this has no real effect if using a
@@ -2281,16 +634,16 @@ tiling WM.
 </div>
 </div>
 
-<div id="outline-container-org043dfc0" class="outline-3">
-<h3 id="org043dfc0"><span class="section-number-3">2.4</span> Editor behavior</h3>
+<div id="outline-container-org3e7dbd9" class="outline-3">
+<h3 id="org3e7dbd9"><span class="section-number-3">2.4</span> Editor behavior</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 This tweaks the general editor behavior to my liking.
 </p>
 </div>
 
-<div id="outline-container-org09fb9e4" class="outline-4">
-<h4 id="org09fb9e4"><span class="section-number-4">2.4.1</span> Deletion</h4>
+<div id="outline-container-org4a254b2" class="outline-4">
+<h4 id="org4a254b2"><span class="section-number-4">2.4.1</span> Deletion</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <p>
 Delete files to the local Trash folder, e.g. <kbd>~/.local/share/Trash</kbd> on Linux.
@@ -2303,8 +656,8 @@ Delete files to the local Trash folder, e.g. <kbd>~/.local/share/Trash</kbd> on 
 </div>
 </div>
 
-<div id="outline-container-org08b1d4f" class="outline-4">
-<h4 id="org08b1d4f"><span class="section-number-4">2.4.2</span> Auto-save</h4>
+<div id="outline-container-orgbe1a1b9" class="outline-4">
+<h4 id="orgbe1a1b9"><span class="section-number-4">2.4.2</span> Auto-save</h4>
 <div class="outline-text-4" id="text-2-4-2">
 <p>
 I want Emacs to save files I&rsquo;m working on in case my system crashes. These get stored in
@@ -2332,8 +685,8 @@ when inserting links via popups, I only save when swapping between file buffers.
 </div>
 </div>
 
-<div id="outline-container-orge6da8c0" class="outline-4">
-<h4 id="orge6da8c0"><span class="section-number-4">2.4.3</span> Line wrapping</h4>
+<div id="outline-container-org93dd55d" class="outline-4">
+<h4 id="org93dd55d"><span class="section-number-4">2.4.3</span> Line wrapping</h4>
 <div class="outline-text-4" id="text-2-4-3">
 <p>
 Fill column primarily affects how Emacs breaks lines in <code>auto-fill-mode</code>. The default is 80. I set it to 120 which is a
@@ -2358,8 +711,8 @@ text files I work on. Instead I use <code>+word-wrap-mode</code> which is equiva
 </div>
 </div>
 
-<div id="outline-container-org3b1405b" class="outline-4">
-<h4 id="org3b1405b"><span class="section-number-4">2.4.4</span> Window splitting</h4>
+<div id="outline-container-org1ec2f01" class="outline-4">
+<h4 id="org1ec2f01"><span class="section-number-4">2.4.4</span> Window splitting</h4>
 <div class="outline-text-4" id="text-2-4-4">
 <p>
 These changes makes window splitting a bit nicer.
@@ -2387,8 +740,8 @@ I increase it to make Emacs more conservative.
 </div>
 </div>
 
-<div id="outline-container-orgcc08d43" class="outline-4">
-<h4 id="orgcc08d43"><span class="section-number-4">2.4.5</span> Clipboard</h4>
+<div id="outline-container-org892e92f" class="outline-4">
+<h4 id="org892e92f"><span class="section-number-4">2.4.5</span> Clipboard</h4>
 <div class="outline-text-4" id="text-2-4-5">
 <p>
 I want to integrate Emacs with the system clipboard. All copy/paste goes into and takes from the system clipboard. This allows
@@ -2404,16 +757,16 @@ easy copying in other applications and pasting into Emacs via <kbd>p</kbd>.
 </div>
 </div>
 
-<div id="outline-container-org0a9f83b" class="outline-2">
-<h2 id="org0a9f83b"><span class="section-number-2">3</span> Packages</h2>
+<div id="outline-container-orgdf0dc43" class="outline-2">
+<h2 id="orgdf0dc43"><span class="section-number-2">3</span> Packages</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 This section defines the custom packages for <kbd>packages.el</kbd>.
 </p>
 </div>
 
-<div id="outline-container-org5331dc8" class="outline-3">
-<h3 id="org5331dc8"><span class="section-number-3">3.1</span> Package loading</h3>
+<div id="outline-container-org1aa5791" class="outline-3">
+<h3 id="org1aa5791"><span class="section-number-3">3.1</span> Package loading</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Use the <code>package!</code> macro for each package. Afterwards run <code>doom refresh</code> on the command line. Everything in this section
@@ -2430,8 +783,8 @@ goes into <kbd>packges.el</kbd>.
 </div>
 </div>
 
-<div id="outline-container-orga32d0ff" class="outline-4">
-<h4 id="orga32d0ff"><span class="section-number-4">3.1.1</span> atomic-chrome</h4>
+<div id="outline-container-org7cb3308" class="outline-4">
+<h4 id="org7cb3308"><span class="section-number-4">3.1.1</span> atomic-chrome</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <p>
 <kbd>atomic-chrome</kbd> provides integration with <a href="https://atom.io/packages/atomic-chrome">atomic chrome</a> extension. This lets me use Emacs to edit browser text
@@ -2445,8 +798,8 @@ boxes! It&rsquo;s very handy for large Github comments.
 </div>
 </div>
 
-<div id="outline-container-org3f0ca19" class="outline-4">
-<h4 id="org3f0ca19"><span class="section-number-4">3.1.2</span> org-roam</h4>
+<div id="outline-container-orgbf3a5a4" class="outline-4">
+<h4 id="orgbf3a5a4"><span class="section-number-4">3.1.2</span> org-roam</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 <kbd>org-roam</kbd> is included by default in doom. I like to use the latest version - so I pin it to a more recent one.
@@ -2460,19 +813,19 @@ boxes! It&rsquo;s very handy for large Github comments.
 </div>
 </div>
 
-<div id="outline-container-orgff87567" class="outline-3">
-<h3 id="orgff87567"><span class="section-number-3">3.2</span> Package configuration</h3>
+<div id="outline-container-org09976c8" class="outline-3">
+<h3 id="org09976c8"><span class="section-number-3">3.2</span> Package configuration</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 For configuring packages that are loaded in <kbd>packages.el</kbd>.
 </p>
 </div>
 
-<div id="outline-container-org28e0e6e" class="outline-4">
-<h4 id="org28e0e6e"><span class="section-number-4">3.2.1</span> atomic-chrome</h4>
+<div id="outline-container-orgda3b3fc" class="outline-4">
+<h4 id="orgda3b3fc"><span class="section-number-4">3.2.1</span> atomic-chrome</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
-Enable <a href="#orga32d0ff">atomic-chrome</a> integration.
+Enable <a href="#org7cb3308">atomic-chrome</a> integration.
 </p>
 
 <div class="org-src-container">
@@ -2489,20 +842,20 @@ Enable <a href="#orga32d0ff">atomic-chrome</a> integration.
 </div>
 </div>
 
-<div id="outline-container-org9e0eded" class="outline-2">
-<h2 id="org9e0eded"><span class="section-number-2">4</span> Modules</h2>
+<div id="outline-container-org3487038" class="outline-2">
+<h2 id="org3487038"><span class="section-number-2">4</span> Modules</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 This section configures the modules provided by doom and enabled in my local <kbd>init.el</kbd>.
 </p>
 </div>
 
-<div id="outline-container-org2227aab" class="outline-3">
-<h3 id="org2227aab"><span class="section-number-3">4.1</span> Core configuration</h3>
+<div id="outline-container-org2a0fcec" class="outline-3">
+<h3 id="org2a0fcec"><span class="section-number-3">4.1</span> Core configuration</h3>
 <div class="outline-text-3" id="text-4-1">
 </div>
-<div id="outline-container-org493fdab" class="outline-4">
-<h4 id="org493fdab"><span class="section-number-4">4.1.1</span> Projects</h4>
+<div id="outline-container-orga31ca9e" class="outline-4">
+<h4 id="orga31ca9e"><span class="section-number-4">4.1.1</span> Projects</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <p>
 Set the search directories for projectile to auto-discovery projects.
@@ -2530,12 +883,12 @@ Clear the projectile cache when swapping branches in <kbd>magit</kbd> which will
 </div>
 </div>
 
-<div id="outline-container-orgc5af75f" class="outline-3">
-<h3 id="orgc5af75f"><span class="section-number-3">4.2</span> UI configuration</h3>
+<div id="outline-container-org268f2c2" class="outline-3">
+<h3 id="org268f2c2"><span class="section-number-3">4.2</span> UI configuration</h3>
 <div class="outline-text-3" id="text-4-2">
 </div>
-<div id="outline-container-org6b7e69a" class="outline-4">
-<h4 id="org6b7e69a"><span class="section-number-4">4.2.1</span> Workspaces</h4>
+<div id="outline-container-orgc4035bd" class="outline-4">
+<h4 id="orgc4035bd"><span class="section-number-4">4.2.1</span> Workspaces</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <p>
 By default doom loads a project into the main workspace if it&rsquo;s empty. I don&rsquo;t like this behavior - I prefer to reserve
@@ -2549,8 +902,8 @@ the main workspace for ad hoc editing of files. So always open up a new workspac
 </div>
 </div>
 
-<div id="outline-container-orgaba0933" class="outline-4">
-<h4 id="orgaba0933"><span class="section-number-4">4.2.2</span> Zen</h4>
+<div id="outline-container-org8300a26" class="outline-4">
+<h4 id="org8300a26"><span class="section-number-4">4.2.2</span> Zen</h4>
 <div class="outline-text-4" id="text-4-2-2">
 <p>
 Get rid of the change in font. I use zen mode for code, so I want to keep my normal font. Also enable the mode-line, and
@@ -2568,8 +921,8 @@ set a width more appropriate for a modern screen size.
 </div>
 </div>
 
-<div id="outline-container-org3b149a3" class="outline-4">
-<h4 id="org3b149a3"><span class="section-number-4">4.2.3</span> Treemacs</h4>
+<div id="outline-container-org60e6846" class="outline-4">
+<h4 id="org60e6846"><span class="section-number-4">4.2.3</span> Treemacs</h4>
 <div class="outline-text-4" id="text-4-2-3">
 <p>
 Enable follow-mode so the treemacs cursor follows the buffer file. Also increase the default width to show more stuff.
@@ -2577,20 +930,20 @@ Enable follow-mode so the treemacs cursor follows the buffer file. Also increase
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">after!</span> treemacs
-  <span style="color: #c678dd;">(</span><span style="color: #dcaeea;">treemacs-follow-mode</span> <span style="color: #da8548; font-weight: bold;">1</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">treemacs-width</span> <span style="color: #da8548; font-weight: bold;">40</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+  <span style="color: #c678dd;">(</span>treemacs-follow-mode <span style="color: #da8548; font-weight: bold;">1</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> treemacs-width <span style="color: #da8548; font-weight: bold;">40</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbc2fe30" class="outline-3">
-<h3 id="orgbc2fe30"><span class="section-number-3">4.3</span> Checkers configuration</h3>
+<div id="outline-container-org46901cf" class="outline-3">
+<h3 id="org46901cf"><span class="section-number-3">4.3</span> Checkers configuration</h3>
 <div class="outline-text-3" id="text-4-3">
 </div>
-<div id="outline-container-org78eab81" class="outline-4">
-<h4 id="org78eab81"><span class="section-number-4">4.3.1</span> Flyspell</h4>
+<div id="outline-container-orga7fe769" class="outline-4">
+<h4 id="orga7fe769"><span class="section-number-4">4.3.1</span> Flyspell</h4>
 <div class="outline-text-4" id="text-4-3-1">
 <p>
 Flyspell can create a lot of lag in large buffers. Make it as lazy as possible.
@@ -2604,12 +957,12 @@ Flyspell can create a lot of lag in large buffers. Make it as lazy as possible.
 </div>
 </div>
 
-<div id="outline-container-org08efaf1" class="outline-3">
-<h3 id="org08efaf1"><span class="section-number-3">4.4</span> Language configuration</h3>
+<div id="outline-container-orgc20dd26" class="outline-3">
+<h3 id="orgc20dd26"><span class="section-number-3">4.4</span> Language configuration</h3>
 <div class="outline-text-3" id="text-4-4">
 </div>
-<div id="outline-container-org3faefa0" class="outline-4">
-<h4 id="org3faefa0"><span class="section-number-4">4.4.1</span> Golang</h4>
+<div id="outline-container-org21c4633" class="outline-4">
+<h4 id="org21c4633"><span class="section-number-4">4.4.1</span> Golang</h4>
 <div class="outline-text-4" id="text-4-4-1">
 <p>
 Tweak the hover documentation of <kbd>gopls</kbd> so it shows more information when using <code>+lookup/documentation</code>. For some
@@ -2623,8 +976,8 @@ reason though this seems slightly broken - as the documentation popup contains r
 </div>
 </div>
 
-<div id="outline-container-orgabace40" class="outline-4">
-<h4 id="orgabace40"><span class="section-number-4">4.4.2</span> Org Mode</h4>
+<div id="outline-container-orgfe4dcf3" class="outline-4">
+<h4 id="orgfe4dcf3"><span class="section-number-4">4.4.2</span> Org Mode</h4>
 <div class="outline-text-4" id="text-4-4-2">
 <p>
 This section tweaks <kbd>org-mode</kbd> to my own specific needs and workflow. There is a lot of custom stuff here, so
@@ -2641,16 +994,16 @@ The most important thing is to tell org-mode where your org files are.
 </div>
 </div>
 
-<div id="outline-container-org2d4aa32" class="outline-5">
-<h5 id="org2d4aa32"><span class="section-number-5">4.4.2.1</span> General settings</h5>
+<div id="outline-container-org238496e" class="outline-5">
+<h5 id="org238496e"><span class="section-number-5">4.4.2.1</span> General settings</h5>
 <div class="outline-text-5" id="text-4-4-2-1">
 <p>
 General settings for org-mode interaction.
 </p>
 </div>
 
-<div id="outline-container-orge0b9f7c" class="outline-6">
-<h6 id="orge0b9f7c"><span class="section-number-6">4.4.2.1.1</span> Editor</h6>
+<div id="outline-container-org5c1618a" class="outline-6">
+<h6 id="org5c1618a"><span class="section-number-6">4.4.2.1.1</span> Editor</h6>
 <div class="outline-text-6" id="text-4-4-2-1-1">
 <p>
 Allow <code>imenu</code> to nest fully in org-mode to quickly jump to any heading.
@@ -2663,8 +1016,8 @@ Allow <code>imenu</code> to nest fully in org-mode to quickly jump to any headin
 </div>
 </div>
 
-<div id="outline-container-org6e400cd" class="outline-6">
-<h6 id="org6e400cd"><span class="section-number-6">4.4.2.1.2</span> Visuals</h6>
+<div id="outline-container-org02ffb76" class="outline-6">
+<h6 id="org02ffb76"><span class="section-number-6">4.4.2.1.2</span> Visuals</h6>
 <div class="outline-text-6" id="text-4-4-2-1-2">
 <p>
 Use mixed pitch so headings appear larger. I&rsquo;ve disabled this until I can shrink the variable pitch font.
@@ -2707,8 +1060,8 @@ Make org-mode symbols look nicer than the defaults. Shamelessly stolen from
 </div>
 </div>
 
-<div id="outline-container-orga92d0d4" class="outline-6">
-<h6 id="orga92d0d4"><span class="section-number-6">4.4.2.1.3</span> Archiving</h6>
+<div id="outline-container-orgdc9e05e" class="outline-6">
+<h6 id="orgdc9e05e"><span class="section-number-6">4.4.2.1.3</span> Archiving</h6>
 <div class="outline-text-6" id="text-4-4-2-1-3">
 <p>
 I prefer to archive tasks into a sub-folder. Also, I want to keep any inherited tags so information is not lost, as I
@@ -2723,8 +1076,8 @@ frequently archive sub-trees.
 </div>
 </div>
 
-<div id="outline-container-org9b24032" class="outline-6">
-<h6 id="org9b24032"><span class="section-number-6">4.4.2.1.4</span> Download</h6>
+<div id="outline-container-org3822429" class="outline-6">
+<h6 id="org3822429"><span class="section-number-6">4.4.2.1.4</span> Download</h6>
 <div class="outline-text-6" id="text-4-4-2-1-4">
 <p>
 <kbd>org-download</kbd> makes it easy to download images directly into org files.
@@ -2743,8 +1096,8 @@ I configure it to use my preferred capture method depending on OS.
 </div>
 </div>
 </div>
-<div id="outline-container-org2f01d0b" class="outline-6">
-<h6 id="org2f01d0b"><span class="section-number-6">4.4.2.1.5</span> Exporting (General)</h6>
+<div id="outline-container-orga9b144f" class="outline-6">
+<h6 id="orga9b144f"><span class="section-number-6">4.4.2.1.5</span> Exporting (General)</h6>
 <div class="outline-text-6" id="text-4-4-2-1-5">
 <p>
 Export more than the default 2 levels. I want all the levels!
@@ -2757,8 +1110,8 @@ Export more than the default 2 levels. I want all the levels!
 </div>
 </div>
 
-<div id="outline-container-org65cfecd" class="outline-6">
-<h6 id="org65cfecd"><span class="section-number-6">4.4.2.1.6</span> Exporting to HTML</h6>
+<div id="outline-container-orgd87397a" class="outline-6">
+<h6 id="orgd87397a"><span class="section-number-6">4.4.2.1.6</span> Exporting to HTML</h6>
 <div class="outline-text-6" id="text-4-4-2-1-6">
 <p>
 Let&rsquo;s make HTML look nicer. This is all taken from <a href="https://tecosaur.github.io/emacs-config/config.html#OrgModeVisuals">tecosaur&rsquo;s org-mode config</a>, which is based on <a href="https://github.com/fniessen/org-html-themes">fniessen/org-html-themes</a>.
@@ -3023,8 +1376,8 @@ And use nicer check boxes.
 </div>
 </div>
 
-<div id="outline-container-org25916ac" class="outline-6">
-<h6 id="org25916ac"><span class="section-number-6">4.4.2.1.7</span> Exporting to Beamer</h6>
+<div id="outline-container-orgfdae9c7" class="outline-6">
+<h6 id="orgfdae9c7"><span class="section-number-6">4.4.2.1.7</span> Exporting to Beamer</h6>
 <div class="outline-text-6" id="text-4-4-2-1-7">
 <p>
 Use a different theme.
@@ -3046,8 +1399,8 @@ And divide presentation into subheadings.
 </div>
 </div>
 
-<div id="outline-container-orga7e9719" class="outline-6">
-<h6 id="orga7e9719"><span class="section-number-6">4.4.2.1.8</span> Exporting to GFM</h6>
+<div id="outline-container-org61bce74" class="outline-6">
+<h6 id="org61bce74"><span class="section-number-6">4.4.2.1.8</span> Exporting to GFM</h6>
 <div class="outline-text-6" id="text-4-4-2-1-8">
 <p>
 GFM exports to markdown. Let&rsquo;s enable it.
@@ -3062,8 +1415,8 @@ GFM exports to markdown. Let&rsquo;s enable it.
 </div>
 </div>
 
-<div id="outline-container-org5ac3c71" class="outline-5">
-<h5 id="org5ac3c71"><span class="section-number-5">4.4.2.2</span> Task management</h5>
+<div id="outline-container-orgbda9fe6" class="outline-5">
+<h5 id="orgbda9fe6"><span class="section-number-5">4.4.2.2</span> Task management</h5>
 <div class="outline-text-5" id="text-4-4-2-2">
 <p>
 I follow my own take on GTD for task management. The task management is independent of notes, and the task files are kept
@@ -3087,8 +1440,8 @@ My high level process is:
 </ol>
 </div>
 
-<div id="outline-container-org26241ef" class="outline-6">
-<h6 id="org26241ef"><span class="section-number-6">4.4.2.2.1</span> Task settings</h6>
+<div id="outline-container-orgc9c148b" class="outline-6">
+<h6 id="orgc9c148b"><span class="section-number-6">4.4.2.2.1</span> Task settings</h6>
 <div class="outline-text-6" id="text-4-4-2-2-1">
 <p>
 Define the <kbd>TODO</kbd> states and also mark complete items with the current time.
@@ -3104,8 +1457,8 @@ Define the <kbd>TODO</kbd> states and also mark complete items with the current 
 </div>
 </div>
 
-<div id="outline-container-org679d13f" class="outline-6">
-<h6 id="org679d13f"><span class="section-number-6">4.4.2.2.2</span> Contexts</h6>
+<div id="outline-container-org3a8b83f" class="outline-6">
+<h6 id="org3a8b83f"><span class="section-number-6">4.4.2.2.2</span> Contexts</h6>
 <div class="outline-text-6" id="text-4-4-2-2-2">
 <p>
 I use tags to primarily set contexts, following the GTD process. I have <kbd>@work</kbd>, <kbd>@home</kbd>, and <kbd>@omscs</kbd>. I configure
@@ -3122,8 +1475,8 @@ tag selection, <kbd>C-c C-c</kbd>, to quickly pick one of these contexts.
 </div>
 </div>
 
-<div id="outline-container-org4a570f4" class="outline-6">
-<h6 id="org4a570f4"><span class="section-number-6">4.4.2.2.3</span> Refile targets</h6>
+<div id="outline-container-orgb5c8879" class="outline-6">
+<h6 id="orgb5c8879"><span class="section-number-6">4.4.2.2.3</span> Refile targets</h6>
 <div class="outline-text-6" id="text-4-4-2-2-3">
 <p>
 Define targets for potential refile. This is part of my GTD system and allows quickly moving tasks between the core task
@@ -3142,8 +1495,8 @@ files.
 </div>
 </div>
 
-<div id="outline-container-org01c72f2" class="outline-6">
-<h6 id="org01c72f2"><span class="section-number-6">4.4.2.2.4</span> Habits</h6>
+<div id="outline-container-org1554d05" class="outline-6">
+<h6 id="org1554d05"><span class="section-number-6">4.4.2.2.4</span> Habits</h6>
 <div class="outline-text-6" id="text-4-4-2-2-4">
 <p>
 Enable org-habit to allow special scheduled items for helping me create habits. To use, create a recurring <kbd>SCHEDULED</kbd> item with
@@ -3158,8 +1511,8 @@ the <kbd>STYLE</kbd> property (<kbd>C-x C-p</kbd>) set to <kbd>habit</kbd>.  See
 </div>
 </div>
 
-<div id="outline-container-orgb380353" class="outline-6">
-<h6 id="orgb380353"><span class="section-number-6">4.4.2.2.5</span> Custom Agendas</h6>
+<div id="outline-container-org809145e" class="outline-6">
+<h6 id="org809145e"><span class="section-number-6">4.4.2.2.5</span> Custom Agendas</h6>
 <div class="outline-text-6" id="text-4-4-2-2-5">
 <p>
 The agendas are my central view on tasks. There are separate subsections for each agenda view, defined as a function.
@@ -3185,8 +1538,8 @@ Also, give me two weeks warning of impending deadlines.
 </div>
 </div>
 
-<div id="outline-container-orge0f0c95" class="outline-7">
-<h7 id="orge0f0c95"><span class="section-number-7">4.4.2.2.5.1</span> All Agenda Function</h7>
+<div id="outline-container-orgbc9874b" class="outline-7">
+<h7 id="orgbc9874b"><span class="section-number-7">4.4.2.2.5.1</span> All Agenda Function</h7>
 <div class="outline-text-7" id="text-4-4-2-2-5-1">
 <p>
 This is my all agenda function. It shows everything going on in my task system.
@@ -3215,11 +1568,11 @@ This is my all agenda function. It shows everything going on in my task system.
 </div>
 </div>
 
-<div id="outline-container-org708f6dd" class="outline-7">
-<h7 id="org708f6dd"><span class="section-number-7">4.4.2.2.5.2</span> Context Agenda Function</h7>
+<div id="outline-container-org7061765" class="outline-7">
+<h7 id="org7061765"><span class="section-number-7">4.4.2.2.5.2</span> Context Agenda Function</h7>
 <div class="outline-text-7" id="text-4-4-2-2-5-2">
 <p>
-This is my per-context agenda function. It is a slimmed down version of the <a href="#orge0f0c95">All Agenda Function</a> that scopes to a
+This is my per-context agenda function. It is a slimmed down version of the <a href="#orgbc9874b">All Agenda Function</a> that scopes to a
 context, like <kbd>@home</kbd>.
 </p>
 
@@ -3243,8 +1596,8 @@ context, like <kbd>@home</kbd>.
 </div>
 </div>
 
-<div id="outline-container-orgd693950" class="outline-7">
-<h7 id="orgd693950"><span class="section-number-7">4.4.2.2.5.3</span> Agenda Support Functions</h7>
+<div id="outline-container-orgc193e96" class="outline-7">
+<h7 id="orgc193e96"><span class="section-number-7">4.4.2.2.5.3</span> Agenda Support Functions</h7>
 <div class="outline-text-7" id="text-4-4-2-2-5-3">
 <p>
 I have a few support functions for the agendas.
@@ -3290,8 +1643,8 @@ This a custom filter that skips any <kbd>SCHEDULED</kbd> items which have alread
 </div>
 </div>
 
-<div id="outline-container-orgfbf01fd" class="outline-6">
-<h6 id="orgfbf01fd"><span class="section-number-6">4.4.2.2.6</span> Agenda Searches</h6>
+<div id="outline-container-org6d1f19f" class="outline-6">
+<h6 id="org6d1f19f"><span class="section-number-6">4.4.2.2.6</span> Agenda Searches</h6>
 <div class="outline-text-6" id="text-4-4-2-2-6">
 <p>
 Agenda search is usually accessed via <kbd>SPC o A s</kbd> and allows quick searching of all task files.
@@ -3319,16 +1672,16 @@ as a single phrase. A single phrase can be forced by enclosing in quotations.
 </div>
 </div>
 
-<div id="outline-container-orgaef6225" class="outline-5">
-<h5 id="orgaef6225"><span class="section-number-5">4.4.2.3</span> Notes</h5>
+<div id="outline-container-org2306aa2" class="outline-5">
+<h5 id="org2306aa2"><span class="section-number-5">4.4.2.3</span> Notes</h5>
 <div class="outline-text-5" id="text-4-4-2-3">
 <p>
 I use org-roam, deft, and org-journal to manage my notes.
 </p>
 </div>
 
-<div id="outline-container-orgbd2ecc4" class="outline-6">
-<h6 id="orgbd2ecc4"><span class="section-number-6">4.4.2.3.1</span> org-roam</h6>
+<div id="outline-container-org6fe449d" class="outline-6">
+<h6 id="org6fe449d"><span class="section-number-6">4.4.2.3.1</span> org-roam</h6>
 <div class="outline-text-6" id="text-4-4-2-3-1">
 <p>
 I use <a href="https://org-roam.readthedocs.io/en/master/">org-roam</a> to organize my notes. <kbd>org-roam</kbd> is scoped to a single folder which contains all the org files that roam
@@ -3377,8 +1730,8 @@ And I want the org-roam buffer to open automatically when I visit a roam file.
 </div>
 </div>
 
-<div id="outline-container-org23eacdf" class="outline-6">
-<h6 id="org23eacdf"><span class="section-number-6">4.4.2.3.2</span> org-journal</h6>
+<div id="outline-container-org15fec92" class="outline-6">
+<h6 id="org15fec92"><span class="section-number-6">4.4.2.3.2</span> org-journal</h6>
 <div class="outline-text-6" id="text-4-4-2-3-2">
 <p>
 Set up org-journal to integrate with org-roam.
@@ -3398,13 +1751,35 @@ Set up org-journal to integrate with org-roam.
 </div>
 </div>
 
-<div id="outline-container-org57b6029" class="outline-3">
-<h3 id="org57b6029"><span class="section-number-3">4.5</span> Tools configuration</h3>
+<div id="outline-container-org31e1ca3" class="outline-3">
+<h3 id="org31e1ca3"><span class="section-number-3">4.5</span> Tools configuration</h3>
 <div class="outline-text-3" id="text-4-5">
 </div>
-<div id="outline-container-org099a62b" class="outline-4">
-<h4 id="org099a62b"><span class="section-number-4">4.5.1</span> Language Server Protocol (LSP)</h4>
+<div id="outline-container-orge429177" class="outline-4">
+<h4 id="orge429177"><span class="section-number-4">4.5.1</span> Language Server Protocol (LSP)</h4>
 <div class="outline-text-4" id="text-4-5-1">
+<p>
+I add some often used LSP bindings. I also override the default format binding to use LSP. And finally, I bind the
+entire <code>lsp-command-map</code> provided by LSP to <kbd>SPC c l</kbd>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">jsravn--format-accordingly</span> <span style="color: #c678dd;">()</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">interactive</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">call-interactively</span>
+   <span style="color: #98be65;">(</span><span style="color: #51afef;">if</span> <span style="color: #51afef;">(</span><span style="color: #51afef;">bound-and-true-p</span> <span style="color: #dcaeea;">lsp-mode</span><span style="color: #51afef;">)</span>
+       <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">+default/lsp-format-region-or-buffer</span>
+     <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">+format/region-or-buffer</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span><span style="color: #51afef;">map!</span> <span style="color: #c678dd;">:leader</span>
+      <span style="color: #c678dd;">(</span><span style="color: #c678dd;">:prefix</span> <span style="color: #98be65;">"c"</span>
+        <span style="color: #c678dd;">:desc</span> <span style="color: #98be65;">"Format buffer/region"</span> <span style="color: #98be65;">"f"</span>    <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">jsravn--format-accordingly</span>
+        <span style="color: #c678dd;">:desc</span> <span style="color: #98be65;">"LSP Function parameters"</span> <span style="color: #98be65;">"p"</span> <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">lsp-signature-activate</span>
+        <span style="color: #98be65;">(</span><span style="color: #c678dd;">:after</span> <span style="color: #dcaeea;">lsp-mode</span>
+          <span style="color: #c678dd;">:desc</span> <span style="color: #98be65;">"LSP"</span> <span style="color: #98be65;">"l"</span> <span style="color: #dcaeea;">lsp-command-map</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
 <p>
 Disable the auto root guessing that doom enables by default, but doesn&rsquo;t work very well in my experience. With this
 disabled LSP will prompt for the project root when opening a new LSP recognized file. This adds a little
@@ -3417,8 +1792,8 @@ inconvenience, but saves a lot of trouble.
 </div>
 
 <p>
-Disable symbol highlighting which is just obnoxious, especially in <kbd>gopls</kbd> where it seems to highlight about a dozen
-things on the screen for every symbol.
+Disable symbol highlighting which is just obnoxious, especially in <kbd>gopls</kbd> where it seems to highlight a lot of things.
+This could probably be made more usable with a more subtle highlight color.
 </p>
 
 <div class="org-src-container">
@@ -3436,21 +1811,61 @@ Disable auto-linking which seems <a href="https://github.com/hlissner/doom-emacs
 </div>
 
 <p>
-Bind the default <code>lsp-command-map</code>.
+Don&rsquo;t display a giant signature block whenever typing in a function call. This seems to cause a lot of window glitches.
+Just display the function.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">map!</span> <span style="color: #c678dd;">:leader</span>
-      <span style="color: #c678dd;">(</span><span style="color: #c678dd;">:prefix</span> <span style="color: #98be65;">"c"</span>
-        <span style="color: #98be65;">(</span><span style="color: #c678dd;">:after</span> <span style="color: #dcaeea;">lsp-mode</span>
-          <span style="color: #c678dd;">:desc</span> <span style="color: #98be65;">"LSP"</span> <span style="color: #98be65;">"l"</span> <span style="color: #dcaeea;">lsp-command-map</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">lsp-signature-auto-activate</span> t
+      <span style="color: #dcaeea;">lsp-signature-render-documentation</span> nil<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+This is a workaround to deal with <kbd>eldoc</kbd> not working for most LSP servers.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">after!</span> <span style="color: #dcaeea;">lsp-mode</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">lsp--render-on-hover-content</span> <span style="color: #98be65;">(</span>contents render-all<span style="color: #98be65;">)</span>
+    <span style="color: #83898d;">"Render the content received from 'document/onHover' request.</span>
+<span style="color: #83898d;">CONTENTS  - MarkedString | MarkedString[] | MarkupContent</span>
+<span style="color: #83898d;">RENDER-ALL - nil if only the signature should be rendered."</span>
+    <span style="color: #98be65;">(</span><span style="color: #51afef;">cond</span>
+     <span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span><span style="color: #51afef;">and</span> <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">hash-table-p</span> contents<span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">gethash</span> <span style="color: #98be65;">"kind"</span> contents<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+      <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">MarkupContent.</span>
+      <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">It tends to be long and is not suitable to display fully in the echo area.</span>
+      <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Just display the first line which is typically the signature.</span>
+      <span style="color: #c678dd;">(</span><span style="color: #51afef;">let</span> <span style="color: #98be65;">(</span><span style="color: #51afef;">(</span>rendered <span style="color: #c678dd;">(</span><span style="color: #c678dd;">lsp--render-element</span> contents<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span>
+        <span style="color: #98be65;">(</span><span style="color: #51afef;">if</span> render-all rendered <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">car</span> <span style="color: #c678dd;">(</span><span style="color: #c678dd;">split-string</span> rendered <span style="color: #98be65;">"\n"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+     <span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span><span style="color: #51afef;">and</span> <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">stringp</span> contents<span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">not</span> <span style="color: #51afef;">(</span><span style="color: #c678dd;">string-match-p</span> <span style="color: #98be65;">"\n"</span> contents<span style="color: #51afef;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+      <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">If the contents is a single string containing a single line,</span>
+      <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">render it always.</span>
+      <span style="color: #c678dd;">(</span><span style="color: #c678dd;">lsp--render-element</span> contents<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+     <span style="color: #51afef;">(</span>t
+      <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">MarkedString -&gt; MarkedString[]</span>
+      <span style="color: #c678dd;">(</span><span style="color: #51afef;">when</span> <span style="color: #98be65;">(</span><span style="color: #51afef;">or</span> <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">hash-table-p</span> contents<span style="color: #51afef;">)</span> <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">stringp</span> contents<span style="color: #51afef;">)</span><span style="color: #98be65;">)</span>
+        <span style="color: #98be65;">(</span><span style="color: #51afef;">setq</span> contents <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">list</span> contents<span style="color: #51afef;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+      <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Consider the signature consisting of the elements who have a renderable</span>
+      <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">"language" property. When render-all is nil, ignore other elements.</span>
+      <span style="color: #c678dd;">(</span><span style="color: #c678dd;">string-join</span>
+       <span style="color: #98be65;">(</span><span style="color: #c678dd;">seq-map</span>
+        <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">lsp--render-element</span>
+        <span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> render-all
+            contents
+          <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Only render contents that have an available renderer.</span>
+          <span style="color: #c678dd;">(</span><span style="color: #c678dd;">seq-filter</span>
+           <span style="color: #98be65;">(</span><span style="color: #c678dd;">-andfn</span> <span style="color: #51afef;">'</span><span style="color: #ECBE7B;">hash-table-p</span>
+                   <span style="color: #51afef;">(</span><span style="color: #c678dd;">-compose</span> <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">lsp-get-renderer</span> <span style="color: #c678dd;">(</span><span style="color: #c678dd;">-partial</span> <span style="color: #51afef;">'</span><span style="color: #ECBE7B;">gethash</span> <span style="color: #98be65;">"language"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span>
+           contents<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span>
+       <span style="color: #98be65;">"\n"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1a77313" class="outline-4">
-<h4 id="org1a77313"><span class="section-number-4">4.5.2</span> Magit</h4>
+<div id="outline-container-orgbc42409" class="outline-4">
+<h4 id="orgbc42409"><span class="section-number-4">4.5.2</span> Magit</h4>
 <div class="outline-text-4" id="text-4-5-2">
 <p>
 Prefer offering remote branches when prompting for a branch selection.
@@ -3466,7 +1881,7 @@ Limit the number of topics that forge displays. I find the default a bit too lar
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">forge-topic-list-limit</span> <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span><span style="color: #da8548; font-weight: bold;">15</span> . <span style="color: #da8548; font-weight: bold;">5</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> forge-topic-list-limit <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span><span style="color: #da8548; font-weight: bold;">15</span> . <span style="color: #da8548; font-weight: bold;">5</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 </div>
@@ -3476,7 +1891,7 @@ Limit the number of topics that forge displays. I find the default a bit too lar
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: jsravn</p>
-<p class="date">Created: 2020-04-23 Thu 15:22</p>
+<p class="date">Created: 2020-04-23 Thu 18:26</p>
 </div>
 </body>
 </html>

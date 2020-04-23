@@ -820,6 +820,25 @@ Set up org-journal to integrate with org-roam.
 
 ** Tools configuration
 *** Language Server Protocol (LSP)
+I add some often used LSP bindings. I also override the default format binding to use LSP. And finally, I bind the
+entire ~lsp-command-map~ provided by LSP to =SPC c l=.
+
+#+BEGIN_SRC emacs-lisp
+(defun jsravn--format-accordingly ()
+  (interactive)
+  (call-interactively
+   (if (bound-and-true-p lsp-mode)
+       #'+default/lsp-format-region-or-buffer
+     #'+format/region-or-buffer)))
+
+(map! :leader
+      (:prefix "c"
+        :desc "Format buffer/region" "f"    #'jsravn--format-accordingly
+        :desc "LSP Function parameters" "p" #'lsp-signature-activate
+        (:after lsp-mode
+          :desc "LSP" "l" lsp-command-map)))
+#+END_SRC
+
 Disable the auto root guessing that doom enables by default, but doesn't work very well in my experience. With this
 disabled LSP will prompt for the project root when opening a new LSP recognized file. This adds a little
 inconvenience, but saves a lot of trouble.
@@ -828,8 +847,8 @@ inconvenience, but saves a lot of trouble.
 (setq lsp-auto-guess-root nil)
 #+END_SRC
 
-Disable symbol highlighting which is just obnoxious, especially in =gopls= where it seems to highlight about a dozen
-things on the screen for every symbol.
+Disable symbol highlighting which is just obnoxious, especially in =gopls= where it seems to highlight a lot of things.
+This could probably be made more usable with a more subtle highlight color.
 
 #+BEGIN_SRC emacs-lisp
 (setq lsp-enable-symbol-highlighting nil)
@@ -841,13 +860,50 @@ Disable auto-linking which seems [[https://github.com/hlissner/doom-emacs/issues
 (setq lsp-enable-links nil)
 #+END_SRC
 
-Bind the default ~lsp-command-map~.
+Don't display a giant signature block whenever typing in a function call. This seems to cause a lot of window glitches.
+Just display the function.
 
 #+BEGIN_SRC emacs-lisp
-(map! :leader
-      (:prefix "c"
-        (:after lsp-mode
-          :desc "LSP" "l" lsp-command-map)))
+(setq lsp-signature-auto-activate t
+      lsp-signature-render-documentation nil)
+#+END_SRC
+
+This is a workaround to deal with =eldoc= not working for most LSP servers.
+
+#+BEGIN_SRC emacs-lisp
+(after! lsp-mode
+  (defun lsp--render-on-hover-content (contents render-all)
+    "Render the content received from 'document/onHover' request.
+CONTENTS  - MarkedString | MarkedString[] | MarkupContent
+RENDER-ALL - nil if only the signature should be rendered."
+    (cond
+     ((and (hash-table-p contents) (gethash "kind" contents))
+      ;; MarkupContent.
+      ;; It tends to be long and is not suitable to display fully in the echo area.
+      ;; Just display the first line which is typically the signature.
+      (let ((rendered (lsp--render-element contents)))
+        (if render-all rendered (car (split-string rendered "\n")))))
+     ((and (stringp contents) (not (string-match-p "\n" contents)))
+      ;; If the contents is a single string containing a single line,
+      ;; render it always.
+      (lsp--render-element contents))
+     (t
+      ;; MarkedString -> MarkedString[]
+      (when (or (hash-table-p contents) (stringp contents))
+        (setq contents (list contents)))
+      ;; Consider the signature consisting of the elements who have a renderable
+      ;; "language" property. When render-all is nil, ignore other elements.
+      (string-join
+       (seq-map
+        #'lsp--render-element
+        (if render-all
+            contents
+          ;; Only render contents that have an available renderer.
+          (seq-filter
+           (-andfn 'hash-table-p
+                   (-compose #'lsp-get-renderer (-partial 'gethash "language")))
+           contents)))
+       "\n")))))
 #+END_SRC
 
 *** Magit
