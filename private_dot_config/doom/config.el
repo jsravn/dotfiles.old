@@ -14,7 +14,7 @@
 (setq doom-theme 'doom-one              ;
       doom-font (font-spec :family "PragmataPro Liga" :size 16)
       doom-big-font (font-spec :family "Pragmata Pro Liga" :size 20)
-      doom-variable-pitch-font (font-spec :family "DejaVu Sans")
+      doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 14)
       +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
 ;; Theme:1 ends here
 
@@ -119,24 +119,28 @@
 (setq org-imenu-depth 6)
 ;; Editor:1 ends here
 
-;; [[file:~/.config/doom/config.org::*Fonts][Fonts:1]]
-(add-hook! 'org-mode-hook #'+org-pretty-mode #'mixed-pitch-mode)
-(custom-set-faces!
-  '(outline-1 :weight extra-bold :height 1.12)
-  '(outline-2 :weight bold :height 1.10)
-  '(outline-3 :weight bold :height 1.08)
-  '(outline-4 :weight semi-bold :height 1.06)
-  '(outline-5 :weight semi-bold :height 1.04)
-  '(outline-6 :weight semi-bold :height 1.02)
-  '(outline-8 :weight semi-bold)
-  '(outline-9 :weight semi-bold))
-;; Fonts:1 ends here
+;; [[file:~/.config/doom/config.org::*Visuals][Visuals:1]]
+;; (add-hook! 'org-mode-hook #'mixed-pitch-mode)
+;; (custom-set-faces!
+;;   '(outline-1 :weight extra-bold :height 1.12)
+;;   '(outline-2 :weight bold :height 1.10)
+;;   '(outline-3 :weight bold :height 1.08)
+;;   '(outline-4 :weight semi-bold :height 1.06)
+;;   '(outline-5 :weight semi-bold :height 1.04)
+;;   '(outline-6 :weight semi-bold :height 1.02)
+;;   '(outline-8 :weight semi-bold)
+;;   '(outline-9 :weight semi-bold))
+;; Visuals:1 ends here
 
-;; [[file:~/.config/doom/config.org::*Symbols][Symbols:1]]
+;; [[file:~/.config/doom/config.org::*Visuals][Visuals:2]]
+(add-hook! 'org-mode-hook #'+org-pretty-mode)
+;; Visuals:2 ends here
+
+;; [[file:~/.config/doom/config.org::*Visuals][Visuals:3]]
 (setq
  org-ellipsis " ▼ "
  org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷" "☷" "☷" "☷"))
-;; Symbols:1 ends here
+;; Visuals:3 ends here
 
 ;; [[file:~/.config/doom/config.org::*Archiving][Archiving:1]]
 (setq org-archive-location (concat org-directory ".archive/%s::"))

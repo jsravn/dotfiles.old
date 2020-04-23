@@ -8,7 +8,7 @@ shot!
 
 I use [[https://github.com/hlissner/doom-emacs][doom-emacs]] as my core Emacs distribution.
 
-* Core configuration
+* General configuration
 ** File variables
 This configures the file variables for =config.el=. Apparently [[https://nullprogram.com/blog/2016/12/22/][enabling lexical binding]] makes it faster to process.
 
@@ -31,14 +31,13 @@ This contains various bits about myself that Emacs likes to use in various modul
 This tweaks the visuals to my liking.
 
 *** Theme
-
 Use the default doom-one theme, and the very nice [[https://www.fsd.it/shop/fonts/pragmatapro/][PragmataPro]] font.
 
 #+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-one              ;
       doom-font (font-spec :family "PragmataPro Liga" :size 16)
       doom-big-font (font-spec :family "Pragmata Pro Liga" :size 20)
-      doom-variable-pitch-font (font-spec :family "DejaVu Sans")
+      doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 14)
       +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
 #+END_SRC
 
@@ -49,7 +48,6 @@ Disable variable-pitch font for =treemacs= to keep the font face the same. I fin
 #+END_SRC
 
 *** Maximize
-
 Maximize the frame when doom starts. I prefer it always opening up this way. Note this has no real effect if using a
 tiling WM.
 
@@ -58,11 +56,9 @@ tiling WM.
 #+END_SRC
 
 ** Editor behavior
-
 This tweaks the general editor behavior to my liking.
 
 *** Deletion
-
 Delete files to the local Trash folder, e.g. =~/.local/share/Trash= on Linux.
 
 #+BEGIN_SRC emacs-lisp
@@ -70,7 +66,6 @@ Delete files to the local Trash folder, e.g. =~/.local/share/Trash= on Linux.
 #+END_SRC
 
 *** Auto-save
-
 I want Emacs to save files I'm working on in case my system crashes. These get stored in
 =~/.emacs.d/local/cache/autosave= in some weird format. Still, better safe than sorry. Emacs will prompt to recover them
 on opening the file.
@@ -90,7 +85,6 @@ when inserting links via popups, I only save when swapping between file buffers.
 #+END_SRC
 
 *** Line wrapping
-
 Fill column primarily affects how Emacs breaks lines in ~auto-fill-mode~. The default is 80. I set it to 120 which is a
 bit nicer for modern screens.
 
@@ -98,7 +92,7 @@ bit nicer for modern screens.
 (setq-default fill-column 120)
 #+END_SRC
 
-Also disable ~auto-fill-mode~ by default. I prefer to enable it when I want, as it doesn't play nicely with many of the
+Also I disable ~auto-fill-mode~ by default. I prefer to enable it when I want, as it doesn't play nicely with many of the
 text files I work on. Instead I use ~+word-wrap-mode~ which is equivalent to using =SPC t w= by default.
 
 #+BEGIN_SRC emacs-lisp
@@ -107,7 +101,6 @@ text files I work on. Instead I use ~+word-wrap-mode~ which is equivalent to usi
 #+END_SRC
 
 *** Window splitting
-
 Make the window splitting a bit nicer. First, focus the newly created window:
 
 #+BEGIN_SRC emacs-lisp
@@ -149,7 +142,6 @@ goes into =packges.el=.
 #+END_SRC
 
 *** atomic-chrome
-
 =atomic-chrome= provides integration with [[https://atom.io/packages/atomic-chrome][atomic chrome]] extension. This lets me use Emacs to edit browser text
 boxes! It's very handy for large Github comments.
 
@@ -158,7 +150,6 @@ boxes! It's very handy for large Github comments.
 #+END_SRC
 
 *** org-roam
-
 =org-roam= is included by default in doom. I like to use the latest version - so I pin it to a more recent one.
 
 #+BEGIN_SRC emacs-lisp :tangle "packages.el"
@@ -190,9 +181,6 @@ Set the search directories for projectile to auto-discovery projects.
 #+BEGIN_SRC emacs-lisp
 (setq projectile-project-search-path '("~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
 #+END_SRC
-
-#+RESULTS:
-| ~/devel/ | ~/sky/ | ~/Dropbox | ~/gatech |
 
 Clear the projectile cache when swapping branches in =magit= which will likely change the files in the project.
 
@@ -272,23 +260,27 @@ Allow ~imenu~ to nest fully in org-mode to quickly jump to any heading.
 (setq org-imenu-depth 6)
 #+END_SRC
 
-***** Fonts
-Use mixed pitch so headings appear larger.
+***** Visuals
+Use mixed pitch so headings appear larger. I've disabled this until I can shrink the variable pitch font.
 
 #+BEGIN_SRC emacs-lisp
-(add-hook! 'org-mode-hook #'+org-pretty-mode #'mixed-pitch-mode)
-(custom-set-faces!
-  '(outline-1 :weight extra-bold :height 1.12)
-  '(outline-2 :weight bold :height 1.10)
-  '(outline-3 :weight bold :height 1.08)
-  '(outline-4 :weight semi-bold :height 1.06)
-  '(outline-5 :weight semi-bold :height 1.04)
-  '(outline-6 :weight semi-bold :height 1.02)
-  '(outline-8 :weight semi-bold)
-  '(outline-9 :weight semi-bold))
+;; (add-hook! 'org-mode-hook #'mixed-pitch-mode)
+;; (custom-set-faces!
+;;   '(outline-1 :weight extra-bold :height 1.12)
+;;   '(outline-2 :weight bold :height 1.10)
+;;   '(outline-3 :weight bold :height 1.08)
+;;   '(outline-4 :weight semi-bold :height 1.06)
+;;   '(outline-5 :weight semi-bold :height 1.04)
+;;   '(outline-6 :weight semi-bold :height 1.02)
+;;   '(outline-8 :weight semi-bold)
+;;   '(outline-9 :weight semi-bold))
 #+END_SRC
 
-***** Symbols
+Enable =+org-pretty-mode= which hides the emphasis markers and enables pretty entities.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook! 'org-mode-hook #'+org-pretty-mode)
+#+END_SRC
 
 Make org-mode symbols look nicer than the defaults. Shamelessly stolen from
 [[https://github.com/hlissner/doom-emacs-private/blob/master/config.el]].
@@ -300,7 +292,6 @@ Make org-mode symbols look nicer than the defaults. Shamelessly stolen from
 #+END_SRC
 
 ***** Archiving
-
 I prefer to archive tasks into a sub-folder. Also, I want to keep any inherited tags so information is not lost, as I
 frequently archive sub-trees.
 
@@ -308,6 +299,7 @@ frequently archive sub-trees.
 (setq org-archive-location (concat org-directory ".archive/%s::"))
 (after! org (setq org-archive-subtree-add-inherited-tags t))
 #+END_SRC
+
 ***** Download
 =org-download= makes it easy to download images directly into org files.
 
@@ -615,7 +607,6 @@ My high level process is:
 4. Whenever I need to see what task to pick up, I open up the context specific agenda. E.g. =SPC o A h= for =@home=.
 
 ***** Task settings
-
 Define the =TODO= states and also mark complete items with the current time.
 
 #+BEGIN_SRC emacs-lisp
@@ -626,7 +617,6 @@ Define the =TODO= states and also mark complete items with the current time.
 #+END_SRC
 
 ***** Contexts
-
 I use tags to primarily set contexts, following the GTD process. I have =@work=, =@home=, and =@omscs=. I configure
 tag selection, =C-c C-c=, to quickly pick one of these contexts.
 
@@ -638,7 +628,6 @@ tag selection, =C-c C-c=, to quickly pick one of these contexts.
 #+END_SRC
 
 ***** Refile targets
-
 Define targets for potential refile. This is part of my GTD system and allows quickly moving tasks between the core task
 files.
 
@@ -652,7 +641,6 @@ files.
 #+END_SRC
 
 ***** Habits
-
 Enable org-habit to allow special scheduled items for helping me create habits. To use, create a recurring =SCHEDULED= item with
 the =STYLE= property (=C-x C-p=) set to =habit=.  See [[https://orgmode.org/manual/Tracking-your-habits.html][Tracking your habits]] for more details.
 
@@ -680,8 +668,7 @@ Also, give me two weeks warning of impending deadlines.
 #+END_SRC
 
 ****** All Agenda Function
-
-This is my all agenda function. It shows everything going on in my TODO system.
+This is my all agenda function. It shows everything going on in my task system.
 
 #+BEGIN_SRC emacs-lisp
 (defun jsravn--all-agenda ()
@@ -704,7 +691,6 @@ This is my all agenda function. It shows everything going on in my TODO system.
 #+END_SRC
 
 ****** Context Agenda Function
-
 This is my per-context agenda function. It is a slimmed down version of the [[*All Agenda Function][All Agenda Function]] that scopes to a
 context, like =@home=.
 
@@ -726,7 +712,6 @@ context, like =@home=.
 #+END_SRC
 
 ****** Agenda Support Functions
-
 I have a few support functions for the agendas.
 
 This is a custom ~tags-todo~ view which only shows the first TODO in a subheading, aka project.
@@ -759,6 +744,7 @@ This a custom filter that skips any =SCHEDULED= items which have already been fi
              (org-entry-get nil "SCHEDULED"))
     (or (outline-next-heading) (goto-char (point-max)))))
 #+END_SRC
+
 ***** Agenda Searches
 Agenda search is usually accessed via =SPC o A s= and allows quick searching of all task files.
 
@@ -779,7 +765,6 @@ as a single phrase. A single phrase can be forced by enclosing in quotations.
 I use org-roam, deft, and org-journal to manage my notes.
 
 ***** org-roam
-
 I use [[https://org-roam.readthedocs.io/en/master/][org-roam]] to organize my notes. =org-roam= is scoped to a single folder which contains all the org files that roam
 should create metadata for. I prefer to keep my notes separate from my task system, so I put this into a dedicated
 sub-folder inside the org directory.
@@ -814,7 +799,6 @@ And I want the org-roam buffer to open automatically when I visit a roam file.
 #+END_SRC
 
 ***** org-journal
-
 Set up org-journal to integrate with org-roam.
 
 #+BEGIN_SRC emacs-lisp
@@ -824,6 +808,7 @@ Set up org-journal to integrate with org-roam.
         org-journal-dir org-roam-directory
         org-journal-date-format "%A, %d %B %Y"))
 #+END_SRC
+
 ** Tools configuration
 *** Language Server Protocol (LSP)
 Disable the auto root guessing that doom enables by default, but doesn't work very well in my experience. With this
