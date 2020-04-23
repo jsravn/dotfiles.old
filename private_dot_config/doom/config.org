@@ -1,12 +1,20 @@
 #+TITLE: Doom Emacs Configuration
 #+AUTHOR: jsravn
 #+PROPERTY: header-args:emacs-lisp :tangle yes :cache yes :results silent :comments link
+#+HTML_HEAD: <link rel='shortcut icon' type='image/png' href='https://www.gnu.org/software/emacs/favicon.png'>
 
 * Intro
 This is my foray into the world of literate Emacs configuration. I think I may have finally lost it. But let's give it a
 shot!
 
-I use [[https://github.com/hlissner/doom-emacs][doom-emacs]] as my core Emacs distribution.
+I use [[https://github.com/hlissner/doom-emacs][doom-emacs]] as my core Emacs distribution. Doom loads its configuration from three files in =~/.config/doom=:
+- init.el :: Doom modules to enable.
+- config.el :: User configuration.
+- packages.el :: Custom packages to load.
+
+This file is a literate org-mode file which generates my =config.el= and =packages.el= files. For doom reasons, =init.el= cannot be generated from a literate file, so I keep that separate.
+
+The source for this file is located in my [[https://github.com/jsravn/dotfiles/tree/master/private_dot_config/doom][dotfiles]].
 
 * General configuration
 ** File variables
@@ -92,7 +100,7 @@ bit nicer for modern screens.
 (setq-default fill-column 120)
 #+END_SRC
 
-Also I disable ~auto-fill-mode~ by default. I prefer to enable it when I want, as it doesn't play nicely with many of the
+Also I disable ~auto-fill-mode~ by default. I prefer to enable it only when needed, as it doesn't play nicely with many of the
 text files I work on. Instead I use ~+word-wrap-mode~ which is equivalent to using =SPC t w= by default.
 
 #+BEGIN_SRC emacs-lisp
@@ -101,24 +109,25 @@ text files I work on. Instead I use ~+word-wrap-mode~ which is equivalent to usi
 #+END_SRC
 
 *** Window splitting
-Make the window splitting a bit nicer. First, focus the newly created window:
+These changes makes window splitting a bit nicer.
+
+First, I want focus to change to newly created windows.
 
 #+BEGIN_SRC emacs-lisp
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
 #+END_SRC
 
-Emacs automatically splits a window when opening up a buffer via lookup, or similar, if it thinks there is enough room.
-I find the default of 160 too aggressive, so increase it to make Emacs more conservative.
+Also, Emacs automatically splits windows if it thinks there is enough room. I find the default of 160 too aggressive, so
+I increase it to make Emacs more conservative.
 
 #+BEGIN_SRC emacs-lisp
 (setq split-width-threshold 240)
 #+END_SRC
 
 *** Clipboard
-
-Integrate Emacs with the system clipboard. All copy/paste goes into and takes from the system clipboard. This allows
-easy copying in other applications and pasting into Emacs via =p= or other normal paste mechanisms.
+I want to integrate Emacs with the system clipboard. All copy/paste goes into and takes from the system clipboard. This allows
+easy copying in other applications and pasting into Emacs via =p=.
 
 #+BEGIN_SRC emacs-lisp
 (setq select-enable-clipboard t)
