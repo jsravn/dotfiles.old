@@ -1,4 +1,4 @@
-export EDITOR='emacs -nw'
+export EDITOR=vim
 export BROWSER=chromium
 export GOPATH=$HOME/go:$HOME/godev
 export GRADLE_OPTS='-Xmx2g'
