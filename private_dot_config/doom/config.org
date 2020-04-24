@@ -45,17 +45,18 @@ This tweaks the visuals to my liking.
 Use the default doom-one theme, and the very nice [[https://www.fsd.it/shop/fonts/pragmatapro/][PragmataPro]] font.
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-one              ;
+(setq doom-theme 'doom-one
       doom-font (font-spec :family "PragmataPro Liga" :size 16)
+      doom-variable-pitch-font (font-spec :family "Cantarell")
       doom-big-font (font-spec :family "Pragmata Pro Liga" :size 20)
-      doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 14)
       +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
+
 #+END_SRC
 
-Disable variable-pitch font for =treemacs= to keep the font face the same. I find it too jarring of a contrast.
+Also ensure =mixed-pitch-mode= preserves the variable pitch height.
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-themes-treemacs-enable-variable-pitch nil)
+(setq mixed-pitch-set-height t)
 #+END_SRC
 
 *** Maximize
@@ -135,6 +136,7 @@ easy copying in other applications and pasting into Emacs via =p=.
 #+BEGIN_SRC emacs-lisp
 (setq select-enable-clipboard t)
 #+END_SRC
+
 
 * Packages
 This section defines the custom packages for =packages.el=.
@@ -307,6 +309,16 @@ Clear the projectile cache when swapping branches in =magit= which will likely c
             :after #'+private/projectile-invalidate-cache)
 #+END_SRC
 
+***  Smart parentheses
+
+Add convenient global binding for jumping outside of parenthesis. This replaces the default binding of ~upcase-word~,
+which I have never used.
+
+#+BEGIN_SRC emacs-lisp
+(map!
+ :ni "M-u"   #'sp-up-sexp)
+#+END_SRC
+
 ** UI configuration
 *** Workspaces
 By default doom loads a project into the main workspace if it's empty. I don't like this behavior - I prefer to reserve
@@ -423,7 +435,7 @@ reason though this seems slightly broken - as the documentation popup contains r
 This section tweaks =org-mode= to my own specific needs and workflow. There is a lot of custom stuff here, so
 modify/adapt/use as you find useful.
 
-The most important thing is to tell org-mode where your org files are.
+The most important thing is to tell org-mode where my org files are.
 
 #+BEGIN_SRC emacs-lisp
 (setq org-directory "~/Dropbox/Notes/")
@@ -440,19 +452,19 @@ Allow ~imenu~ to nest fully in org-mode to quickly jump to any heading.
 #+END_SRC
 
 **** Visuals
-Use mixed pitch so headings appear larger. I've disabled this until I can shrink the variable pitch font.
+Use variable pitch for org mode text. Also make headings appear larger.
 
 #+BEGIN_SRC emacs-lisp
-;; (add-hook! 'org-mode-hook #'mixed-pitch-mode)
-;; (custom-set-faces!
-;;   '(outline-1 :weight extra-bold :height 1.12)
-;;   '(outline-2 :weight bold :height 1.10)
-;;   '(outline-3 :weight bold :height 1.08)
-;;   '(outline-4 :weight semi-bold :height 1.06)
-;;   '(outline-5 :weight semi-bold :height 1.04)
-;;   '(outline-6 :weight semi-bold :height 1.02)
-;;   '(outline-8 :weight semi-bold)
-;;   '(outline-9 :weight semi-bold))
+(add-hook! 'org-mode-hook #'mixed-pitch-mode)
+(custom-set-faces!
+  '(outline-1 :weight extra-bold :height 1.12)
+  '(outline-2 :weight bold :height 1.10)
+  '(outline-3 :weight bold :height 1.08)
+  '(outline-4 :weight semi-bold :height 1.06)
+  '(outline-5 :weight semi-bold :height 1.04)
+  '(outline-6 :weight semi-bold :height 1.02)
+  '(outline-8 :weight semi-bold)
+  '(outline-9 :weight semi-bold))
 #+END_SRC
 
 Enable =+org-pretty-mode= which hides the emphasis markers and enables pretty entities.
@@ -986,4 +998,11 @@ Set up org-journal to integrate with org-roam.
         org-journal-file-format "%Y-%m-%d.org"
         org-journal-dir org-roam-directory
         org-journal-date-format "%A, %d %B %Y"))
+#+END_SRC
+
+** Markdown
+Use =mixed-pitch-mode= for markdown.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook! (gfm-mode markdown-mode) #'mixed-pitch-mode)
 #+END_SRC

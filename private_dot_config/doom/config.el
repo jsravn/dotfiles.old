@@ -11,15 +11,15 @@
 ;; Personal information:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Theme][Theme:1]]
-(setq doom-theme 'doom-one              ;
+(setq doom-theme 'doom-one
       doom-font (font-spec :family "PragmataPro Liga" :size 16)
+      doom-variable-pitch-font (font-spec :family "Cantarell")
       doom-big-font (font-spec :family "Pragmata Pro Liga" :size 20)
-      doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 14)
       +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
 ;; Theme:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Theme][Theme:2]]
-(setq doom-themes-treemacs-enable-variable-pitch nil)
+(setq mixed-pitch-set-height t)
 ;; Theme:2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Maximize][Maximize:1]]
@@ -84,6 +84,11 @@
 (advice-add 'magit-branch-and-checkout
             :after #'+private/projectile-invalidate-cache)
 ;; Projects:2 ends here
+
+;; [[file:~/.config/doom/config.org::*Smart parentheses][Smart parentheses:1]]
+(map!
+ :ni "M-u"   #'sp-up-sexp)
+;; Smart parentheses:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Workspaces][Workspaces:1]]
 (setq +workspaces-on-switch-project-behavior t)
@@ -161,16 +166,16 @@
 ;; Editor:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Visuals][Visuals:1]]
-;; (add-hook! 'org-mode-hook #'mixed-pitch-mode)
-;; (custom-set-faces!
-;;   '(outline-1 :weight extra-bold :height 1.12)
-;;   '(outline-2 :weight bold :height 1.10)
-;;   '(outline-3 :weight bold :height 1.08)
-;;   '(outline-4 :weight semi-bold :height 1.06)
-;;   '(outline-5 :weight semi-bold :height 1.04)
-;;   '(outline-6 :weight semi-bold :height 1.02)
-;;   '(outline-8 :weight semi-bold)
-;;   '(outline-9 :weight semi-bold))
+(add-hook! 'org-mode-hook #'mixed-pitch-mode)
+(custom-set-faces!
+  '(outline-1 :weight extra-bold :height 1.12)
+  '(outline-2 :weight bold :height 1.10)
+  '(outline-3 :weight bold :height 1.08)
+  '(outline-4 :weight semi-bold :height 1.06)
+  '(outline-5 :weight semi-bold :height 1.04)
+  '(outline-6 :weight semi-bold :height 1.02)
+  '(outline-8 :weight semi-bold)
+  '(outline-9 :weight semi-bold))
 ;; Visuals:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Visuals][Visuals:2]]
@@ -600,3 +605,7 @@
         org-journal-dir org-roam-directory
         org-journal-date-format "%A, %d %B %Y"))
 ;; org-journal:1 ends here
+
+;; [[file:~/.config/doom/config.org::*Markdown][Markdown:1]]
+(add-hook! (gfm-mode markdown-mode) #'mixed-pitch-mode)
+;; Markdown:1 ends here
