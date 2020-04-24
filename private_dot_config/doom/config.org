@@ -14,7 +14,7 @@ I use [[https://github.com/hlissner/doom-emacs][doom-emacs]] as my core Emacs di
 
 This file is a literate org-mode file which generates my =config.el= and =packages.el= files. For doom reasons, =init.el= cannot be generated from a literate file, so I keep that separate.
 
-The source for this file is located in my [[https://github.com/jsravn/dotfiles/tree/master/private_dot_config/doom][dotfiles]].
+The source for =config.org= (this file) and =init.el= is located in my [[https://github.com/jsravn/dotfiles/tree/master/private_dot_config/doom][dotfiles]].
 
 * General configuration
 ** File variables
@@ -165,6 +165,13 @@ boxes! It's very handy for large Github comments.
 (package! org-roam :pin "4af4d2e4d5f18422fe0f90d5d83fe4c10ef1a20f")
 #+END_SRC
 
+*** lsp-mode
+Use latest LSP with eldoc support!
+
+#+BEGIN_SRC emacs-lisp :tangle "packages.el"
+(package! lsp-mode :pin "2b8f29f1f3")
+#+END_SRC
+
 ** Package configuration
 For configuring packages that are loaded in =packages.el=.
 
@@ -181,7 +188,7 @@ Enable [[*atomic-chrome][atomic-chrome]] integration.
 #+END_SRC
 
 * Modules
-This section configures the modules provided by doom and enabled in my local =init.el=.
+This section configures the modules enabled in my [[https://github.com/jsravn/dotfiles/blob/master/private_dot_config/doom/init.el][init.el]]. Languages have their own [[*Languages][dedicated section]].
 
 ** Core configuration
 *** Projects
@@ -240,8 +247,73 @@ Flyspell can create a lot of lag in large buffers. Make it as lazy as possible.
 (after! flyspell (flyspell-lazy-mode 1))
 #+END_SRC
 
-** Language configuration
-*** Golang
+** Tools configuration
+*** Language Server Protocol (LSP)
+I add some often used LSP bindings. I also override the default format binding to use LSP. And finally, I bind the
+entire ~lsp-command-map~ provided by LSP to =SPC c l=.
+
+#+BEGIN_SRC emacs-lisp
+(defun jsravn--format-accordingly ()
+  (interactive)
+  (call-interactively
+   (if (bound-and-true-p lsp-mode)
+       #'+default/lsp-format-region-or-buffer
+     #'+format/region-or-buffer)))
+
+(map! :leader
+      (:prefix "c"
+        :desc "Format buffer/region" "f"    #'jsravn--format-accordingly
+        :desc "LSP Function parameters" "p" #'lsp-signature-activate
+        (:after lsp-mode
+          :desc "LSP" "l" lsp-command-map)))
+#+END_SRC
+
+Disable the auto root guessing that doom enables by default, but doesn't work very well in my experience. With this
+disabled LSP will prompt for the project root when opening a new LSP recognized file. This adds a little
+inconvenience, but saves a lot of trouble.
+
+#+BEGIN_SRC emacs-lisp
+(setq lsp-auto-guess-root nil)
+#+END_SRC
+
+Disable symbol highlighting which is just obnoxious, especially in =gopls= where it seems to highlight a lot of things.
+This could probably be made more usable with a more subtle highlight color.
+
+#+BEGIN_SRC emacs-lisp
+(setq lsp-enable-symbol-highlighting nil)
+#+END_SRC
+
+Disable auto-linking which seems [[https://github.com/hlissner/doom-emacs/issues/2911][fundamentally broken]] as it breaks other buffers.
+
+#+BEGIN_SRC emacs-lisp
+(setq lsp-enable-links nil)
+#+END_SRC
+
+Don't display a giant signature block whenever typing in a function call. This seems to cause a lot of window glitches.
+Just display the function.
+
+#+BEGIN_SRC emacs-lisp
+(setq lsp-signature-auto-activate t
+      lsp-signature-render-documentation nil)
+#+END_SRC
+
+*** Magit
+Prefer offering remote branches when prompting for a branch selection.
+
+#+BEGIN_SRC emacs-lisp
+(setq magit-prefer-remote-upstream t)
+#+END_SRC
+
+Limit the number of topics that forge displays. I find the default a bit too large.
+
+#+BEGIN_SRC emacs-lisp
+(setq forge-topic-list-limit '(15 . 5))
+#+END_SRC
+
+* Languages
+This section configures language major modes.
+
+** Golang
 Tweak the hover documentation of =gopls= so it shows more information when using ~+lookup/documentation~. For some
 reason though this seems slightly broken - as the documentation popup contains raw HTML escapes.
 
@@ -249,7 +321,7 @@ reason though this seems slightly broken - as the documentation popup contains r
 (setq lsp-gopls-hover-kind "FullDocumentation")
 #+END_SRC
 
-*** Org Mode
+** Org Mode
 This section tweaks =org-mode= to my own specific needs and workflow. There is a lot of custom stuff here, so
 modify/adapt/use as you find useful.
 
@@ -259,17 +331,17 @@ The most important thing is to tell org-mode where your org files are.
 (setq org-directory "~/Dropbox/Notes/")
 #+END_SRC
 
-**** General settings
+*** General settings
 General settings for org-mode interaction.
 
-***** Editor
+**** Editor
 Allow ~imenu~ to nest fully in org-mode to quickly jump to any heading.
 
 #+BEGIN_SRC emacs-lisp
 (setq org-imenu-depth 6)
 #+END_SRC
 
-***** Visuals
+**** Visuals
 Use mixed pitch so headings appear larger. I've disabled this until I can shrink the variable pitch font.
 
 #+BEGIN_SRC emacs-lisp
@@ -300,7 +372,7 @@ Make org-mode symbols look nicer than the defaults. Shamelessly stolen from
  org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷" "☷" "☷" "☷"))
 #+END_SRC
 
-***** Archiving
+**** Archiving
 I prefer to archive tasks into a sub-folder. Also, I want to keep any inherited tags so information is not lost, as I
 frequently archive sub-trees.
 
@@ -309,7 +381,7 @@ frequently archive sub-trees.
 (after! org (setq org-archive-subtree-add-inherited-tags t))
 #+END_SRC
 
-***** Download
+**** Download
 =org-download= makes it easy to download images directly into org files.
 
 I configure it to use my preferred capture method depending on OS.
@@ -320,14 +392,14 @@ I configure it to use my preferred capture method depending on OS.
         (cond (IS-MAC "screencapture -i %s")
               (IS-LINUX "~/.config/sway/capture.sh %s"))))
 #+END_SRC
-***** Exporting (General)
+**** Exporting (General)
 Export more than the default 2 levels. I want all the levels!
 
 #+BEGIN_SRC emacs-lisp
 (after! org (setq org-export-headline-levels 6))
 #+END_SRC
 
-***** Exporting to HTML
+**** Exporting to HTML
 Let's make HTML look nicer. This is all taken from [[https://tecosaur.github.io/emacs-config/config.html#OrgModeVisuals][tecosaur's org-mode config]], which is based on [[https://github.com/fniessen/org-html-themes][fniessen/org-html-themes]].
 
 #+BEGIN_SRC emacs-lisp
@@ -580,7 +652,7 @@ And use nicer check boxes.
 ;;   (setq org-html-checkbox-type 'html-span))
 #+END_SRC
 
-***** Exporting to Beamer
+**** Exporting to Beamer
 Use a different theme.
 
 #+BEGIN_SRC emacs-lisp
@@ -593,7 +665,7 @@ And divide presentation into subheadings.
 (setq org-beamer-frame-level 2)
 #+END_SRC
 
-***** Exporting to GFM
+**** Exporting to GFM
 GFM exports to markdown. Let's enable it.
 
 #+BEGIN_SRC emacs-lisp
@@ -601,7 +673,7 @@ GFM exports to markdown. Let's enable it.
   '(require 'ox-gfm nil t))
 #+END_SRC
 
-**** Task management
+*** Task management
 I follow my own take on GTD for task management. The task management is independent of notes, and the task files are kept
 in the main ~org-directory~. The files are:
 - inbox.org    :: Captures go here for later filing.
@@ -615,7 +687,7 @@ My high level process is:
 3. Anything in the schedule that needs doing is moved from =ticklers.org= to =todo.org=.
 4. Whenever I need to see what task to pick up, I open up the context specific agenda. E.g. =SPC o A h= for =@home=.
 
-***** Task settings
+**** Task settings
 Define the =TODO= states and also mark complete items with the current time.
 
 #+BEGIN_SRC emacs-lisp
@@ -625,7 +697,7 @@ Define the =TODO= states and also mark complete items with the current time.
    org-log-done 'time))
 #+END_SRC
 
-***** Contexts
+**** Contexts
 I use tags to primarily set contexts, following the GTD process. I have =@work=, =@home=, and =@omscs=. I configure
 tag selection, =C-c C-c=, to quickly pick one of these contexts.
 
@@ -636,7 +708,7 @@ tag selection, =C-c C-c=, to quickly pick one of these contexts.
    org-fast-tag-selection-single-key t))
 #+END_SRC
 
-***** Refile targets
+**** Refile targets
 Define targets for potential refile. This is part of my GTD system and allows quickly moving tasks between the core task
 files.
 
@@ -649,7 +721,7 @@ files.
                         ("~/Dropbox/Notes/notes.org" :maxlevel . 2))))
 #+END_SRC
 
-***** Habits
+**** Habits
 Enable org-habit to allow special scheduled items for helping me create habits. To use, create a recurring =SCHEDULED= item with
 the =STYLE= property (=C-x C-p=) set to =habit=.  See [[https://orgmode.org/manual/Tracking-your-habits.html][Tracking your habits]] for more details.
 
@@ -658,7 +730,7 @@ the =STYLE= property (=C-x C-p=) set to =habit=.  See [[https://orgmode.org/manu
   (add-to-list 'org-modules 'org-habit t))
 #+END_SRC
 
-***** Custom Agendas
+**** Custom Agendas
 The agendas are my central view on tasks. There are separate subsections for each agenda view, defined as a function.
 
 #+BEGIN_SRC emacs-lisp
@@ -676,7 +748,7 @@ Also, give me two weeks warning of impending deadlines.
 (after! org (setq org-deadline-warning-days 14))
 #+END_SRC
 
-****** All Agenda Function
+***** All Agenda Function
 This is my all agenda function. It shows everything going on in my task system.
 
 #+BEGIN_SRC emacs-lisp
@@ -699,7 +771,7 @@ This is my all agenda function. It shows everything going on in my task system.
      ,(jsravn--tags-todo "@omscs" "OMSCS"))))
 #+END_SRC
 
-****** Context Agenda Function
+***** Context Agenda Function
 This is my per-context agenda function. It is a slimmed down version of the [[*All Agenda Function][All Agenda Function]] that scopes to a
 context, like =@home=.
 
@@ -720,7 +792,7 @@ context, like =@home=.
            ((org-agenda-tag-filter-preset '(,(concat "+" tag)))))))
 #+END_SRC
 
-****** Agenda Support Functions
+***** Agenda Support Functions
 I have a few support functions for the agendas.
 
 This is a custom ~tags-todo~ view which only shows the first TODO in a subheading, aka project.
@@ -754,7 +826,7 @@ This a custom filter that skips any =SCHEDULED= items which have already been fi
     (or (outline-next-heading) (goto-char (point-max)))))
 #+END_SRC
 
-***** Agenda Searches
+**** Agenda Searches
 Agenda search is usually accessed via =SPC o A s= and allows quick searching of all task files.
 
 I like to include archived tasks in the search.
@@ -770,10 +842,10 @@ as a single phrase. A single phrase can be forced by enclosing in quotations.
 (after! org (setq org-agenda-search-view-always-boolean t))
 #+END_SRC
 
-**** Notes
+*** Notes
 I use org-roam, deft, and org-journal to manage my notes.
 
-***** org-roam
+**** org-roam
 I use [[https://org-roam.readthedocs.io/en/master/][org-roam]] to organize my notes. =org-roam= is scoped to a single folder which contains all the org files that roam
 should create metadata for. I prefer to keep my notes separate from my task system, so I put this into a dedicated
 sub-folder inside the org directory.
@@ -807,7 +879,7 @@ And I want the org-roam buffer to open automatically when I visit a roam file.
   (add-hook 'doom-switch-buffer-hook #'jsravn--open-org-roam))
 #+END_SRC
 
-***** org-journal
+**** org-journal
 Set up org-journal to integrate with org-roam.
 
 #+BEGIN_SRC emacs-lisp
@@ -816,105 +888,4 @@ Set up org-journal to integrate with org-roam.
         org-journal-file-format "%Y-%m-%d.org"
         org-journal-dir org-roam-directory
         org-journal-date-format "%A, %d %B %Y"))
-#+END_SRC
-
-** Tools configuration
-*** Language Server Protocol (LSP)
-I add some often used LSP bindings. I also override the default format binding to use LSP. And finally, I bind the
-entire ~lsp-command-map~ provided by LSP to =SPC c l=.
-
-#+BEGIN_SRC emacs-lisp
-(defun jsravn--format-accordingly ()
-  (interactive)
-  (call-interactively
-   (if (bound-and-true-p lsp-mode)
-       #'+default/lsp-format-region-or-buffer
-     #'+format/region-or-buffer)))
-
-(map! :leader
-      (:prefix "c"
-        :desc "Format buffer/region" "f"    #'jsravn--format-accordingly
-        :desc "LSP Function parameters" "p" #'lsp-signature-activate
-        (:after lsp-mode
-          :desc "LSP" "l" lsp-command-map)))
-#+END_SRC
-
-Disable the auto root guessing that doom enables by default, but doesn't work very well in my experience. With this
-disabled LSP will prompt for the project root when opening a new LSP recognized file. This adds a little
-inconvenience, but saves a lot of trouble.
-
-#+BEGIN_SRC emacs-lisp
-(setq lsp-auto-guess-root nil)
-#+END_SRC
-
-Disable symbol highlighting which is just obnoxious, especially in =gopls= where it seems to highlight a lot of things.
-This could probably be made more usable with a more subtle highlight color.
-
-#+BEGIN_SRC emacs-lisp
-(setq lsp-enable-symbol-highlighting nil)
-#+END_SRC
-
-Disable auto-linking which seems [[https://github.com/hlissner/doom-emacs/issues/2911][fundamentally broken]] as it breaks other buffers.
-
-#+BEGIN_SRC emacs-lisp
-(setq lsp-enable-links nil)
-#+END_SRC
-
-Don't display a giant signature block whenever typing in a function call. This seems to cause a lot of window glitches.
-Just display the function.
-
-#+BEGIN_SRC emacs-lisp
-(setq lsp-signature-auto-activate t
-      lsp-signature-render-documentation nil)
-#+END_SRC
-
-This is a workaround to deal with =eldoc= not working for most LSP servers.
-
-#+BEGIN_SRC emacs-lisp
-(after! lsp-mode
-  (defun lsp--render-on-hover-content (contents render-all)
-    "Render the content received from 'document/onHover' request.
-CONTENTS  - MarkedString | MarkedString[] | MarkupContent
-RENDER-ALL - nil if only the signature should be rendered."
-    (cond
-     ((and (hash-table-p contents) (gethash "kind" contents))
-      ;; MarkupContent.
-      ;; It tends to be long and is not suitable to display fully in the echo area.
-      ;; Just display the first line which is typically the signature.
-      (let ((rendered (lsp--render-element contents)))
-        (if render-all rendered (car (s-lines rendered)))))
-     ((and (stringp contents) (not (string-match-p "\n" contents)))
-      ;; If the contents is a single string containing a single line,
-      ;; render it always.
-      (lsp--render-element contents))
-     (t
-      ;; MarkedString -> MarkedString[]
-      (when (or (hash-table-p contents) (stringp contents))
-        (setq contents (list contents)))
-      ;; Consider the signature consisting of the elements who have a renderable
-      ;; "language" property. When render-all is nil, ignore other elements.
-      (string-join
-       (seq-map
-        #'lsp--render-element
-        (if render-all
-            contents
-          ;; Only render contents that have an available renderer.
-          (seq-filter
-           (-andfn 'hash-table-p
-                   (-compose #'lsp-get-renderer (-partial 'gethash "language")))
-           contents)))
-       "\n")))))
-#+END_SRC
-
-*** Magit
-Prefer offering remote branches when prompting for a branch selection.
-
-#+BEGIN_SRC emacs-lisp
-(setq magit-prefer-remote-upstream t)
-#+END_SRC
-
-Limit the number of topics that forge displays. I find the default a bit too large.
-
-#+BEGIN_SRC emacs-lisp
-(setq forge-topic-list-limit '(15 . 5))
 #+END_SRC

@@ -107,6 +107,47 @@
 (after! flyspell (flyspell-lazy-mode 1))
 ;; Flyspell:1 ends here
 
+;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):1]]
+(defun jsravn--format-accordingly ()
+  (interactive)
+  (call-interactively
+   (if (bound-and-true-p lsp-mode)
+       #'+default/lsp-format-region-or-buffer
+     #'+format/region-or-buffer)))
+
+(map! :leader
+      (:prefix "c"
+        :desc "Format buffer/region" "f"    #'jsravn--format-accordingly
+        :desc "LSP Function parameters" "p" #'lsp-signature-activate
+        (:after lsp-mode
+          :desc "LSP" "l" lsp-command-map)))
+;; Language Server Protocol (LSP):1 ends here
+
+;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):2]]
+(setq lsp-auto-guess-root nil)
+;; Language Server Protocol (LSP):2 ends here
+
+;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):3]]
+(setq lsp-enable-symbol-highlighting nil)
+;; Language Server Protocol (LSP):3 ends here
+
+;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):4]]
+(setq lsp-enable-links nil)
+;; Language Server Protocol (LSP):4 ends here
+
+;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):5]]
+(setq lsp-signature-auto-activate t
+      lsp-signature-render-documentation nil)
+;; Language Server Protocol (LSP):5 ends here
+
+;; [[file:~/.config/doom/config.org::*Magit][Magit:1]]
+(setq magit-prefer-remote-upstream t)
+;; Magit:1 ends here
+
+;; [[file:~/.config/doom/config.org::*Magit][Magit:2]]
+(setq forge-topic-list-limit '(15 . 5))
+;; Magit:2 ends here
+
 ;; [[file:~/.config/doom/config.org::*Golang][Golang:1]]
 (setq lsp-gopls-hover-kind "FullDocumentation")
 ;; Golang:1 ends here
@@ -559,80 +600,3 @@
         org-journal-dir org-roam-directory
         org-journal-date-format "%A, %d %B %Y"))
 ;; org-journal:1 ends here
-
-;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):1]]
-(defun jsravn--format-accordingly ()
-  (interactive)
-  (call-interactively
-   (if (bound-and-true-p lsp-mode)
-       #'+default/lsp-format-region-or-buffer
-     #'+format/region-or-buffer)))
-
-(map! :leader
-      (:prefix "c"
-        :desc "Format buffer/region" "f"    #'jsravn--format-accordingly
-        :desc "LSP Function parameters" "p" #'lsp-signature-activate
-        (:after lsp-mode
-          :desc "LSP" "l" lsp-command-map)))
-;; Language Server Protocol (LSP):1 ends here
-
-;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):2]]
-(setq lsp-auto-guess-root nil)
-;; Language Server Protocol (LSP):2 ends here
-
-;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):3]]
-(setq lsp-enable-symbol-highlighting nil)
-;; Language Server Protocol (LSP):3 ends here
-
-;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):4]]
-(setq lsp-enable-links nil)
-;; Language Server Protocol (LSP):4 ends here
-
-;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):5]]
-(setq lsp-signature-auto-activate t
-      lsp-signature-render-documentation nil)
-;; Language Server Protocol (LSP):5 ends here
-
-;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):6]]
-(after! lsp-mode
-  (defun lsp--render-on-hover-content (contents render-all)
-    "Render the content received from 'document/onHover' request.
-CONTENTS  - MarkedString | MarkedString[] | MarkupContent
-RENDER-ALL - nil if only the signature should be rendered."
-    (cond
-     ((and (hash-table-p contents) (gethash "kind" contents))
-      ;; MarkupContent.
-      ;; It tends to be long and is not suitable to display fully in the echo area.
-      ;; Just display the first line which is typically the signature.
-      (let ((rendered (lsp--render-element contents)))
-        (if render-all rendered (car (s-lines rendered)))))
-     ((and (stringp contents) (not (string-match-p "\n" contents)))
-      ;; If the contents is a single string containing a single line,
-      ;; render it always.
-      (lsp--render-element contents))
-     (t
-      ;; MarkedString -> MarkedString[]
-      (when (or (hash-table-p contents) (stringp contents))
-        (setq contents (list contents)))
-      ;; Consider the signature consisting of the elements who have a renderable
-      ;; "language" property. When render-all is nil, ignore other elements.
-      (string-join
-       (seq-map
-        #'lsp--render-element
-        (if render-all
-            contents
-          ;; Only render contents that have an available renderer.
-          (seq-filter
-           (-andfn 'hash-table-p
-                   (-compose #'lsp-get-renderer (-partial 'gethash "language")))
-           contents)))
-       "\n")))))
-;; Language Server Protocol (LSP):6 ends here
-
-;; [[file:~/.config/doom/config.org::*Magit][Magit:1]]
-(setq magit-prefer-remote-upstream t)
-;; Magit:1 ends here
-
-;; [[file:~/.config/doom/config.org::*Magit][Magit:2]]
-(setq forge-topic-list-limit '(15 . 5))
-;; Magit:2 ends here
