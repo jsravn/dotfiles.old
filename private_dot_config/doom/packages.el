@@ -1,6 +1,6 @@
-;; [[file:~/.config/doom/config.org::*Package loading][Package loading:1]]
+;; [[file:~/.config/doom/config.org::*Packages][Packages:1]]
 ;; -*- no-byte-compile: t; -*-
-;; Package loading:1 ends here
+;; Packages:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*atomic-chrome][atomic-chrome:1]]
 (package! atomic-chrome)

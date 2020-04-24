@@ -12,16 +12,19 @@ I use [[https://github.com/hlissner/doom-emacs][doom-emacs]] as my core Emacs di
 - config.el :: User configuration.
 - packages.el :: Custom packages to load.
 
-This file is a literate org-mode file which generates my =config.el= and =packages.el= files. For doom reasons, =init.el= cannot be generated from a literate file, so I keep that separate.
-
-The source for =config.org= (this file) and =init.el= is located in my [[https://github.com/jsravn/dotfiles/tree/master/private_dot_config/doom][dotfiles]].
+=config.org= is what generates all of these, and is what you are viewing. It lives in my [[https://github.com/jsravn/dotfiles/tree/master/private_dot_config/doom][dotfiles]].
 
 * General configuration
 ** File variables
-This configures the file variables for =config.el=. Apparently [[https://nullprogram.com/blog/2016/12/22/][enabling lexical binding]] makes it faster to process.
+This configures the file variables for =config.el= and =init.el=. Apparently [[https://nullprogram.com/blog/2016/12/22/][enabling lexical binding]] makes them faster to
+process.
 
 #+BEGIN_SRC emacs-lisp
 ;;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle "init.el"
+;;; ~/.config/doom/init.el -*- lexical-binding: t; -*-
 #+END_SRC
 
 ** Personal information
@@ -136,6 +139,12 @@ easy copying in other applications and pasting into Emacs via =p=.
 * Packages
 This section defines the custom packages for =packages.el=.
 
+=packages.el= should not be byte-compiled.
+
+#+BEGIN_SRC emacs-lisp :tangle "packages.el"
+;; -*- no-byte-compile: t; -*-
+#+END_SRC
+
 ** Package loading
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle "packages.el" :comments link
@@ -143,12 +152,6 @@ This section defines the custom packages for =packages.el=.
 
 Use the ~package!~ macro for each package. Afterwards run ~doom refresh~ on the command line. Everything in this section
 goes into =packges.el=.
-
-=packages.el= should not be byte-compiled.
-
-#+BEGIN_SRC emacs-lisp :tangle "packages.el"
-;; -*- no-byte-compile: t; -*-
-#+END_SRC
 
 *** atomic-chrome
 =atomic-chrome= provides integration with [[https://atom.io/packages/atomic-chrome][atomic chrome]] extension. This lets me use Emacs to edit browser text
@@ -188,7 +191,101 @@ Enable [[*atomic-chrome][atomic-chrome]] integration.
 #+END_SRC
 
 * Modules
-This section configures the modules enabled in my [[https://github.com/jsravn/dotfiles/blob/master/private_dot_config/doom/init.el][init.el]]. Languages have their own [[*Languages][dedicated section]].
+This section configures the doom modules. Languages have their own [[*Languages][dedicated section]].
+
+** Enable modules (init.el)
+
+This is where I enable the modules I want. See [[https://github.com/hlissner/doom-emacs/blob/develop/init.example.el][init.example.el]] for all possible options.
+
+#+BEGIN_SRC emacs-lisp :tangle "init.el"
+(doom!
+       :completion
+       (company          ; the ultimate code completion backend
+        +childframe)
+       ivy               ; a search engine for love and life
+
+       :ui
+       deft              ; notational velocity for Emacs
+       doom              ; what makes DOOM look the way it does
+       doom-dashboard    ; a nifty splash screen for Emacs
+       hl-todo           ; highlight TODO/FIXME/NOTE tags
+       indent-guides     ; highlighted indent columns
+       (modeline +light) ; snazzy, Atom-inspired modeline, plus API
+       nav-flash         ; blink the current line after jumping
+       ophints           ; highlight the region an operation acts on
+       (popup            ; tame sudden yet inevitable temporary windows
+        +all             ; catch all popups that start with an asterix
+        +defaults)       ; default popup rules
+       (pretty-code      ; replace bits of code with pretty symbols
+        +pragmata-pro)
+       treemacs          ; a project drawer, like neotree but cooler
+       vc-gutter         ; vcs diff in the fringe
+       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       window-select     ; visually switch windows
+       workspaces        ; tab emulation, persistence & separate workspaces
+       zen               ; distraction-free coding or writing
+
+       :editor
+       (evil +everywhere); come to the dark side, we have cookies
+       fold              ; (nigh) universal code folding
+       format            ; automated prettiness, can add +onsave
+       multiple-cursors  ; editing in many places at once
+       rotate-text       ; cycle region at point between text candidates
+       snippets          ; my elves. They type so I don't have to
+       word-wrap         ; soft wrapping with language-aware indent
+
+       :emacs
+       dired             ; making dired pretty [functional]
+       electric          ; smarter, keyword-based electric-indent
+       vc                ; version-control and Emacs, sitting in a tree
+
+       :term
+       vterm             ; another terminals in Emacs
+
+       :checkers
+       syntax            ; tasing you for every semicolon you forget
+       spell             ; tasing you for misspelling mispelling
+
+       :tools
+       ansible
+       docker
+       editorconfig      ; let someone else argue about tabs vs spaces
+       (eval             ; run code, run (also, repls)
+        +overlay)
+       (lookup           ; helps you navigate your code and documentation
+        +docsets         ; ...or in Dash docsets locally
+        +dictionary)
+       (lsp +peek)
+       (magit +forge)    ; a git porcelain for Emacs
+       make              ; run make tasks from Emacs
+       terraform         ; infrastructure as code
+
+       :lang
+       (clojure          ; java with a lisp
+        +cider
+        +lsp)
+       data              ; config/data formats
+       emacs-lisp        ; drown in parentheses
+       (go +lsp)         ; the hipster dialect
+       (java +lsp)
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       markdown          ; writing docs for people to ignore
+       (org              ; organize your plain life in plain text
+        +dragndrop       ; file drag & drop support
+        +journal
+        +roam)
+       (python           ; beautiful is better than ugly
+        +lsp +pyenv)
+       (scala +lsp)      ; java, but good
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
+
+       :app
+       calendar
+
+       :config
+       literate
+       (default +bindings +smartparens))
+#+END_SRC
 
 ** Core configuration
 *** Projects
