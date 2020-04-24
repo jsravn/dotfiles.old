@@ -195,7 +195,8 @@ This section configures the doom modules. Languages have their own [[*Languages]
 
 ** Enable modules (init.el)
 
-This is where I enable the modules I want. See [[https://github.com/hlissner/doom-emacs/blob/develop/init.example.el][init.example.el]] for all possible options.
+This section generates =init.el= and is where I enable the doom modules I want. See [[https://github.com/hlissner/doom-emacs/blob/develop/init.example.el][init.example.el]] for all possible
+options.
 
 #+BEGIN_SRC emacs-lisp :tangle "init.el"
 (doom!
