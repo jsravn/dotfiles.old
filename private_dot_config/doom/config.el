@@ -13,7 +13,7 @@
 ;; [[file:~/.config/doom/config.org::*Theme][Theme:1]]
 (setq doom-theme 'doom-one
       doom-font (font-spec :family "PragmataPro Liga" :size 16)
-      doom-variable-pitch-font (font-spec :family "Cantarell")
+      doom-variable-pitch-font (font-spec :family "Cantarell" :size 15)
       doom-big-font (font-spec :family "Pragmata Pro Liga" :size 20)
       +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
 ;; Theme:1 ends here
@@ -462,6 +462,23 @@
 (eval-after-load "org"
   '(require 'ox-gfm nil t))
 ;; Exporting to GFM:1 ends here
+
+;; [[file:~/.config/doom/config.org::*Capture templates][Capture templates:1]]
+(after! org
+  (setq org-capture-templates
+        `(("t" "Todo [inbox]" entry
+           (file ,(concat org-directory "inbox.org"))
+           "* TODO %i%?")
+          ("e" "Event [inbox]" entry
+           (file ,(concat org-directory "inbox.org"))
+           "* %i%? \n %U")
+          ("n" "Note [inbox]" entry
+           (file ,(concat org-directory "inbox.org"))
+           "* %?")
+          ("s" "Shopping [todo]" checkitem
+           (file+olp ,(concat org-directory "someday.org") "Home" "Shopping")
+           "- [ ] %?"))))
+;; Capture templates:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Task settings][Task settings:1]]
 (after! org
