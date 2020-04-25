@@ -73,17 +73,26 @@
 ;; atomic-chrome:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Projects][Projects:1]]
-(setq projectile-project-search-path '("~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
+(setq projectile-project-search-path '("~/devel/" "~/sky" "~/gatech"))
 ;; Projects:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Projects][Projects:2]]
+(after! projectile
+  (prependq!  projectile-project-root-files '(".project" "go.mod")) ; add additional project files here
+  (setq projectile-project-root-files-functions #'(projectile-root-top-down
+                                                   projectile-root-top-down-recurring
+                                                   projectile-root-bottom-up
+                                                   projectile-root-local)))
+;; Projects:2 ends here
+
+;; [[file:~/.config/doom/config.org::*Projects][Projects:3]]
 (defun +private/projectile-invalidate-cache (&rest _args)
   (projectile-invalidate-cache nil))
 (advice-add 'magit-checkout
             :after #'+private/projectile-invalidate-cache)
 (advice-add 'magit-branch-and-checkout
             :after #'+private/projectile-invalidate-cache)
-;; Projects:2 ends here
+;; Projects:3 ends here
 
 ;; [[file:~/.config/doom/config.org::*Smart parentheses][Smart parentheses:1]]
 (map!
@@ -129,7 +138,7 @@
 ;; Language Server Protocol (LSP):1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):2]]
-(setq lsp-auto-guess-root nil)
+;;(setq lsp-auto-guess-root nil)
 ;; Language Server Protocol (LSP):2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):3]]
@@ -144,6 +153,10 @@
 (setq lsp-signature-auto-activate t
       lsp-signature-render-documentation nil)
 ;; Language Server Protocol (LSP):5 ends here
+
+;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):6]]
+;;(setq lsp-log-io t)
+;; Language Server Protocol (LSP):6 ends here
 
 ;; [[file:~/.config/doom/config.org::*Magit][Magit:1]]
 (setq magit-prefer-remote-upstream t)

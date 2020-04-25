@@ -295,7 +295,19 @@ options.
 Set the search directories for projectile to auto-discovery projects.
 
 #+BEGIN_SRC emacs-lisp
-(setq projectile-project-search-path '("~/devel/" "~/sky/" "~/Dropbox" "~/gatech"))
+(setq projectile-project-search-path '("~/devel/" "~/sky" "~/gatech"))
+#+END_SRC
+
+Change the root finding logic to make more sense (in my head). Prefer using language specific build files to identify
+project roots over =.git=. Also, prefer =.project= over anything else by placing it first in the root files..
+
+#+BEGIN_SRC emacs-lisp
+(after! projectile
+  (prependq!  projectile-project-root-files '(".project" "go.mod")) ; add additional project files here
+  (setq projectile-project-root-files-functions #'(projectile-root-top-down
+                                                   projectile-root-top-down-recurring
+                                                   projectile-root-bottom-up
+                                                   projectile-root-local)))
 #+END_SRC
 
 Clear the projectile cache when swapping branches in =magit= which will likely change the files in the project.
@@ -380,10 +392,10 @@ entire ~lsp-command-map~ provided by LSP to =SPC c l=.
 
 Disable the auto root guessing that doom enables by default, but doesn't work very well in my experience. With this
 disabled LSP will prompt for the project root when opening a new LSP recognized file. This adds a little
-inconvenience, but saves a lot of trouble.
+inconvenience, but saves a lot of trouble. _I've disabled this for now as I test out simply configuring Projectile roots instead instead._
 
 #+BEGIN_SRC emacs-lisp
-(setq lsp-auto-guess-root nil)
+;;(setq lsp-auto-guess-root nil)
 #+END_SRC
 
 Disable symbol highlighting which is just obnoxious, especially in =gopls= where it seems to highlight a lot of things.
@@ -405,6 +417,12 @@ Just display the function.
 #+BEGIN_SRC emacs-lisp
 (setq lsp-signature-auto-activate t
       lsp-signature-render-documentation nil)
+#+END_SRC
+
+Turn on [[https://github.com/emacs-lsp/lsp-mode/wiki/Debugging][LSP Debugging]].
+
+#+BEGIN_SRC emacs-lisp
+;;(setq lsp-log-io t)
 #+END_SRC
 
 *** Magit
