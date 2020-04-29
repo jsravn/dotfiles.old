@@ -64,6 +64,10 @@
 (setq select-enable-clipboard t)
 ;; Clipboard:1 ends here
 
+;; [[file:~/.config/doom/config.org::*Authinfo][Authinfo:1]]
+(setq auth-sources '("~/.authinfo.gpg"))
+;; Authinfo:1 ends here
+
 ;; [[file:~/.config/doom/config.org::*Autostart][Autostart:1]]
 (add-hook 'emacs-startup-hook #'=mu4e) ; Start up mail.
 ;; Autostart:1 ends here
@@ -135,20 +139,34 @@
 ;; Flyspell:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):1]]
-(after! mu4e
-  (setq mu4e-attachments-dir "~/Downloads"   ; Put attachments into ~/Downloads
-        mu4e-update-interval 300))           ; Update every 5 minutes
-(set-email-account! "r-vn.org"
-  '((mu4e-sent-folder       . "/r-vn.org/Sent")
-    (mu4e-drafts-folder     . "/r-vn.org/Drafts")
-    (mu4e-trash-folder      . "/r-vn.org/Trash")
-    (mu4e-refile-folder     . "/r-vn.org/Archive")
-    (smtpmail-smtp-user     . "james@r-vn.org"))
-  t)
+(set-email-account!
+ "r-vn.org"
+ '((mu4e-sent-folder       . "/r-vn.org/Sent")
+   (mu4e-drafts-folder     . "/r-vn.org/Drafts")
+   (mu4e-trash-folder      . "/r-vn.org/Trash")
+   (mu4e-refile-folder     . "/r-vn.org/Archive")
+   (smtpmail-smtp-user     . "james@r-vn.org")
+   (mu4e-maildir-shortcuts .
+                           ((:maildir "/r-vn.org/INBOX"   :key ?i)
+                            (:maildir "/r-vn.org/Archive" :key ?a)
+                            (:maildir "/r-vn.org/Trash"   :key ?t)
+                            (:maildir "/r-vn.org/Sent"    :key ?s)))
+   (smtpmail-smtp-server . "smtp.fastmail.com")
+   (smtpmail-stream-type . 'ssl)
+   (smtpmail-smtp-service . 465)
+   (smtpmail-default-smtp-server . "smtp.fastmail.com"))
+ t)
 ;; Email configuration (mu4e):1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):2]]
-(setq smtpmail-smtp-server "smtp.fastmail.com")
+(after! mu4e
+  (setq mu4e-attachment-dir "~/Downloads"   ; Attachments in standard place.
+        mu4e-headers-fields                 ; Header columns.
+        '((:human-date . 12)
+          (:flags . 6)
+          (:from . 25)
+          (:subject))
+        mu4e-update-interval 300))          ; Check for mail every 5 minutes.
 ;; Email configuration (mu4e):2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):3]]
@@ -156,6 +174,16 @@
  :leader
  :desc "Mail" "M" #'=mu4e)
 ;; Email configuration (mu4e):3 ends here
+
+;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):4]]
+(after! mu4e
+  (add-to-list 'mu4e-view-actions
+               '("ViewInBrowser" . mu4e-action-view-in-browser) t))
+;; Email configuration (mu4e):4 ends here
+
+;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):5]]
+(setq shr-color-visible-luminance-min 80)
+;; Email configuration (mu4e):5 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):1]]
 (defun jsravn--format-accordingly ()
@@ -174,7 +202,7 @@
 ;; Language Server Protocol (LSP):1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):2]]
-;;(setq lsp-auto-guess-root nil)
+(setq lsp-auto-guess-root nil)
 ;; Language Server Protocol (LSP):2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):3]]

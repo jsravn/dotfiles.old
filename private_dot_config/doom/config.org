@@ -138,6 +138,13 @@ easy copying in other applications and pasting into Emacs via =p=.
 (setq select-enable-clipboard t)
 #+END_SRC
 
+** Authinfo
+Sensitive credentials are stored in a gpg encrypted auth file. I prefer to only use =~/.authinfo.gpg=, rather than doom's default of =~/.emacs.d/.local/etc/authinfo.gpg= .
+
+#+BEGIN_SRC emacs-lisp
+(setq auth-sources '("~/.authinfo.gpg"))
+#+END_SRC
+
 ** Autostart
 
 Autostart a couple of things.
@@ -407,33 +414,63 @@ Flyspell can create a lot of lag in large buffers. Make it as lazy as possible.
 
 I am experimenting with =mu4e= for my email configuration. I'm using it with mbsync as the backend for syncing emails. Note as of 1.4, the root maildir is set via the ~mu init~ command so it is unnecessary to set it.
 
+First, use doom's handy function for setting up an [[https://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html#Contexts][mu4e context]].
+
 #+BEGIN_SRC emacs-lisp
-(after! mu4e
-  (setq mu4e-attachments-dir "~/Downloads"   ; Put attachments into ~/Downloads
-        mu4e-update-interval 300))           ; Update every 5 minutes
-(set-email-account! "r-vn.org"
-  '((mu4e-sent-folder       . "/r-vn.org/Sent")
-    (mu4e-drafts-folder     . "/r-vn.org/Drafts")
-    (mu4e-trash-folder      . "/r-vn.org/Trash")
-    (mu4e-refile-folder     . "/r-vn.org/Archive")
-    (smtpmail-smtp-user     . "james@r-vn.org"))
-  t)
+(set-email-account!
+ "r-vn.org"
+ '((mu4e-sent-folder       . "/r-vn.org/Sent")
+   (mu4e-drafts-folder     . "/r-vn.org/Drafts")
+   (mu4e-trash-folder      . "/r-vn.org/Trash")
+   (mu4e-refile-folder     . "/r-vn.org/Archive")
+   (smtpmail-smtp-user     . "james@r-vn.org")
+   (mu4e-maildir-shortcuts .
+                           ((:maildir "/r-vn.org/INBOX"   :key ?i)
+                            (:maildir "/r-vn.org/Archive" :key ?a)
+                            (:maildir "/r-vn.org/Trash"   :key ?t)
+                            (:maildir "/r-vn.org/Sent"    :key ?s)))
+   (smtpmail-smtp-server . "smtp.fastmail.com")
+   (smtpmail-stream-type . 'ssl)
+   (smtpmail-smtp-service . 465)
+   (smtpmail-default-smtp-server . "smtp.fastmail.com"))
+ t)
 #+END_SRC
 
-Also set up =smtpmail= for sending emails.
+General configuration.
 
 #+BEGIN_SRC emacs-lisp
-(setq smtpmail-smtp-server "smtp.fastmail.com")
+(after! mu4e
+  (setq mu4e-attachment-dir "~/Downloads"   ; Attachments in standard place.
+        mu4e-headers-fields                 ; Header columns.
+        '((:human-date . 12)
+          (:flags . 6)
+          (:from . 25)
+          (:subject))
+        mu4e-update-interval 300))          ; Check for mail every 5 minutes.
 #+END_SRC
 
 Notifications are configured at [[*mu4e-alert configuration][mu4e-alert configuration]].
 
-Bind it to =SPC M=.
+Bind it to the global =SPC M=.
 
 #+BEGIN_SRC emacs-lisp
 (map!
  :leader
  :desc "Mail" "M" #'=mu4e)
+#+END_SRC
+
+Add an action for viewing mails in the browser. Use this with =a V= in the message reading view.
+
+#+BEGIN_SRC emacs-lisp
+(after! mu4e
+  (add-to-list 'mu4e-view-actions
+               '("ViewInBrowser" . mu4e-action-view-in-browser) t))
+#+END_SRC
+
+=mu4e= uses =shr= to render HTML to text. Let's tweak its colors so it's a bit easier to see with doom's dark background.
+
+#+BEGIN_SRC emacs-lisp
+(setq shr-color-visible-luminance-min 80)
 #+END_SRC
 
 ** Tools configuration
@@ -462,7 +499,7 @@ disabled LSP will prompt for the project root when opening a new LSP recognized 
 inconvenience, but saves a lot of trouble. _I've disabled this for now as I test out simply configuring Projectile roots instead instead._
 
 #+BEGIN_SRC emacs-lisp
-;;(setq lsp-auto-guess-root nil)
+(setq lsp-auto-guess-root nil)
 #+END_SRC
 
 Disable symbol highlighting which is just obnoxious, especially in =gopls= where it seems to highlight a lot of things.
