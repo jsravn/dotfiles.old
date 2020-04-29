@@ -21,8 +21,8 @@ Master :fastmail-remote:
 Slave :fastmail-local:
 # Syncs all folders.
 Patterns *
-# Don't destroy messages locally or remotely.
-Expunge None
+# Automatically remove any messages marked for deletion.
+Expunge Both
 # Keep the arrival date with the message to preserve time based message sorting locally.
 CopyArrivalDate yes
 # Sync everything.
