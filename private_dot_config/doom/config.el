@@ -64,6 +64,10 @@
 (setq select-enable-clipboard t)
 ;; Clipboard:1 ends here
 
+;; [[file:~/.config/doom/config.org::*Autostart][Autostart:1]]
+(add-hook 'emacs-startup-hook #'=mu4e) ; Start up mail.
+;; Autostart:1 ends here
+
 ;; [[file:~/.config/doom/config.org::*atomic-chrome configuration][atomic-chrome configuration:1]]
 (use-package! atomic-chrome
   :after-call focus-out-hook
@@ -146,6 +150,12 @@
 ;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):2]]
 (setq smtpmail-smtp-server "smtp.fastmail.com")
 ;; Email configuration (mu4e):2 ends here
+
+;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):3]]
+(map!
+ :leader
+ :desc "Mail" "M" #'=mu4e)
+;; Email configuration (mu4e):3 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):1]]
 (defun jsravn--format-accordingly ()

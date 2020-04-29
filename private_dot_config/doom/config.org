@@ -138,6 +138,13 @@ easy copying in other applications and pasting into Emacs via =p=.
 (setq select-enable-clipboard t)
 #+END_SRC
 
+** Autostart
+
+Autostart a couple of things.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'emacs-startup-hook #'=mu4e) ; Start up mail.
+#+END_SRC
 
 * Packages
 This section defines the custom packages for =packages.el=.
@@ -420,6 +427,14 @@ Also set up =smtpmail= for sending emails.
 #+END_SRC
 
 Notifications are configured at [[*mu4e-alert configuration][mu4e-alert configuration]].
+
+Bind it to =SPC M=.
+
+#+BEGIN_SRC emacs-lisp
+(map!
+ :leader
+ :desc "Mail" "M" #'=mu4e)
+#+END_SRC
 
 ** Tools configuration
 *** Language Server Protocol (LSP)
