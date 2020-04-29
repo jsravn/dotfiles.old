@@ -19,8 +19,8 @@ SubFolders Verbatim
 Channel fastmail
 Master :fastmail-remote:
 Slave :fastmail-local:
-# Syncs all folders.
-Patterns *
+# Syncs all folders except for old archives.
+Patterns * !2005-2017*
 # Automatically remove any messages marked for deletion.
 Expunge Both
 # Keep the arrival date with the message to preserve time based message sorting locally.
