@@ -13,3 +13,7 @@
 ;; [[file:~/.config/doom/config.org::*lsp-mode][lsp-mode:1]]
 (package! lsp-mode :pin "2b8f29f1f3")
 ;; lsp-mode:1 ends here
+
+;; [[file:~/.config/doom/config.org::*mu4e-alert][mu4e-alert:1]]
+(package! mu4e-alert)
+;; mu4e-alert:1 ends here

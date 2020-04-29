@@ -64,14 +64,22 @@
 (setq select-enable-clipboard t)
 ;; Clipboard:1 ends here
 
-;; [[file:~/.config/doom/config.org::*atomic-chrome][atomic-chrome:1]]
+;; [[file:~/.config/doom/config.org::*atomic-chrome configuration][atomic-chrome configuration:1]]
 (use-package! atomic-chrome
   :after-call focus-out-hook
   :config
   (setq atomic-chrome-default-major-mode 'markdown-mode
         atomic-chrome-buffer-open-style 'frame)
   (atomic-chrome-start-server))
-;; atomic-chrome:1 ends here
+;; atomic-chrome configuration:1 ends here
+
+;; [[file:~/.config/doom/config.org::*mu4e-alert configuration][mu4e-alert configuration:1]]
+(setq doom-modeline-mu4e t)
+(use-package! mu4e-alert
+  :after mu4e
+  :config
+  (mu4e-alert-enable-mode-line-display))
+;; mu4e-alert configuration:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Projects][Projects:1]]
 (setq projectile-project-search-path '("~/devel/" "~/sky" "~/gatech"))

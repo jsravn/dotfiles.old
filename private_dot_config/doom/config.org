@@ -178,10 +178,18 @@ Use latest LSP with eldoc support!
 (package! lsp-mode :pin "2b8f29f1f3")
 #+END_SRC
 
+*** mu4e-alert
+
+Mail notifications. Used for ~doom-modeline-m4ue~.
+
+#+BEGIN_SRC emacs-lisp
+(package! mu4e-alert)
+#+END_SRC
+
 ** Package configuration
 For configuring packages that are loaded in =packages.el=.
 
-*** atomic-chrome
+*** atomic-chrome configuration
 Enable [[*atomic-chrome][atomic-chrome]] integration.
 
 #+BEGIN_SRC emacs-lisp
@@ -191,6 +199,17 @@ Enable [[*atomic-chrome][atomic-chrome]] integration.
   (setq atomic-chrome-default-major-mode 'markdown-mode
         atomic-chrome-buffer-open-style 'frame)
   (atomic-chrome-start-server))
+#+END_SRC
+*** mu4e-alert configuration
+
+Sets up mu4e-alert for notifications and modeline.
+
+#+BEGIN_SRC emacs-lisp
+(setq doom-modeline-mu4e t)
+(use-package! mu4e-alert
+  :after mu4e
+  :config
+  (mu4e-alert-enable-mode-line-display))
 #+END_SRC
 
 * Modules
@@ -214,7 +233,7 @@ options.
        doom-dashboard    ; a nifty splash screen for Emacs
        hl-todo           ; highlight TODO/FIXME/NOTE tags
        indent-guides     ; highlighted indent columns
-       (modeline +light) ; snazzy, Atom-inspired modeline, plus API
+       (modeline)        ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
        ophints           ; highlight the region an operation acts on
        (popup            ; tame sudden yet inevitable temporary windows
@@ -395,6 +414,8 @@ Also set up =smtpmail= for sending emails.
 #+BEGIN_SRC emacs-lisp
 (setq smtpmail-smtp-server "smtp.fastmail.com")
 #+END_SRC
+
+Notifications are configured at [[*mu4e-alert configuration][mu4e-alert configuration]].
 
 ** Tools configuration
 *** Language Server Protocol (LSP)
