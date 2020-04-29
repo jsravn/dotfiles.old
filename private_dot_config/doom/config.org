@@ -379,7 +379,8 @@ I am experimenting with =mu4e= for my email configuration. I'm using it with mbs
 
 #+BEGIN_SRC emacs-lisp
 (after! mu4e
-  (setq mu4e-attachments-dir "~/Downloads"))
+  (setq mu4e-attachments-dir "~/Downloads"   ; Put attachments into ~/Downloads
+        mu4e-update-interval 300))           ; Update every 5 minutes
 (set-email-account! "r-vn.org"
   '((mu4e-sent-folder       . "/r-vn.org/Sent")
     (mu4e-drafts-folder     . "/r-vn.org/Drafts")
@@ -387,6 +388,12 @@ I am experimenting with =mu4e= for my email configuration. I'm using it with mbs
     (mu4e-refile-folder     . "/r-vn.org/Archive")
     (smtpmail-smtp-user     . "james@r-vn.org"))
   t)
+#+END_SRC
+
+Also set up =smtpmail= for sending emails.
+
+#+BEGIN_SRC emacs-lisp
+(setq smtpmail-smtp-server "smtp.fastmail.com")
 #+END_SRC
 
 ** Tools configuration
