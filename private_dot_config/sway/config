@@ -13,7 +13,7 @@
 # * grim, slurp, wl-clipboard
 # * gnome-keyring started via PAM (https://wiki.archlinux.org/index.php/GNOME/Keyring#PAM_method)
 #
-# Start with ~/.local/bin/startsway.sh which initializes gnome-keyring's SSH_AUTH_KEY and Java GUI apps.
+# Start with ~/.local/bin/startsway.sh which imports the login environment to systemd and starts the sway service.
 
 # variables
 font pango: DejaVu Sans, FontAwesome 10
@@ -37,6 +37,15 @@ set $ws9 "9:"
 set $ws10 "10:"
 set $lock "$HOME/.config/sway/lock.sh"
 
+# dbus activation - needs DISPLAY for things like lastpass to work
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XCURSOR_SIZE
+
+# xsettingsd for legacy GTK apps to read GTK config via XSETTINGS protocol
+exec /usr/lib/gsd-xsettings
+
+# polkit authentication agent
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
 # autostart
 exec mako
 exec redshift -m wayland
@@ -55,12 +64,6 @@ assign [class="discord"] $ws6
 assign [class="Keybase"] $ws6
 assign [app_id="evolution"] $ws7
 for_window [app_id="gnome-calculator"] floating enable
-
-# dbus activation - needs DISPLAY for things like lastpass to work
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XCURSOR_SIZE
-
-# polkit authentication agent
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # monitors
 output DP-1 mode 2560x1440@165Hz

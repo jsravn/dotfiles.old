@@ -283,6 +283,9 @@ options.
        (scala +lsp)      ; java, but good
        sh                ; she sells {ba,z,fi}sh shells on the C xor
 
+       :email
+       mu4e
+
        :app
        calendar
 
@@ -368,6 +371,22 @@ Flyspell can create a lot of lag in large buffers. Make it as lazy as possible.
 
 #+BEGIN_SRC emacs-lisp
 (after! flyspell (flyspell-lazy-mode 1))
+#+END_SRC
+
+** Email configuration (mu4e)
+
+I am experimenting with =mu4e= for my email configuration. I'm using it with mbsync as the backend for syncing emails. Note as of 1.4, the root maildir is set via the ~mu init~ command so it is unnecessary to set it.
+
+#+BEGIN_SRC emacs-lisp
+(after! mu4e
+  (setq mu4e-attachments-dir "~/Downloads"))
+(set-email-account! "r-vn.org"
+  '((mu4e-sent-folder       . "/r-vn.org/Sent")
+    (mu4e-drafts-folder     . "/r-vn.org/Drafts")
+    (mu4e-trash-folder      . "/r-vn.org/Trash")
+    (mu4e-refile-folder     . "/r-vn.org/Archive")
+    (smtpmail-smtp-user     . "james@r-vn.org"))
+  t)
 #+END_SRC
 
 ** Tools configuration

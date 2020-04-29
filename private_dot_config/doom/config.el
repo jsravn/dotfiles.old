@@ -122,6 +122,18 @@
 (after! flyspell (flyspell-lazy-mode 1))
 ;; Flyspell:1 ends here
 
+;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):1]]
+(after! mu4e
+  (setq mu4e-attachments-dir "~/Downloads"))
+(set-email-account! "r-vn.org"
+  '((mu4e-sent-folder       . "/r-vn.org/Sent")
+    (mu4e-drafts-folder     . "/r-vn.org/Drafts")
+    (mu4e-trash-folder      . "/r-vn.org/Trash")
+    (mu4e-refile-folder     . "/r-vn.org/Archive")
+    (smtpmail-smtp-user     . "james@r-vn.org"))
+  t)
+;; Email configuration (mu4e):1 ends here
+
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):1]]
 (defun jsravn--format-accordingly ()
   (interactive)

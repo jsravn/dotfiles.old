@@ -84,6 +84,9 @@
        (scala +lsp)      ; java, but good
        sh                ; she sells {ba,z,fi}sh shells on the C xor
 
+       :email
+       mu4e
+
        :app
        calendar
 
