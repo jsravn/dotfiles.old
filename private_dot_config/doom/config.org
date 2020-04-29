@@ -176,7 +176,7 @@ boxes! It's very handy for large Github comments.
 Use the latest LSP.
 
 #+BEGIN_SRC emacs-lisp :tangle "packages.el"
-(package! lsp-mode :pin "882cccf") ; April 29, 2020
+(unpin! lsp-mode)
 #+END_SRC
 
 *** mu4e-alert
@@ -186,6 +186,9 @@ Mail notifications. Used for ~doom-modeline-m4ue~.
 #+BEGIN_SRC emacs-lisp
 (package! mu4e-alert)
 #+END_SRC
+
+#+RESULTS:
+: t
 
 ** Package configuration
 For configuring packages that are loaded in =packages.el=.
