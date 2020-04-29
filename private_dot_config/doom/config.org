@@ -172,10 +172,11 @@ boxes! It's very handy for large Github comments.
 #+END_SRC
 
 *** lsp-mode
-Use latest LSP with eldoc support!
+
+Use the latest LSP.
 
 #+BEGIN_SRC emacs-lisp :tangle "packages.el"
-(package! lsp-mode :pin "2b8f29f1f3")
+(package! lsp-mode :pin "882cccf") ; April 29, 2020
 #+END_SRC
 
 *** mu4e-alert
