@@ -38,9 +38,9 @@
     "format": "{}",
     "format-alt": "{alt}: {}",
     "format-alt-click": "click-right",
-    "interval": 1800,
+    "interval": 600,
     "return-type": "json",
-    "exec": "~/.config/waybar/weather.sh",
+    "exec": "~/.config/waybar/weather.sh Richmond,UK",
     "exec-if": "ping wttr.in -c1"
   },
   "custom/spotify": {
