@@ -152,7 +152,7 @@
                             (:maildir "/r-vn.org/Trash"   :key ?t)
                             (:maildir "/r-vn.org/Sent"    :key ?s)))
    (smtpmail-smtp-server . "smtp.fastmail.com")
-   (smtpmail-stream-type . 'ssl)
+   (smtpmail-stream-type . ssl)
    (smtpmail-smtp-service . 465)
    (smtpmail-default-smtp-server . "smtp.fastmail.com"))
  t)
@@ -161,6 +161,7 @@
 ;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):2]]
 (after! mu4e
   (setq mu4e-attachment-dir "~/Downloads"   ; Attachments in standard place.
+        mu4e-headers-include-related nil    ; Only show messages which match the current filter.
         mu4e-headers-fields                 ; Header columns.
         '((:human-date . 12)
           (:flags . 6)
