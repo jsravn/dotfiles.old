@@ -1,6 +1,4 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
+# My sway config.
 #
 # Read `man 5 sway` for a complete reference.
 
@@ -8,7 +6,7 @@
 # * mako
 # * redshift-wlr-gamma-control-git
 # * gnome-polkit
-# * i3blocks
+# * waybar
 # * rofi
 # * grim, slurp, wl-clipboard
 # * gnome-keyring started via PAM (https://wiki.archlinux.org/index.php/GNOME/Keyring#PAM_method)
