@@ -540,7 +540,7 @@ Prefer offering remote branches when prompting for a branch selection.
 Limit the number of topics that forge displays. I find the default a bit too large.
 
 #+BEGIN_SRC emacs-lisp
-(setq forge-topic-list-limit '(15 . 5))
+(setq forge-topic-list-limit '(30 . 5))
 #+END_SRC
 
 * Languages
@@ -593,8 +593,7 @@ Use variable pitch for org mode text. Also make headings appear larger.
 Enable =+org-pretty-mode= which hides the emphasis markers and enables pretty entities.
 
 #+BEGIN_SRC emacs-lisp
-(add-hook! 'org-mode-hook #'+org-pretty-mode)
-#+END_SRC
+;(add-hook! 'org-mode-hook #'+org-pretty-mode) #+END_SRC
 
 Make org-mode symbols look nicer than the defaults. Shamelessly stolen from
 [[https://github.com/hlissner/doom-emacs-private/blob/master/config.el]].
@@ -909,16 +908,30 @@ GFM exports to markdown. Let's enable it.
 *** Task management
 I follow my own take on GTD for task management. The task management is independent of notes, and the task files are kept
 in the main ~org-directory~. The files are:
-- inbox.org    :: Captures go here for later filing.
-- todo.org     :: The primary todo list, with all actively worked on projects and TODO items.
-- ticklers.org :: Reminders and tasks to be worked on later.
+
+- inbox.org    :: Captures go here for later filing. I use =beorg= on my phone to capture things quickly on the fly.
+- todo.org     :: The primary TODO list, with all actively worked on projects and TODO items.
+- ticklers.org :: Periodic reminders and tasks to be worked on later.
 - someday.org  :: I'll do these things one day, maybe.
 
-My high level process is:
+Each file is organized into a heading per context like this:
+
+#+BEGIN_SRC text
+\* Home :@home:
+\* Work :@work:
+\* OMSCS :@omscs:
+#+END_SRC
+
+By using headlines in each folder, I can simply refile tasks under the appropriate heading and they'll automatically
+inherit the context tag. It also makes it easier to focus on tasks for a specific context, GTD style, when in the org
+file.
+
+My high level task process then is:
 1. Once or twice a day, open up the all agenda (=SPC o A A=).
 2. Refile everything in the inbox section appropriately.
-3. Anything in the schedule that needs doing is moved from =ticklers.org= to =todo.org=.
+3. Anything in the schedule that needs doing is moved from =ticklers.org= to =todo.org= which removes it from the schedule.
 4. Whenever I need to see what task to pick up, I open up the context specific agenda. E.g. =SPC o A h= for =@home=.
+5. Finished tasks are archived (=d A= in agenda, or =SPC m A= in org-mode). If they are recurring tasks, they are refiled back to =ticklers.org=.
 
 **** Capture templates
 These are my custom templates for capturing new tasks quickly to the inbox.
