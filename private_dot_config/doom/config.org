@@ -1121,6 +1121,18 @@ sub-folder inside the org directory.
 (setq org-roam-directory (concat org-directory "roam/"))
 #+END_SRC
 
+Change the default capture template. Specifically, place the title before the date so it's easy to locate the file
+outside of orgmode such as on a mobile device.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-roam-capture-templates
+      '(("d" "default" plain (function org-roam-capture--get-point)
+         "%?"
+         :file-name "${slug}-%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}\n"
+         :unnarrowed t)))
+#+END_SRC
+
 I'm also experimenting with deft as the interface for org-roam. I'm still undecided whether it is useful - I find myself
 just using the normal =projectile-find-file= interface.
 
