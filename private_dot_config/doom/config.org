@@ -590,10 +590,12 @@ Use variable pitch for org mode text. Also make headings appear larger.
   '(outline-9 :weight semi-bold))
 #+END_SRC
 
-Enable =+org-pretty-mode= which hides the emphasis markers and enables pretty entities.
+Enable =+org-pretty-mode= which hides the emphasis markers and enables pretty entities. Disable for now as I find it can
+mess up org rendering.
 
 #+BEGIN_SRC emacs-lisp
-;(add-hook! 'org-mode-hook #'+org-pretty-mode) #+END_SRC
+;(add-hook! 'org-mode-hook #'+org-pretty-mode)
+#+END_SRC
 
 Make org-mode symbols look nicer than the defaults. Shamelessly stolen from
 [[https://github.com/hlissner/doom-emacs-private/blob/master/config.el]].
