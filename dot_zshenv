@@ -1,7 +1,6 @@
 # autoloads
 fpath=(~/.autoload $fpath)
 autoload -Uz jabba
-autoload -Uz java
 autoload -Uz nvm
 autoload -Uz pyenv
 autoload -Uz python
