@@ -60,17 +60,18 @@
 (setq split-width-threshold 240)
 ;; Window splitting:2 ends here
 
-;; [[file:~/.config/doom/config.org::*Clipboard][Clipboard:1]]
+;; [[file:~/.config/doom/config.org::*Clipboard and Copy/Paste][Clipboard and Copy/Paste:1]]
 (setq select-enable-clipboard t)
-;; Clipboard:1 ends here
+;; Clipboard and Copy/Paste:1 ends here
+
+;; [[file:~/.config/doom/config.org::*Clipboard and Copy/Paste][Clipboard and Copy/Paste:2]]
+(map!
+ :i "C-S-v" #'yank)
+;; Clipboard and Copy/Paste:2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Authinfo][Authinfo:1]]
 (setq auth-sources '("~/.authinfo.gpg"))
 ;; Authinfo:1 ends here
-
-;; [[file:~/.config/doom/config.org::*Autostart][Autostart:1]]
-(add-hook 'emacs-startup-hook #'=mu4e) ; Start up mail.
-;; Autostart:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*atomic-chrome configuration][atomic-chrome configuration:1]]
 (use-package! atomic-chrome
@@ -95,7 +96,7 @@
 
 ;; [[file:~/.config/doom/config.org::*Projects][Projects:2]]
 (after! projectile
-  (prependq!  projectile-project-root-files '(".project" "go.mod")) ; add additional project files here
+  (prependq!  projectile-project-root-files '(".project" "go.mod"))          ; add additional project files here
   (setq projectile-project-root-files-functions #'(projectile-root-top-down
                                                    projectile-root-top-down-recurring
                                                    projectile-root-bottom-up
@@ -131,7 +132,8 @@
 ;; [[file:~/.config/doom/config.org::*Treemacs][Treemacs:1]]
 (after! treemacs
   (treemacs-follow-mode 1)
-  (setq treemacs-width 40))
+  (setq treemacs-width 40
+        treemacs--width-is-locked nil))
 ;; Treemacs:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Flyspell][Flyspell:1]]
@@ -220,7 +222,7 @@
 ;; Language Server Protocol (LSP):5 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):6]]
-;;(setq lsp-log-io t)
+(setq lsp-log-io t)
 ;; Language Server Protocol (LSP):6 ends here
 
 ;; [[file:~/.config/doom/config.org::*Magit][Magit:1]]
@@ -679,7 +681,7 @@
 (setq org-roam-capture-templates
       '(("d" "default" plain (function org-roam-capture--get-point)
          "%?"
-         :file-name "${slug}-%<%Y%m%d%H%M%S>"
+         :file-name "%<%Y%m%d%H%M%S>-${slug}"
          :head "#+TITLE: ${title}\n"
          :unnarrowed t)))
 ;; org-roam:2 ends here
@@ -710,6 +712,57 @@
         org-journal-date-format "%A, %d %B %Y"))
 ;; org-journal:1 ends here
 
+;; [[file:~/.config/doom/config.org::*Calendar][Calendar:1]]
+;; (use-package! org-caldav
+;;   :after org
+;;   :init
+;;   ;; Configure my calendars.
+;;   (setq org-caldav-url "https://caldav.fastmail.com/dav/calendars/user/james@r-vn.org"
+;;         org-caldav-calendars
+;;         `((:calendar-id "0a220cb3-0ee8-49a9-af76-15c60bde70da"
+;;            :files ,(list (concat org-directory "cal-personal.org"))
+;;            :inbox ,(concat org-directory "cal-personal.org"))
+;;           (:calendar-id "071a3712-0213-4dac-a421-a79dc1760517"
+;;            :files ,(list (concat org-directory "cal-family.org"))
+;;            :inbox ,(concat org-directory "cal-family.org"))
+;;           (:calendar-id "4a92bcb6-a731-418c-89a3-97b86c0c51e5"
+;;            :files ,(list (concat org-directory "cal-holidayuk.org"))
+;;            :inbox ,(concat org-directory "cal-holidayuk.org"))))
+
+;;   ;; Configure caldav.
+;;   (let ((caldav-dir (concat org-directory ".org-caldav/")))
+;;     (setq org-caldav-backup-file (concat caldav-dir "org-caldav-backup.org")
+;;           org-caldav-save-directory caldav-dir
+;;           org-caldav-show-sync-results nil))
+
+;;   :config
+;;   ;; Configure icalendar.
+;;   (setq org-icalendar-alarm-time 1
+;;         org-icalendar-include-todo t
+;;         org-icalendar-timezone "Europe/London"
+;;         org-icalendar-use-deadline '(event-if-todo event-if-not-todo todo-due)
+;;         org-icalendar-use-scheduled '(todo-start event-if-todo event-if-not-todo))
+
+;;   (map! :map org-mode-map
+;;         :localleader
+;;         :desc "Sync calendars" "C" #'org-caldav-sync))
+;; Calendar:1 ends here
+
+;; [[file:~/.config/doom/config.org::*Alerts][Alerts:1]]
+;; (use-package! org-alert
+;;   :after org
+;;   :init
+;;   (setq alert-default-style 'libnotify                  ; Use system notifications.
+;;         org-alert-headline-regexp "\\(Deadline:.+\\)"   ; Only notify for deadlines.
+;;         org-alert-interval 7200)                        ; Check/alert bihourly.
+;;   :config
+;;   (add-hook 'emacs-startup-hook #'org-alert-enable))
+;; Alerts:1 ends here
+
 ;; [[file:~/.config/doom/config.org::*Markdown][Markdown:1]]
 (add-hook! (gfm-mode markdown-mode) #'mixed-pitch-mode)
 ;; Markdown:1 ends here
+
+;; [[file:~/.config/doom/config.org::*Java][Java:1]]
+;; (setq lsp-jt-root (concat doom-etc-dir "eclipse.jdt.ls/server/java-test/server"))
+;; Java:1 ends here

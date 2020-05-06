@@ -17,3 +17,11 @@
 ;; [[file:~/.config/doom/config.org::*mu4e-alert][mu4e-alert:1]]
 (package! mu4e-alert)
 ;; mu4e-alert:1 ends here
+
+;; [[file:~/.config/doom/config.org::*org-caldav][org-caldav:1]]
+;;(package! org-caldav)
+;; org-caldav:1 ends here
+
+;; [[file:~/.config/doom/config.org::*org-alert][org-alert:1]]
+(package! org-alert)
+;; org-alert:1 ends here

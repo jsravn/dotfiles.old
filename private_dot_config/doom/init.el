@@ -54,6 +54,8 @@
        :tools
        ansible
        docker
+       (debugger +lsp)
+       direnv
        editorconfig      ; let someone else argue about tabs vs spaces
        (eval             ; run code, run (also, repls)
         +overlay)
@@ -69,6 +71,7 @@
        (clojure          ; java with a lisp
         +cider
         +lsp)
+       common-lisp       ; if you've seen one lisp, you've seen them all
        data              ; config/data formats
        emacs-lisp        ; drown in parentheses
        (go +lsp)         ; the hipster dialect
@@ -86,9 +89,6 @@
 
        :email
        mu4e
-
-       :app
-       calendar
 
        :config
        literate
