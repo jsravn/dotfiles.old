@@ -407,13 +407,12 @@ set a width more appropriate for a modern screen size.
 #+END_SRC
 
 *** Treemacs
-Enable follow-mode so the treemacs cursor follows the buffer file. Also increase the default width to show more stuff. And disable locked width.
+Enable follow-mode so the treemacs cursor follows the buffer file. Also increase the default width to show more stuff.
 
 #+BEGIN_SRC emacs-lisp
 (after! treemacs
   (treemacs-follow-mode 1)
-  (setq treemacs-width 40
-        treemacs--width-is-locked nil))
+  (setq treemacs-width 40))
 #+END_SRC
 
 ** Checkers configuration
@@ -538,10 +537,10 @@ Just display the function.
       lsp-signature-render-documentation nil)
 #+END_SRC
 
-Turn on [[https://github.com/emacs-lsp/lsp-mode/wiki/Debugging][LSP Debugging]].
+Turn on [[https://github.com/emacs-lsp/lsp-mode/wiki/Debugging][LSP Debugging]]. Enable only when needed.
 
 #+BEGIN_SRC emacs-lisp
-(setq lsp-log-io t)
+;(setq lsp-log-io t)
 #+END_SRC
 
 *** Magit

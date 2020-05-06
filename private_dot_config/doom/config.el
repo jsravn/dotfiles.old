@@ -132,8 +132,7 @@
 ;; [[file:~/.config/doom/config.org::*Treemacs][Treemacs:1]]
 (after! treemacs
   (treemacs-follow-mode 1)
-  (setq treemacs-width 40
-        treemacs--width-is-locked nil))
+  (setq treemacs-width 40))
 ;; Treemacs:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Flyspell][Flyspell:1]]
@@ -222,7 +221,7 @@
 ;; Language Server Protocol (LSP):5 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):6]]
-(setq lsp-log-io t)
+;(setq lsp-log-io t)
 ;; Language Server Protocol (LSP):6 ends here
 
 ;; [[file:~/.config/doom/config.org::*Magit][Magit:1]]
