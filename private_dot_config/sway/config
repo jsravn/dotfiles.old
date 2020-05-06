@@ -36,7 +36,8 @@ set $ws10 "10:"
 set $lock "$HOME/.config/sway/lock.sh"
 
 # dbus activation - needs DISPLAY for things like lastpass to work
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XCURSOR_SIZE
+#exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XCURSOR_SIZE XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+exec dbus-update-activation-environment --systemd --all
 
 # xsettingsd for legacy GTK apps to read GTK config via XSETTINGS protocol
 exec /usr/lib/gsd-xsettings
@@ -61,6 +62,7 @@ exec keybase-gui
 exec spotify
 exec slack
 exec discord
+exec evolution
 
 # monitors
 output DP-1 mode 2560x1440@165Hz
@@ -72,7 +74,7 @@ output * bg ~/Pictures/publicenemy1HDfree.jpg fill
 exec swayidle -w \
   timeout 600 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
-  timeout 900 '$lock' \
+  timeout 900 'systemctl suspend' \
   before-sleep '$lock' \
   timeout 30 'if pgrep swaylock; then swaymsg "output * dpms off"; fi' \
     resume 'swaymsg "output * dpms on"'
@@ -94,7 +96,7 @@ workspace_auto_back_and_forth yes
 
 # gaps and borders
 gaps inner 3
-default_border pixel 2
+default_border pixel 3
 smart_borders on
 
 # use Mouse+$mod to drag floating windows to their wanted position
