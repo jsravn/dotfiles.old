@@ -697,7 +697,7 @@
 (defun jsravn--open-org-roam ()
   "Called by `org-mode-hook' to call `org-roam' if the current buffer is a roam file."
   (remove-hook 'window-configuration-change-hook #'jsravn--open-org-roam)
-  (when (and (bound-and-true-p org-mode) (org-roam--org-roam-file-p))
+  (when (org-roam--org-roam-file-p)
     (unless (eq 'visible (org-roam--current-visibility)) (org-roam))))
 
 (after! org-roam
