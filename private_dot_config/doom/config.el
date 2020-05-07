@@ -695,12 +695,15 @@
 
 ;; [[file:~/.config/doom/config.org::*org-roam][org-roam:5]]
 (defun jsravn--open-org-roam ()
-  "Called by `find-file-hook' when `org-roam-mode' is on."
-  (when (org-roam--org-roam-file-p)
+  "Called by `org-mode-hook' to call `org-roam' if the current buffer is a roam file."
+  (remove-hook 'window-configuration-change-hook #'jsravn--open-org-roam)
+  (when (and (bound-and-true-p org-mode) (org-roam--org-roam-file-p))
     (unless (eq 'visible (org-roam--current-visibility)) (org-roam))))
 
 (after! org-roam
-  (add-hook 'doom-switch-buffer-hook #'jsravn--open-org-roam))
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (add-hook 'window-configuration-change-hook #'jsravn--open-org-roam))))
 ;; org-roam:5 ends here
 
 ;; [[file:~/.config/doom/config.org::*org-journal][org-journal:1]]

@@ -1161,12 +1161,15 @@ And I want the org-roam buffer to open automatically when I visit a roam file.
 
 #+BEGIN_SRC emacs-lisp
 (defun jsravn--open-org-roam ()
-  "Called by `find-file-hook' when `org-roam-mode' is on."
-  (when (org-roam--org-roam-file-p)
+  "Called by `org-mode-hook' to call `org-roam' if the current buffer is a roam file."
+  (remove-hook 'window-configuration-change-hook #'jsravn--open-org-roam)
+  (when (and (bound-and-true-p org-mode) (org-roam--org-roam-file-p))
     (unless (eq 'visible (org-roam--current-visibility)) (org-roam))))
 
 (after! org-roam
-  (add-hook 'doom-switch-buffer-hook #'jsravn--open-org-roam))
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (add-hook 'window-configuration-change-hook #'jsravn--open-org-roam))))
 #+END_SRC
 
 **** org-journal
