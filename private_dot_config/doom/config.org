@@ -421,7 +421,7 @@ Flyspell can create a lot of lag in large buffers. Make it as lazy as possible.
 ** Email configuration (mu4e)
 I am experimenting with =mu4e= for my email configuration. I'm using it with mbsync as the backend for syncing emails. Note as of 1.4, the root maildir is set via the ~mu init~ command so it is unnecessary to set it.
 
-**** Prerequisites:
+**** Prerequisites
 First run mbsync for the first time to download all mail. Then set up =mu=:
 
 #+BEGIN_SRC sh :tangle no
