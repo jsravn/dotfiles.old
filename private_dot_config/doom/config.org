@@ -78,6 +78,12 @@ Delete files to the local Trash folder, e.g. =~/.local/share/Trash= on Linux.
 (setq delete-by-moving-to-trash t)
 #+END_SRC
 
+Make undo more fine-grained.
+
+#+BEGIN_SRC emacs-lisp
+(setq evil-want-fine-undo t)
+#+END_SRC
+
 *** Auto-save
 I want Emacs to save files I'm working on in case my system crashes. These get stored in
 =~/.emacs.d/local/cache/autosave= in some weird format. Still, better safe than sorry. Emacs will prompt to recover them
@@ -230,17 +236,6 @@ Enable [[*atomic-chrome][atomic-chrome]] integration.
   (setq atomic-chrome-default-major-mode 'markdown-mode
         atomic-chrome-buffer-open-style 'frame)
   (atomic-chrome-start-server))
-#+END_SRC
-*** mu4e-alert configuration
-
-Sets up mu4e-alert for notifications and modeline.
-
-#+BEGIN_SRC emacs-lisp
-(setq doom-modeline-mu4e t)
-(use-package! mu4e-alert
-  :after mu4e
-  :config
-  (mu4e-alert-enable-mode-line-display))
 #+END_SRC
 
 * Modules
@@ -424,9 +419,17 @@ Flyspell can create a lot of lag in large buffers. Make it as lazy as possible.
 #+END_SRC
 
 ** Email configuration (mu4e)
-
 I am experimenting with =mu4e= for my email configuration. I'm using it with mbsync as the backend for syncing emails. Note as of 1.4, the root maildir is set via the ~mu init~ command so it is unnecessary to set it.
 
+**** Prerequisites:
+First run mbsync for the first time to download all mail. Then set up =mu=:
+
+#+BEGIN_SRC sh :tangle no
+touch ~/Mail/r-vn.org/Spam/.noindex
+mu init --maildir ~/Mail --my-address james@r-vn.org
+#+END_SRC
+
+**** Configuration
 First, use doom's handy function for setting up an [[https://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html#Contexts][mu4e context]].
 
 #+BEGIN_SRC emacs-lisp
@@ -449,7 +452,7 @@ First, use doom's handy function for setting up an [[https://www.djcbsoftware.nl
  t)
 #+END_SRC
 
-General configuration.
+Tweak the general configuration.
 
 #+BEGIN_SRC emacs-lisp
 (after! mu4e
@@ -463,7 +466,15 @@ General configuration.
         mu4e-update-interval 300))          ; Check for mail every 5 minutes.
 #+END_SRC
 
-Notifications are configured at [[*mu4e-alert configuration][mu4e-alert configuration]].
+Set up mu4e-alert for notifications in the modeline.
+
+#+BEGIN_SRC emacs-lisp
+(setq doom-modeline-mu4e t)
+(use-package! mu4e-alert
+  :after mu4e
+  :config
+  (mu4e-alert-enable-mode-line-display))
+#+END_SRC
 
 Bind it to the global =SPC M=.
 

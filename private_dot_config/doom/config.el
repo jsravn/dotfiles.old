@@ -31,6 +31,10 @@
 (setq delete-by-moving-to-trash t)
 ;; Deletion:1 ends here
 
+;; [[file:~/.config/doom/config.org::*Deletion][Deletion:2]]
+(setq evil-want-fine-undo t)
+;; Deletion:2 ends here
+
 ;; [[file:~/.config/doom/config.org::*Auto-save][Auto-save:1]]
 (setq auto-save-default t)
 ;; Auto-save:1 ends here
@@ -82,14 +86,6 @@
   (atomic-chrome-start-server))
 ;; atomic-chrome configuration:1 ends here
 
-;; [[file:~/.config/doom/config.org::*mu4e-alert configuration][mu4e-alert configuration:1]]
-(setq doom-modeline-mu4e t)
-(use-package! mu4e-alert
-  :after mu4e
-  :config
-  (mu4e-alert-enable-mode-line-display))
-;; mu4e-alert configuration:1 ends here
-
 ;; [[file:~/.config/doom/config.org::*Projects][Projects:1]]
 (setq projectile-project-search-path '("~/devel/" "~/sky" "~/gatech"))
 ;; Projects:1 ends here
@@ -139,7 +135,7 @@
 (after! flyspell (flyspell-lazy-mode 1))
 ;; Flyspell:1 ends here
 
-;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):1]]
+;; [[file:~/.config/doom/config.org::*Configuration][Configuration:1]]
 (set-email-account!
  "r-vn.org"
  '((mu4e-sent-folder       . "/r-vn.org/Sent")
@@ -157,9 +153,9 @@
    (smtpmail-smtp-service . 465)
    (smtpmail-default-smtp-server . "smtp.fastmail.com"))
  t)
-;; Email configuration (mu4e):1 ends here
+;; Configuration:1 ends here
 
-;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):2]]
+;; [[file:~/.config/doom/config.org::*Configuration][Configuration:2]]
 (after! mu4e
   (setq mu4e-attachment-dir "~/Downloads"   ; Attachments in standard place.
         mu4e-headers-include-related nil    ; Only show messages which match the current filter.
@@ -169,23 +165,31 @@
           (:from . 25)
           (:subject))
         mu4e-update-interval 300))          ; Check for mail every 5 minutes.
-;; Email configuration (mu4e):2 ends here
+;; Configuration:2 ends here
 
-;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):3]]
+;; [[file:~/.config/doom/config.org::*Configuration][Configuration:3]]
+(setq doom-modeline-mu4e t)
+(use-package! mu4e-alert
+  :after mu4e
+  :config
+  (mu4e-alert-enable-mode-line-display))
+;; Configuration:3 ends here
+
+;; [[file:~/.config/doom/config.org::*Configuration][Configuration:4]]
 (map!
  :leader
  :desc "Mail" "M" #'=mu4e)
-;; Email configuration (mu4e):3 ends here
+;; Configuration:4 ends here
 
-;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):4]]
+;; [[file:~/.config/doom/config.org::*Configuration][Configuration:5]]
 (after! mu4e
   (add-to-list 'mu4e-view-actions
                '("ViewInBrowser" . mu4e-action-view-in-browser) t))
-;; Email configuration (mu4e):4 ends here
+;; Configuration:5 ends here
 
-;; [[file:~/.config/doom/config.org::*Email configuration (mu4e)][Email configuration (mu4e):5]]
+;; [[file:~/.config/doom/config.org::*Configuration][Configuration:6]]
 (setq shr-color-visible-luminance-min 80)
-;; Email configuration (mu4e):5 ends here
+;; Configuration:6 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):1]]
 (defun jsravn--format-accordingly ()
