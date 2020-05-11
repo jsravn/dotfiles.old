@@ -168,11 +168,71 @@
 ;; Configuration:2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Configuration][Configuration:3]]
-(setq doom-modeline-mu4e t)
-(use-package! mu4e-alert
-  :after mu4e
+(remove-hook 'mu4e-compose-mode-hook #'org-mu4e-compose-org-mode) ; Don't use org-mu4e.
+
+;; Same as org-msg method but with quoted-printable-decode region removed.
+;; With this, the encoding is broken on the HTML reply.
+(defun jara--org-msg-save-article-for-reply-mu4e ()
+  "Export the currently visited mu4e article as HTML."
+  (with-current-buffer mu4e~view-buffer-name
+    (let* ((msg (mu4e-message-at-point))
+	         (html (mu4e-message-field msg :body-html))
+	         (file (concat "/tmp/" (mu4e-message-field msg :message-id))))
+      (cl-flet* ((mails2str (l)
+		                        (mapconcat (lambda (m)
+				                                 (format "%S &lt;%s&gt;" (car m) (cdr m)))
+			                                 l ", "))
+		             (field2str (f)
+		                        (let ((value (funcall (cdr f)
+					                                        (mu4e-message-field msg (car f)))))
+		                          (when value
+		                            (format "%s: %s<br>\n"
+			                                  (capitalize (substring (symbol-name (car f)) 1))
+			                                  value)))))
+	      (with-temp-buffer
+	        (save-excursion
+	          (insert html))
+	        ;; (quoted-printable-decode-region (point-min) (point-max)))
+	        ;; Remove everything before html tag
+	        (save-excursion
+	          (if (re-search-forward "^<html\\(.*?\\)>" nil t)
+		            (delete-region (point-min) (match-beginning 0))
+	            ;; Handle malformed HTML
+	            (insert "<html><body>")
+	            (goto-char (point-max))
+	            (insert "</body></html>")))
+	        ;; Insert reply header after body tag
+	        (when (re-search-forward "<body\\(.*?\\)>" nil t)
+	          (goto-char (match-end 0))
+	          (insert "<div align=\"left\">\n"
+		                (mapconcat #'field2str
+			                         `((:from . ,#'mails2str)
+				                         (:subject . identity)
+				                         (:to . ,#'mails2str)
+				                         (:cc . ,#'mails2str)
+				                         (:date . message-make-date))
+			                         "")
+		                "</div>\n<hr>\n"))
+	        (write-file file))
+	      (list file)))))
+
+(use-package org-msg
+  :after (org mu4e)
+  :hook (mu4e-main-mode . org-msg-mode)
   :config
-  (mu4e-alert-enable-mode-line-display))
+  (advice-add #'org-msg-save-article-for-reply-mu4e :override #'jara--org-msg-save-article-for-reply-mu4e)
+  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+	      org-msg-startup "hidestars indent inlineimages"
+	      org-msg-greeting-fmt "\nHi %s,\n\n"
+	      org-msg-greeting-name-limit 3
+	      org-msg-text-plain-alternative t
+        org-msg-signature "
+
+Regards,
+
+#+begin_signature
+-- James
+#+end_signature"))
 ;; Configuration:3 ends here
 
 ;; [[file:~/.config/doom/config.org::*Configuration][Configuration:4]]
@@ -182,29 +242,31 @@
 ;; Configuration:4 ends here
 
 ;; [[file:~/.config/doom/config.org::*Configuration][Configuration:5]]
-(after! mu4e
-  (add-to-list 'mu4e-view-actions
-               '("ViewInBrowser" . mu4e-action-view-in-browser) t))
+(setq shr-color-visible-luminance-min 80)
 ;; Configuration:5 ends here
 
 ;; [[file:~/.config/doom/config.org::*Configuration][Configuration:6]]
-(setq shr-color-visible-luminance-min 80)
+(setq doom-modeline-mu4e t)
+(use-package! mu4e-alert
+  :after mu4e
+  :config
+  (mu4e-alert-enable-mode-line-display))
 ;; Configuration:6 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):1]]
-(defun jsravn--format-accordingly ()
-  (interactive)
-  (call-interactively
-   (if (bound-and-true-p lsp-mode)
-       #'+default/lsp-format-region-or-buffer
-     #'+format/region-or-buffer)))
+;; (defun jsravn--format-accordingly ()
+;;   (interactive)
+;;   (call-interactively
+;;    (if (bound-and-true-p lsp-mode)
+;;        #'+default/lsp-format-region-or-buffer
+;;      #'+format/region-or-buffer)))
 
-(map! :leader
-      (:prefix "c"
-        :desc "Format buffer/region" "f"    #'jsravn--format-accordingly
-        :desc "LSP Function parameters" "p" #'lsp-signature-activate
-        (:after lsp-mode
-          :desc "LSP" "l" lsp-command-map)))
+;; (map! :leader
+;;       (:prefix "c"
+;;         :desc "Format buffer/region" "f"    #'jsravn--format-accordingly
+;;         :desc "LSP Function parameters" "p" #'lsp-signature-activate
+;;         (:after lsp-mode
+;;           :desc "LSP" "l" lsp-command-map)))
 ;; Language Server Protocol (LSP):1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):2]]
@@ -772,3 +834,20 @@
 ;; [[file:~/.config/doom/config.org::*Java][Java:1]]
 ;; (setq lsp-jt-root (concat doom-etc-dir "eclipse.jdt.ls/server/java-test/server"))
 ;; Java:1 ends here
+
+;; [[file:~/.config/doom/config.org::*YAML][YAML:1]]
+(setq lsp-yaml-schemas (make-hash-table))
+(puthash "kubernetes" ["resources.yaml"
+                       "resources/*"
+                       "pod.yaml"
+                       "deployment.yaml"
+                       "serviceaccount.yaml"
+                       "clusterrole.yaml"
+                       "role.yaml"
+                       "clusterrolebinding.yaml"
+                       "rolebinding.yaml"
+                       "configmap.yaml"
+                       "service.yaml"]
+         lsp-yaml-schemas)
+(puthash "http://json.schemastore.org/kustomization" ["kustomization.yaml"] lsp-yaml-schemas)
+;; YAML:1 ends here

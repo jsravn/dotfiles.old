@@ -209,6 +209,14 @@ Mail notifications. Used for ~doom-modeline-m4ue~.
 #+RESULTS:
 : t
 
+*** org-msg
+
+Send HTML mail with org-mode. Better than the buggy/unsupported =org-mu4e-compose-mode=.
+
+#+BEGIN_SRC emacs-lisp :tangle "packages.el"
+(package! org-msg)
+#+END_SRC
+
 *** org-caldav
 
 Used to sync calendars to org-mode.
@@ -330,6 +338,7 @@ options.
         +lsp +pyenv)
        (scala +lsp)      ; java, but good
        sh                ; she sells {ba,z,fi}sh shells on the C xor
+       (yaml +lsp)
 
        :email
        mu4e
@@ -348,7 +357,9 @@ Set the search directories for projectile to auto-discovery projects.
 #+END_SRC
 
 Change the root finding logic to make more sense (in my head). Prefer using language specific build files to identify
-project roots over =.git=. Also, prefer =.project= over anything else by placing it first in the root files..
+project roots over =.git=. Also, prefer =.project= over anything else by placing it first in the root files.. _I'm
+finding this too weird - I like having .git be the root of my project. The main issue I was trying to solve was with LSP
+misidentifying roots, but I'll just leave the initial guess root to nil for now._
 
 #+BEGIN_SRC emacs-lisp
 (after! projectile
@@ -466,6 +477,90 @@ Tweak the general configuration.
         mu4e-update-interval 300))          ; Check for mail every 5 minutes.
 #+END_SRC
 
+Compose mails with =org-msg=.
+
+#+BEGIN_SRC emacs-lisp
+(remove-hook 'mu4e-compose-mode-hook #'org-mu4e-compose-org-mode) ; Don't use org-mu4e.
+
+;; Same as org-msg method but with quoted-printable-decode region removed.
+;; With this, the encoding is broken on the HTML reply.
+(defun jara--org-msg-save-article-for-reply-mu4e ()
+  "Export the currently visited mu4e article as HTML."
+  (with-current-buffer mu4e~view-buffer-name
+    (let* ((msg (mu4e-message-at-point))
+	         (html (mu4e-message-field msg :body-html))
+	         (file (concat "/tmp/" (mu4e-message-field msg :message-id))))
+      (cl-flet* ((mails2str (l)
+		                        (mapconcat (lambda (m)
+				                                 (format "%S &lt;%s&gt;" (car m) (cdr m)))
+			                                 l ", "))
+		             (field2str (f)
+		                        (let ((value (funcall (cdr f)
+					                                        (mu4e-message-field msg (car f)))))
+		                          (when value
+		                            (format "%s: %s<br>\n"
+			                                  (capitalize (substring (symbol-name (car f)) 1))
+			                                  value)))))
+	      (with-temp-buffer
+	        (save-excursion
+	          (insert html))
+	        ;; (quoted-printable-decode-region (point-min) (point-max)))
+	        ;; Remove everything before html tag
+	        (save-excursion
+	          (if (re-search-forward "^<html\\(.*?\\)>" nil t)
+		            (delete-region (point-min) (match-beginning 0))
+	            ;; Handle malformed HTML
+	            (insert "<html><body>")
+	            (goto-char (point-max))
+	            (insert "</body></html>")))
+	        ;; Insert reply header after body tag
+	        (when (re-search-forward "<body\\(.*?\\)>" nil t)
+	          (goto-char (match-end 0))
+	          (insert "<div align=\"left\">\n"
+		                (mapconcat #'field2str
+			                         `((:from . ,#'mails2str)
+				                         (:subject . identity)
+				                         (:to . ,#'mails2str)
+				                         (:cc . ,#'mails2str)
+				                         (:date . message-make-date))
+			                         "")
+		                "</div>\n<hr>\n"))
+	        (write-file file))
+	      (list file)))))
+
+(use-package org-msg
+  :after (org mu4e)
+  :hook (mu4e-main-mode . org-msg-mode)
+  :config
+  (advice-add #'org-msg-save-article-for-reply-mu4e :override #'jara--org-msg-save-article-for-reply-mu4e)
+  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+	      org-msg-startup "hidestars indent inlineimages"
+	      org-msg-greeting-fmt "\nHi %s,\n\n"
+	      org-msg-greeting-name-limit 3
+	      org-msg-text-plain-alternative t
+        org-msg-signature "
+
+Regards,
+
+,#+begin_signature
+-- James
+,#+end_signature"))
+#+END_SRC
+
+Bind mail to the global =SPC M=.
+
+#+BEGIN_SRC emacs-lisp
+(map!
+ :leader
+ :desc "Mail" "M" #'=mu4e)
+#+END_SRC
+
+=mu4e= uses =shr= to render HTML to text. Let's tweak its colors so it's a bit easier to see with doom's dark background.
+
+#+BEGIN_SRC emacs-lisp
+(setq shr-color-visible-luminance-min 80)
+#+END_SRC
+
 Set up mu4e-alert for notifications in the modeline.
 
 #+BEGIN_SRC emacs-lisp
@@ -476,47 +571,25 @@ Set up mu4e-alert for notifications in the modeline.
   (mu4e-alert-enable-mode-line-display))
 #+END_SRC
 
-Bind it to the global =SPC M=.
-
-#+BEGIN_SRC emacs-lisp
-(map!
- :leader
- :desc "Mail" "M" #'=mu4e)
-#+END_SRC
-
-Add an action for viewing mails in the browser. Use this with =a V= in the message reading view.
-
-#+BEGIN_SRC emacs-lisp
-(after! mu4e
-  (add-to-list 'mu4e-view-actions
-               '("ViewInBrowser" . mu4e-action-view-in-browser) t))
-#+END_SRC
-
-=mu4e= uses =shr= to render HTML to text. Let's tweak its colors so it's a bit easier to see with doom's dark background.
-
-#+BEGIN_SRC emacs-lisp
-(setq shr-color-visible-luminance-min 80)
-#+END_SRC
-
 ** Tools configuration
 *** Language Server Protocol (LSP)
 I add some often used LSP bindings. I also override the default format binding to use LSP. And finally, I bind the
-entire ~lsp-command-map~ provided by LSP to =SPC c l=.
+entire ~lsp-command-map~ provided by LSP to =SPC c l=. _No longer needed - this is now in doom!_
 
 #+BEGIN_SRC emacs-lisp
-(defun jsravn--format-accordingly ()
-  (interactive)
-  (call-interactively
-   (if (bound-and-true-p lsp-mode)
-       #'+default/lsp-format-region-or-buffer
-     #'+format/region-or-buffer)))
+;; (defun jsravn--format-accordingly ()
+;;   (interactive)
+;;   (call-interactively
+;;    (if (bound-and-true-p lsp-mode)
+;;        #'+default/lsp-format-region-or-buffer
+;;      #'+format/region-or-buffer)))
 
-(map! :leader
-      (:prefix "c"
-        :desc "Format buffer/region" "f"    #'jsravn--format-accordingly
-        :desc "LSP Function parameters" "p" #'lsp-signature-activate
-        (:after lsp-mode
-          :desc "LSP" "l" lsp-command-map)))
+;; (map! :leader
+;;       (:prefix "c"
+;;         :desc "Format buffer/region" "f"    #'jsravn--format-accordingly
+;;         :desc "LSP Function parameters" "p" #'lsp-signature-activate
+;;         (:after lsp-mode
+;;           :desc "LSP" "l" lsp-command-map)))
 #+END_SRC
 
 Disable the auto root guessing that doom enables by default, but doesn't work very well in my experience. With this
@@ -1258,4 +1331,23 @@ Configure =lsp-jt=.
 
 #+BEGIN_SRC emacs-lisp
 ;; (setq lsp-jt-root (concat doom-etc-dir "eclipse.jdt.ls/server/java-test/server"))
+#+END_SRC
+** YAML
+Add Kubernetes schemas.
+
+#+BEGIN_SRC emacs-lisp
+(setq lsp-yaml-schemas (make-hash-table))
+(puthash "kubernetes" ["resources.yaml"
+                       "resources/*"
+                       "pod.yaml"
+                       "deployment.yaml"
+                       "serviceaccount.yaml"
+                       "clusterrole.yaml"
+                       "role.yaml"
+                       "clusterrolebinding.yaml"
+                       "rolebinding.yaml"
+                       "configmap.yaml"
+                       "service.yaml"]
+         lsp-yaml-schemas)
+(puthash "http://json.schemastore.org/kustomization" ["kustomization.yaml"] lsp-yaml-schemas)
 #+END_SRC

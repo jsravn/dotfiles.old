@@ -18,6 +18,10 @@
 (package! mu4e-alert)
 ;; mu4e-alert:1 ends here
 
+;; [[file:~/.config/doom/config.org::*org-msg][org-msg:1]]
+(package! org-msg)
+;; org-msg:1 ends here
+
 ;; [[file:~/.config/doom/config.org::*org-caldav][org-caldav:1]]
 ;;(package! org-caldav)
 ;; org-caldav:1 ends here
