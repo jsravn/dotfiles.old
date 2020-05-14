@@ -47,16 +47,18 @@ Use the default doom-one theme, and the very nice [[https://www.fsd.it/shop/font
 #+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-one
       doom-font (font-spec :family "PragmataPro Liga" :size 16)
-      doom-variable-pitch-font (font-spec :family "Cantarell" :size 15)
+      doom-variable-pitch-font (font-spec :family "sans" :size 14)
       doom-big-font (font-spec :family "PragmataPro Liga" :size 20)
       doom-unicode-font (font-spec :family "Noto Color Emoji" :size 16)
       +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
 
 #+END_SRC
 
-Also ensure =mixed-pitch-mode= preserves the variable pitch height.
+Enable =mixed-pitch-mode= for text modes. Also ensure it preserves the variable pitch height rather than inheriting from
+the default face.
 
 #+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook #'mixed-pitch-mode)
 (setq mixed-pitch-set-height t)
 #+END_SRC
 
@@ -105,14 +107,17 @@ when inserting links via popups, I only save when swapping between file buffers.
 
 *** Line wrapping
 Fill column primarily affects how Emacs breaks lines in ~auto-fill-mode~. The default is 80. I set it to 120 which is a
-bit nicer for modern screens.
+bit nicer for modern screens. I also enable a fill column indicator for non-text modes (it looks bad in text modes due
+to variable pitch fonts).
 
 #+BEGIN_SRC emacs-lisp
 (setq-default fill-column 120)
+(add-hook! '(prog-mode-hook conf-mode-hook)
+           #'display-fill-column-indicator-mode)
 #+END_SRC
 
-Also I disable ~auto-fill-mode~ by default. I prefer to enable it only when needed, as it doesn't play nicely with many of the
-text files I work on. Instead I use ~+word-wrap-mode~ which is equivalent to using =SPC t w= by default.
+Also I disable ~auto-fill-mode~ by default. I prefer to enable it only when needed, as it doesn't play nicely with many
+of the text files I work on. Instead I use ~+word-wrap-mode~ which is equivalent to using =SPC t w= by default.
 
 #+BEGIN_SRC emacs-lisp
 (remove-hook 'text-mode-hook #'auto-fill-mode)
@@ -149,6 +154,12 @@ And allow pasting from system clipboard with the typical Linux =C-S-v= while in 
 #+BEGIN_SRC emacs-lisp
 (map!
  :i "C-S-v" #'yank)
+#+END_SRC
+*** Which-key
+Reduce the popup delay for =which-key=.
+
+#+BEGIN_SRC emacs-lisp
+(setq which-key-idle-delay 0.5)
 #+END_SRC
 
 ** Authinfo
@@ -206,9 +217,6 @@ Mail notifications. Used for ~doom-modeline-m4ue~.
 (package! mu4e-alert)
 #+END_SRC
 
-#+RESULTS:
-: t
-
 *** org-msg
 
 Send HTML mail with org-mode. Better than the buggy/unsupported =org-mu4e-compose-mode=.
@@ -217,18 +225,19 @@ Send HTML mail with org-mode. Better than the buggy/unsupported =org-mu4e-compos
 (package! org-msg)
 #+END_SRC
 
-*** org-caldav
-
-Used to sync calendars to org-mode.
-
-#+BEGIN_SRC emacs-lisp :tangle "packages.el"
-;;(package! org-caldav)
-#+END_SRC
 *** org-alert
 Used to generate system notifications from org agendas.
 
 #+BEGIN_SRC emacs-lisp :tangle "packages.el"
 (package! org-alert)
+#+END_SRC
+
+***  caddyfile-mode
+
+https://github.com/Schnouki/caddyfile-mode
+
+#+BEGIN_SRC emacs-lisp :tangle "packages.el"
+(package! caddyfile-mode)
 #+END_SRC
 
 ** Package configuration
@@ -245,6 +254,14 @@ Enable [[*atomic-chrome][atomic-chrome]] integration.
         atomic-chrome-buffer-open-style 'frame)
   (atomic-chrome-start-server))
 #+END_SRC
+*** caddyfile-mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package caddyfile-mode
+  :mode (("Caddyfile\\'" . caddyfile-mode)
+         ("Corefile\\'" . caddyfile-mode)
+         ("caddy\\.conf\\'" . caddyfile-mode)))
+#+END_SRC
 
 * Modules
 This section configures the doom modules. Languages have their own [[*Languages][dedicated section]].
@@ -259,7 +276,11 @@ options.
        :completion
        (company          ; the ultimate code completion backend
         +childframe)
-       ivy               ; a search engine for love and life
+       (ivy              ; a search engine for love and life
+        +childframe
+        +prescient
+        +fuzzy
+        +icons)
 
        :ui
        deft              ; notational velocity for Emacs
@@ -362,12 +383,12 @@ finding this too weird - I like having .git be the root of my project. The main 
 misidentifying roots, but I'll just leave the initial guess root to nil for now._
 
 #+BEGIN_SRC emacs-lisp
-(after! projectile
-  (prependq!  projectile-project-root-files '(".project" "go.mod"))          ; add additional project files here
-  (setq projectile-project-root-files-functions #'(projectile-root-top-down
-                                                   projectile-root-top-down-recurring
-                                                   projectile-root-bottom-up
-                                                   projectile-root-local)))
+;; (after! projectile
+;;   (prependq!  projectile-project-root-files '(".project" "go.mod"))          ; add additional project files here
+;;   (setq projectile-project-root-files-functions #'(projectile-root-top-down
+;;                                                    projectile-root-top-down-recurring
+;;                                                    projectile-root-bottom-up
+;;                                                    projectile-root-local)))
 #+END_SRC
 
 Clear the projectile cache when swapping branches in =magit= which will likely change the files in the project.
@@ -482,57 +503,63 @@ Compose mails with =org-msg=.
 #+BEGIN_SRC emacs-lisp
 (remove-hook 'mu4e-compose-mode-hook #'org-mu4e-compose-org-mode) ; Don't use org-mu4e.
 
+(defun jara--org-msg-save-article-for-reply-mu4e-2 ()
+  "Export the currently visited mu4e article as HTML."
+  (let* ((msg mu4e-compose-parent-message)
+        (htmlfile (mu4e~write-body-to-html msg)))
+    (message "mu4e html file at %s" htmlfile)
+    (list htmlfile)))
+
 ;; Same as org-msg method but with quoted-printable-decode region removed.
 ;; With this, the encoding is broken on the HTML reply.
 (defun jara--org-msg-save-article-for-reply-mu4e ()
   "Export the currently visited mu4e article as HTML."
-  (with-current-buffer mu4e~view-buffer-name
-    (let* ((msg (mu4e-message-at-point))
-	         (html (mu4e-message-field msg :body-html))
-	         (file (concat "/tmp/" (mu4e-message-field msg :message-id))))
-      (cl-flet* ((mails2str (l)
-		                        (mapconcat (lambda (m)
-				                                 (format "%S &lt;%s&gt;" (car m) (cdr m)))
-			                                 l ", "))
-		             (field2str (f)
-		                        (let ((value (funcall (cdr f)
-					                                        (mu4e-message-field msg (car f)))))
-		                          (when value
-		                            (format "%s: %s<br>\n"
-			                                  (capitalize (substring (symbol-name (car f)) 1))
-			                                  value)))))
-	      (with-temp-buffer
-	        (save-excursion
-	          (insert html))
-	        ;; (quoted-printable-decode-region (point-min) (point-max)))
-	        ;; Remove everything before html tag
-	        (save-excursion
-	          (if (re-search-forward "^<html\\(.*?\\)>" nil t)
-		            (delete-region (point-min) (match-beginning 0))
-	            ;; Handle malformed HTML
-	            (insert "<html><body>")
-	            (goto-char (point-max))
-	            (insert "</body></html>")))
-	        ;; Insert reply header after body tag
-	        (when (re-search-forward "<body\\(.*?\\)>" nil t)
-	          (goto-char (match-end 0))
-	          (insert "<div align=\"left\">\n"
-		                (mapconcat #'field2str
-			                         `((:from . ,#'mails2str)
-				                         (:subject . identity)
-				                         (:to . ,#'mails2str)
-				                         (:cc . ,#'mails2str)
-				                         (:date . message-make-date))
-			                         "")
-		                "</div>\n<hr>\n"))
-	        (write-file file))
-	      (list file)))))
+  (let* ((msg mu4e-compose-parent-message)
+	 (html (mu4e-message-field msg :body-html))
+	 (file (concat "/tmp/" (mu4e-message-field msg :message-id))))
+    (cl-flet* ((mails2str (l)
+		 (mapconcat (lambda (m)
+			      (format "%S &lt;%s&gt;" (car m) (cdr m)))
+			    l ", "))
+	       (field2str (f)
+		 (let ((value (funcall (cdr f)
+				       (mu4e-message-field msg (car f)))))
+		   (when value
+		     (format "%s: %s<br>\n"
+			     (capitalize (substring (symbol-name (car f)) 1))
+			     value)))))
+      (with-temp-buffer
+	(save-excursion
+	  (insert html))
+	;; Remove everything before html tag
+	(save-excursion
+	  (if (re-search-forward "^<html\\(.*?\\)>" nil t)
+	      (delete-region (point-min) (match-beginning 0))
+	    ;; Handle malformed HTML
+	    (insert "<html><body>")
+	    (goto-char (point-max))
+	    (insert "</body></html>")))
+	;; Insert reply header after body tag
+	(when (re-search-forward "<body\\(.*?\\)>" nil t)
+	  (goto-char (match-end 0))
+	  (insert "<div align=\"left\">\n"
+		  (mapconcat #'field2str
+			     `((:from . ,#'mails2str)
+			       (:subject . identity)
+			       (:to . ,#'mails2str)
+			       (:cc . ,#'mails2str)
+			       (:date . message-make-date))
+			     "")
+		  "</div>\n<hr>\n"))
+	(write-file file))
+      (list file))))
 
 (use-package org-msg
   :after (org mu4e)
   :hook (mu4e-main-mode . org-msg-mode)
   :config
   (advice-add #'org-msg-save-article-for-reply-mu4e :override #'jara--org-msg-save-article-for-reply-mu4e)
+  (advice-add #'org-msg-improve-reply-header :override #'ignore)
   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
 	      org-msg-startup "hidestars indent inlineimages"
 	      org-msg-greeting-fmt "\nHi %s,\n\n"
@@ -547,12 +574,13 @@ Regards,
 ,#+end_signature"))
 #+END_SRC
 
-Bind mail to the global =SPC M=.
+Bind mail to =SPC o m=.
 
 #+BEGIN_SRC emacs-lisp
 (map!
  :leader
- :desc "Mail" "M" #'=mu4e)
+ :prefix "o"
+ :desc "Mail" "m" #'=mu4e)
 #+END_SRC
 
 =mu4e= uses =shr= to render HTML to text. Let's tweak its colors so it's a bit easier to see with doom's dark background.
@@ -675,7 +703,7 @@ Allow ~imenu~ to nest fully in org-mode to quickly jump to any heading.
 Use variable pitch for org mode text. Also make headings appear larger.
 
 #+BEGIN_SRC emacs-lisp
-(add-hook! 'org-mode-hook #'mixed-pitch-mode)
+;; (add-hook! 'org-mode-hook #'mixed-pitch-mode)
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.12)
   '(outline-2 :weight bold :height 1.10)
@@ -1260,11 +1288,10 @@ And I want the org-roam buffer to open automatically when I visit a roam file.
 Set up org-journal to integrate with org-roam.
 
 #+BEGIN_SRC emacs-lisp
-(after! org-journal
-  (setq org-journal-date-prefix "#+TITLE: "
-        org-journal-file-format "%Y-%m-%d.org"
-        org-journal-dir org-roam-directory
-        org-journal-date-format "%A, %d %B %Y"))
+(setq org-journal-date-prefix "#+TITLE: "
+      org-journal-date-format "%A, %d %B %Y"
+      org-journal-file-format "%Y-%m-%d.org"
+      org-journal-dir org-roam-directory)
 #+END_SRC
 *** Calendar
 I am experimenting with =org-caldav= to sync my org files with calendars. Much of this is taken from [[https://www.reddit.com/r/orgmode/comments/8rl8ep/making_orgcaldav_useable/][this reddit post]].
@@ -1324,7 +1351,7 @@ Experiment using =org-alert= to get notified of impending deadlines. _Not workin
 Use =mixed-pitch-mode= for markdown.
 
 #+BEGIN_SRC emacs-lisp
-(add-hook! (gfm-mode markdown-mode) #'mixed-pitch-mode)
+;; (add-hook! (gfm-mode markdown-mode) #'mixed-pitch-mode)
 #+END_SRC
 ** Java
 Configure =lsp-jt=.

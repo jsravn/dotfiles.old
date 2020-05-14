@@ -13,13 +13,14 @@
 ;; [[file:~/.config/doom/config.org::*Theme][Theme:1]]
 (setq doom-theme 'doom-one
       doom-font (font-spec :family "PragmataPro Liga" :size 16)
-      doom-variable-pitch-font (font-spec :family "Cantarell" :size 15)
+      doom-variable-pitch-font (font-spec :family "sans" :size 14)
       doom-big-font (font-spec :family "PragmataPro Liga" :size 20)
       doom-unicode-font (font-spec :family "Noto Color Emoji" :size 16)
       +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
 ;; Theme:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Theme][Theme:2]]
+(add-hook 'text-mode-hook #'mixed-pitch-mode)
 (setq mixed-pitch-set-height t)
 ;; Theme:2 ends here
 
@@ -48,6 +49,8 @@
 
 ;; [[file:~/.config/doom/config.org::*Line wrapping][Line wrapping:1]]
 (setq-default fill-column 120)
+(add-hook! '(prog-mode-hook conf-mode-hook)
+           #'display-fill-column-indicator-mode)
 ;; Line wrapping:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Line wrapping][Line wrapping:2]]
@@ -73,6 +76,10 @@
  :i "C-S-v" #'yank)
 ;; Clipboard and Copy/Paste:2 ends here
 
+;; [[file:~/.config/doom/config.org::*Which-key][Which-key:1]]
+(setq which-key-idle-delay 0.5)
+;; Which-key:1 ends here
+
 ;; [[file:~/.config/doom/config.org::*Authinfo][Authinfo:1]]
 (setq auth-sources '("~/.authinfo.gpg"))
 ;; Authinfo:1 ends here
@@ -86,17 +93,24 @@
   (atomic-chrome-start-server))
 ;; atomic-chrome configuration:1 ends here
 
+;; [[file:~/.config/doom/config.org::*caddyfile-mode][caddyfile-mode:1]]
+(use-package caddyfile-mode
+  :mode (("Caddyfile\\'" . caddyfile-mode)
+         ("Corefile\\'" . caddyfile-mode)
+         ("caddy\\.conf\\'" . caddyfile-mode)))
+;; caddyfile-mode:1 ends here
+
 ;; [[file:~/.config/doom/config.org::*Projects][Projects:1]]
 (setq projectile-project-search-path '("~/devel/" "~/sky" "~/gatech"))
 ;; Projects:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Projects][Projects:2]]
-(after! projectile
-  (prependq!  projectile-project-root-files '(".project" "go.mod"))          ; add additional project files here
-  (setq projectile-project-root-files-functions #'(projectile-root-top-down
-                                                   projectile-root-top-down-recurring
-                                                   projectile-root-bottom-up
-                                                   projectile-root-local)))
+;; (after! projectile
+;;   (prependq!  projectile-project-root-files '(".project" "go.mod"))          ; add additional project files here
+;;   (setq projectile-project-root-files-functions #'(projectile-root-top-down
+;;                                                    projectile-root-top-down-recurring
+;;                                                    projectile-root-bottom-up
+;;                                                    projectile-root-local)))
 ;; Projects:2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Projects][Projects:3]]
@@ -170,57 +184,63 @@
 ;; [[file:~/.config/doom/config.org::*Configuration][Configuration:3]]
 (remove-hook 'mu4e-compose-mode-hook #'org-mu4e-compose-org-mode) ; Don't use org-mu4e.
 
+(defun jara--org-msg-save-article-for-reply-mu4e-2 ()
+  "Export the currently visited mu4e article as HTML."
+  (let* ((msg mu4e-compose-parent-message)
+        (htmlfile (mu4e~write-body-to-html msg)))
+    (message "mu4e html file at %s" htmlfile)
+    (list htmlfile)))
+
 ;; Same as org-msg method but with quoted-printable-decode region removed.
 ;; With this, the encoding is broken on the HTML reply.
 (defun jara--org-msg-save-article-for-reply-mu4e ()
   "Export the currently visited mu4e article as HTML."
-  (with-current-buffer mu4e~view-buffer-name
-    (let* ((msg (mu4e-message-at-point))
-	         (html (mu4e-message-field msg :body-html))
-	         (file (concat "/tmp/" (mu4e-message-field msg :message-id))))
-      (cl-flet* ((mails2str (l)
-		                        (mapconcat (lambda (m)
-				                                 (format "%S &lt;%s&gt;" (car m) (cdr m)))
-			                                 l ", "))
-		             (field2str (f)
-		                        (let ((value (funcall (cdr f)
-					                                        (mu4e-message-field msg (car f)))))
-		                          (when value
-		                            (format "%s: %s<br>\n"
-			                                  (capitalize (substring (symbol-name (car f)) 1))
-			                                  value)))))
-	      (with-temp-buffer
-	        (save-excursion
-	          (insert html))
-	        ;; (quoted-printable-decode-region (point-min) (point-max)))
-	        ;; Remove everything before html tag
-	        (save-excursion
-	          (if (re-search-forward "^<html\\(.*?\\)>" nil t)
-		            (delete-region (point-min) (match-beginning 0))
-	            ;; Handle malformed HTML
-	            (insert "<html><body>")
-	            (goto-char (point-max))
-	            (insert "</body></html>")))
-	        ;; Insert reply header after body tag
-	        (when (re-search-forward "<body\\(.*?\\)>" nil t)
-	          (goto-char (match-end 0))
-	          (insert "<div align=\"left\">\n"
-		                (mapconcat #'field2str
-			                         `((:from . ,#'mails2str)
-				                         (:subject . identity)
-				                         (:to . ,#'mails2str)
-				                         (:cc . ,#'mails2str)
-				                         (:date . message-make-date))
-			                         "")
-		                "</div>\n<hr>\n"))
-	        (write-file file))
-	      (list file)))))
+  (let* ((msg mu4e-compose-parent-message)
+	 (html (mu4e-message-field msg :body-html))
+	 (file (concat "/tmp/" (mu4e-message-field msg :message-id))))
+    (cl-flet* ((mails2str (l)
+		 (mapconcat (lambda (m)
+			      (format "%S &lt;%s&gt;" (car m) (cdr m)))
+			    l ", "))
+	       (field2str (f)
+		 (let ((value (funcall (cdr f)
+				       (mu4e-message-field msg (car f)))))
+		   (when value
+		     (format "%s: %s<br>\n"
+			     (capitalize (substring (symbol-name (car f)) 1))
+			     value)))))
+      (with-temp-buffer
+	(save-excursion
+	  (insert html))
+	;; Remove everything before html tag
+	(save-excursion
+	  (if (re-search-forward "^<html\\(.*?\\)>" nil t)
+	      (delete-region (point-min) (match-beginning 0))
+	    ;; Handle malformed HTML
+	    (insert "<html><body>")
+	    (goto-char (point-max))
+	    (insert "</body></html>")))
+	;; Insert reply header after body tag
+	(when (re-search-forward "<body\\(.*?\\)>" nil t)
+	  (goto-char (match-end 0))
+	  (insert "<div align=\"left\">\n"
+		  (mapconcat #'field2str
+			     `((:from . ,#'mails2str)
+			       (:subject . identity)
+			       (:to . ,#'mails2str)
+			       (:cc . ,#'mails2str)
+			       (:date . message-make-date))
+			     "")
+		  "</div>\n<hr>\n"))
+	(write-file file))
+      (list file))))
 
 (use-package org-msg
   :after (org mu4e)
   :hook (mu4e-main-mode . org-msg-mode)
   :config
   (advice-add #'org-msg-save-article-for-reply-mu4e :override #'jara--org-msg-save-article-for-reply-mu4e)
+  (advice-add #'org-msg-improve-reply-header :override #'ignore)
   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
 	      org-msg-startup "hidestars indent inlineimages"
 	      org-msg-greeting-fmt "\nHi %s,\n\n"
@@ -238,7 +258,8 @@ Regards,
 ;; [[file:~/.config/doom/config.org::*Configuration][Configuration:4]]
 (map!
  :leader
- :desc "Mail" "M" #'=mu4e)
+ :prefix "o"
+ :desc "Mail" "m" #'=mu4e)
 ;; Configuration:4 ends here
 
 ;; [[file:~/.config/doom/config.org::*Configuration][Configuration:5]]
@@ -311,7 +332,7 @@ Regards,
 ;; Editor:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Visuals][Visuals:1]]
-(add-hook! 'org-mode-hook #'mixed-pitch-mode)
+;; (add-hook! 'org-mode-hook #'mixed-pitch-mode)
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.12)
   '(outline-2 :weight bold :height 1.10)
@@ -773,11 +794,10 @@ Regards,
 ;; org-roam:5 ends here
 
 ;; [[file:~/.config/doom/config.org::*org-journal][org-journal:1]]
-(after! org-journal
-  (setq org-journal-date-prefix "#+TITLE: "
-        org-journal-file-format "%Y-%m-%d.org"
-        org-journal-dir org-roam-directory
-        org-journal-date-format "%A, %d %B %Y"))
+(setq org-journal-date-prefix "#+TITLE: "
+      org-journal-date-format "%A, %d %B %Y"
+      org-journal-file-format "%Y-%m-%d.org"
+      org-journal-dir org-roam-directory)
 ;; org-journal:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Calendar][Calendar:1]]
@@ -828,7 +848,7 @@ Regards,
 ;; Alerts:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Markdown][Markdown:1]]
-(add-hook! (gfm-mode markdown-mode) #'mixed-pitch-mode)
+;; (add-hook! (gfm-mode markdown-mode) #'mixed-pitch-mode)
 ;; Markdown:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Java][Java:1]]

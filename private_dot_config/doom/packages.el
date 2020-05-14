@@ -22,10 +22,10 @@
 (package! org-msg)
 ;; org-msg:1 ends here
 
-;; [[file:~/.config/doom/config.org::*org-caldav][org-caldav:1]]
-;;(package! org-caldav)
-;; org-caldav:1 ends here
-
 ;; [[file:~/.config/doom/config.org::*org-alert][org-alert:1]]
 (package! org-alert)
 ;; org-alert:1 ends here
+
+;; [[file:~/.config/doom/config.org::*caddyfile-mode][caddyfile-mode:1]]
+(package! caddyfile-mode)
+;; caddyfile-mode:1 ends here
