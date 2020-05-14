@@ -559,7 +559,6 @@ Compose mails with =org-msg=.
   :hook (mu4e-main-mode . org-msg-mode)
   :config
   (advice-add #'org-msg-save-article-for-reply-mu4e :override #'jara--org-msg-save-article-for-reply-mu4e)
-  (advice-add #'org-msg-improve-reply-header :override #'ignore)
   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
 	      org-msg-startup "hidestars indent inlineimages"
 	      org-msg-greeting-fmt "\nHi %s,\n\n"
