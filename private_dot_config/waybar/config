@@ -34,6 +34,9 @@
       "deactivated": ""
     }
   },
+  "tray": {
+    "icon-size": 18
+  },
   "custom/weather": {
     "format": "{}",
     "format-alt": "{alt}: {}",
