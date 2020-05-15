@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-05-14 Thu 08:57 -->
+<!-- 2020-05-15 Fri 10:05 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Doom Emacs Configuration</title>
@@ -377,372 +377,6 @@
    ::-webkit-scrollbar-thumb:hover { background:#888; }
 </style>
 <!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
-<!––tec/custom-head-start-->
-<style type="text/css">
-   :root {
-      --theme-bg: #282c34;
-      --theme-bg-alt: #21242b;
-      --theme-base0: #1B2229;
-      --theme-base1: #1c1f24;
-      --theme-base2: #202328;
-      --theme-base3: #23272e;
-      --theme-base4: #3f444a;
-      --theme-base5: #5B6268;
-      --theme-base6: #73797e;
-      --theme-base7: #9ca0a4;
-      --theme-base8: #DFDFDF;
-      --theme-fg: #bbc2cf;
-      --theme-fg-alt: #5B6268;
-      --theme-grey: #3f444a;
-      --theme-red: #ff6c6b;
-      --theme-orange: #da8548;
-      --theme-green: #98be65;
-      --theme-teal: #4db5bd;
-      --theme-yellow: #ECBE7B;
-      --theme-blue: #51afef;
-      --theme-dark-blue: #2257A0;
-      --theme-magenta: #c678dd;
-      --theme-violet: #a9a1e1;
-      --theme-cyan: #46D9FF;
-      --theme-dark-cyan: #5699AF;
-   }
-</style>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css'/>
-<link rel='stylesheet' type='text/css' href='https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css'/>
-
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js'></script>
-<script type='text/javascript' src='https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js'></script>
-
-<style>
-   pre.src {
-     background-color: var(--theme-bg);
-     color: var(--theme-fg);
-     scrollbar-color:#bbb6#9992;
-     scrollbar-width: thin;
-     margin: 0;
-     border: none;
-   }
-   div.org-src-container {
-     border-radius: 12px;
-     overflow: hidden;
-     margin-bottom: 24px;
-     margin-top: 1px;
-     border: 1px solid#e1e4e5;
-   }
-   pre.src::before {
-     background-color:#6666;
-     top: 8px;
-     border: none;
-     border-radius: 5px;
-     line-height: 1;
-     border: 2px solid var(--theme-bg);
-     opacity: 0;
-     transition: opacity 200ms;
-   }
-   pre.src:hover::before { opacity: 1; }
-   pre.src:active::before { opacity: 0; }
-
-   pre.example {
-     border-radius: 12px;
-     background: var(--theme-bg-alt);
-     color: var(--theme-fg);
-   }
-
-   code {
-     border-radius: 5px;
-     background:#e8e8e8;
-     font-size: 80%;
-   }
-
-   kbd {
-     display: inline-block;
-     padding: 3px 5px;
-     font: 80% SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-     line-height: normal;
-     line-height: 10px;
-     color:#444d56;
-     vertical-align: middle;
-     background-color:#fafbfc;
-     border: 1px solid#d1d5da;
-     border-radius: 3px;
-     box-shadow: inset 0 -1px 0#d1d5da;
-   }
-
-   table {
-     max-width: 100%;
-     overflow-x: auto;
-     display: block;
-     border-top: none;
-   }
-
-   a {
-       text-decoration: none;
-       background-image: linear-gradient(#d8dce9, #d8dce9);
-       background-position: 0% 100%;
-       background-repeat: no-repeat;
-       background-size: 0% 2px;
-       transition: background-size .3s;
-   }
-   #table-of-contents a {
-       background-image: none;
-   }
-   a:hover, a:focus {
-       background-size: 100% 2px;
-   }
-   a[href^='#'] { font-variant-numeric: oldstyle-nums; }
-   a[href^='#']:visited { color:#3091d1; }
-
-   li .checkbox {
-       display: inline-block;
-       width: 0.9em;
-       height: 0.9em;
-       border-radius: 3px;
-       margin: 3px;
-       top: 4px;
-       position: relative;
-   }
-   li.on > .checkbox { background: var(--theme-green); box-shadow: 0 0 2px var(--theme-green); }
-   li.trans > .checkbox { background: var(--theme-orange); box-shadow: 0 0 2px var(--theme-orange); }
-   li.off > .checkbox { background: var(--theme-red); box-shadow: 0 0 2px var(--theme-red); }
-   li.on > .checkbox::after {
-     content: '';
-     height: 0.45em;
-     width: 0.225em;
-     -webkit-transform-origin: left top;
-     transform-origin: left top;
-     transform: scaleX(-1) rotate(135deg);
-     border-right: 2.8px solid#fff;
-     border-top: 2.8px solid#fff;
-     opacity: 0.9;
-     left: 0.10em;
-     top: 0.45em;
-     position: absolute;
-   }
-   li.trans > .checkbox::after {
-       content: '';
-       font-weight: bold;
-       font-size: 1.6em;
-       position: absolute;
-       top: 0.23em;
-       left: 0.09em;
-       width: 0.35em;
-       height: 0.12em;
-       background:#fff;
-       opacity: 0.9;
-       border-radius: 0.1em;
-   }
-   li.off > .checkbox::after {
-    content: '✖';
-    color:#fff;
-    opacity: 0.9;
-    position: relative;
-    top: -0.40rem;
-    left: 0.17em;
-    font-size: 0.75em;
-  }
-
-   span.timestamp {
-       color: #003280;
-       background: #647CFF44;
-       border-radius: 3px;
-       line-height: 1.25;
-   }
-
-   #table-of-contents { overflow-y: auto; }
-   blockquote p { margin: 8px 0px 16px 0px; }
-   #postamble .date { color: var(--theme-green); }
-
-   ::-webkit-scrollbar { width: 10px; height: 8px; }
-   ::-webkit-scrollbar-track { background:#9992; }
-   ::-webkit-scrollbar-thumb { background:#ccc; border-radius: 10px; }
-   ::-webkit-scrollbar-thumb:hover { background:#888; }
-</style>
-<!––tec/custom-head-end-->
 <script type="text/javascript">
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
 <!--/*--><![CDATA[/*><!--*/
@@ -775,145 +409,144 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org86437d7">1. Intro</a></li>
-<li><a href="#org5a57fb9">2. General configuration</a>
+<li><a href="#orgcc0737f">1. Intro</a></li>
+<li><a href="#org6363f49">2. General configuration</a>
 <ul>
-<li><a href="#org7535019">2.1. File variables</a></li>
-<li><a href="#org8c93f24">2.2. Personal information</a></li>
-<li><a href="#org42b3e30">2.3. Visual Settings</a>
+<li><a href="#org7b550bf">2.1. File variables</a></li>
+<li><a href="#orgc6ddf52">2.2. Personal information</a></li>
+<li><a href="#org5d5f1ec">2.3. Visual Settings</a>
 <ul>
-<li><a href="#org7c7ff98">2.3.1. Theme</a></li>
-<li><a href="#org570a360">2.3.2. Maximize</a></li>
+<li><a href="#org4164bf6">2.3.1. Theme</a></li>
+<li><a href="#org8286bd8">2.3.2. Mixed pitch mode</a></li>
+<li><a href="#org28f59f5">2.3.3. Maximize</a></li>
 </ul>
 </li>
-<li><a href="#org3dd4de4">2.4. Editor behavior</a>
+<li><a href="#orga9a5bb4">2.4. Editor behavior</a>
 <ul>
-<li><a href="#orgc81a4e3">2.4.1. Deletion</a></li>
-<li><a href="#org48a72e8">2.4.2. Auto-save</a></li>
-<li><a href="#org9330994">2.4.3. Line wrapping</a></li>
-<li><a href="#org9b09afd">2.4.4. Window splitting</a></li>
-<li><a href="#orgbea7829">2.4.5. Clipboard and Copy/Paste</a></li>
-<li><a href="#org0200dfc">2.4.6. Which-key</a></li>
+<li><a href="#org089be37">2.4.1. Deletion</a></li>
+<li><a href="#orgc4556c9">2.4.2. Auto-save</a></li>
+<li><a href="#orgea47efc">2.4.3. Line wrapping</a></li>
+<li><a href="#org439384a">2.4.4. Window splitting</a></li>
+<li><a href="#org07a12c4">2.4.5. Clipboard and Copy/Paste</a></li>
+<li><a href="#orgcea903f">2.4.6. Which-key</a></li>
 </ul>
 </li>
-<li><a href="#orgef6553f">2.5. Authinfo</a></li>
+<li><a href="#org9dc32be">2.5. Authinfo</a></li>
 </ul>
 </li>
-<li><a href="#orge01bc29">3. Packages</a>
+<li><a href="#orga88436e">3. Packages</a>
 <ul>
-<li><a href="#org3dadedc">3.1. Package loading</a>
+<li><a href="#org1201189">3.1. Package loading</a>
 <ul>
-<li><a href="#org1fdde19">3.1.1. atomic-chrome</a></li>
-<li><a href="#org098aab6">3.1.2. org-roam</a></li>
-<li><a href="#org20bed14">3.1.3. lsp-mode</a></li>
-<li><a href="#org2d15f64">3.1.4. mu4e-alert</a></li>
-<li><a href="#org9524ad2">3.1.5. org-msg</a></li>
-<li><a href="#org88759f0">3.1.6. org-alert</a></li>
-<li><a href="#org9b742f6">3.1.7. caddyfile-mode</a></li>
+<li><a href="#orged8c458">3.1.1. atomic-chrome</a></li>
+<li><a href="#orgdd6377a">3.1.2. org-roam</a></li>
+<li><a href="#org37c81ae">3.1.3. lsp-mode</a></li>
+<li><a href="#org03134ef">3.1.4. mu4e-alert</a></li>
+<li><a href="#org2a69c5b">3.1.5. org-msg</a></li>
+<li><a href="#orga1c9069">3.1.6. org-alert</a></li>
+<li><a href="#org061aeac">3.1.7. caddyfile-mode</a></li>
 </ul>
 </li>
-<li><a href="#org66b3cd4">3.2. Package configuration</a>
+<li><a href="#org4138179">3.2. Package configuration</a>
 <ul>
-<li><a href="#org49a1d1e">3.2.1. atomic-chrome configuration</a></li>
-<li><a href="#org7ca753f">3.2.2. caddyfile-mode</a></li>
+<li><a href="#org4244a18">3.2.1. atomic-chrome configuration</a></li>
+<li><a href="#orgc4471c8">3.2.2. caddyfile-mode</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgcddbf57">4. Modules</a>
+<li><a href="#orgf136952">4. Modules</a>
 <ul>
-<li><a href="#org384034a">4.1. Enable modules (init.el)</a></li>
-<li><a href="#orgf66600f">4.2. Core configuration</a>
+<li><a href="#org852217b">4.1. Enable modules (init.el)</a></li>
+<li><a href="#org10f4d25">4.2. Core configuration</a>
 <ul>
-<li><a href="#org5904a53">4.2.1. Projects</a></li>
-<li><a href="#org7771795">4.2.2. Smart parentheses</a></li>
+<li><a href="#orgc2f7ab8">4.2.1. Projects</a></li>
+<li><a href="#org4471dbf">4.2.2. Smart parentheses</a></li>
 </ul>
 </li>
-<li><a href="#orgb9d5446">4.3. UI configuration</a>
+<li><a href="#org201758c">4.3. UI configuration</a>
 <ul>
-<li><a href="#orgc9326ed">4.3.1. Workspaces</a></li>
-<li><a href="#orgc57f22d">4.3.2. Zen</a></li>
-<li><a href="#orgcb490bc">4.3.3. Treemacs</a></li>
+<li><a href="#org4e66c16">4.3.1. Workspaces</a></li>
+<li><a href="#orge7d26bc">4.3.2. Zen</a></li>
+<li><a href="#orgcd4e15a">4.3.3. Treemacs</a></li>
 </ul>
 </li>
-<li><a href="#org1578a2a">4.4. Checkers configuration</a>
+<li><a href="#org075d37e">4.4. Checkers configuration</a>
 <ul>
-<li><a href="#org780d191">4.4.1. Flyspell</a></li>
+<li><a href="#org9c5fbe5">4.4.1. Flyspell</a></li>
 </ul>
 </li>
-<li><a href="#org71073eb">4.5. Email configuration (mu4e)</a>
+<li><a href="#orgc2c4928">4.5. Email configuration (mu4e)</a>
 <ul>
 <li>
 <ul>
-<li><a href="#orgfbb0a32">4.5.0.1. Prerequisites</a></li>
-<li><a href="#org9e1a5b6">4.5.0.2. Configuration</a></li>
+<li><a href="#org6871216">4.5.0.1. Prerequisites</a></li>
+<li><a href="#org8e7599e">4.5.0.2. Configuration</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org4bb91d0">4.6. Tools configuration</a>
+<li><a href="#org9aa0439">4.6. Tools configuration</a>
 <ul>
-<li><a href="#org36d9870">4.6.1. Language Server Protocol (LSP)</a></li>
-<li><a href="#orgfdb21dd">4.6.2. Magit</a></li>
+<li><a href="#orga7923e1">4.6.1. Language Server Protocol (LSP)</a></li>
+<li><a href="#org429bfa2">4.6.2. Magit</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgfb5e42b">5. Languages</a>
+<li><a href="#org73f753e">5. Languages</a>
 <ul>
-<li><a href="#org276fbc1">5.1. Golang</a></li>
-<li><a href="#orgbca295c">5.2. Org Mode</a>
+<li><a href="#orgaa4bbea">5.1. Golang</a></li>
+<li><a href="#orgc518efe">5.2. Org Mode</a>
 <ul>
-<li><a href="#org275807e">5.2.1. General settings</a>
+<li><a href="#org8b41f1a">5.2.1. General settings</a>
 <ul>
-<li><a href="#orge6cc5c5">5.2.1.1. Editor</a></li>
-<li><a href="#org2d324e3">5.2.1.2. Visuals</a></li>
-<li><a href="#org69bf132">5.2.1.3. Archiving</a></li>
-<li><a href="#org4dec093">5.2.1.4. Download</a></li>
-<li><a href="#org2d77e3a">5.2.1.5. Exporting (General)</a></li>
-<li><a href="#org4b5892c">5.2.1.6. Exporting to HTML</a></li>
-<li><a href="#org02b7a5e">5.2.1.7. Exporting to Beamer</a></li>
-<li><a href="#org10605a7">5.2.1.8. Exporting to GFM</a></li>
+<li><a href="#orga83e7e2">5.2.1.1. Editor</a></li>
+<li><a href="#org4451293">5.2.1.2. Visuals</a></li>
+<li><a href="#orgbd2960e">5.2.1.3. Archiving</a></li>
+<li><a href="#org374733e">5.2.1.4. Download</a></li>
+<li><a href="#orga0dc10c">5.2.1.5. Exporting (General)</a></li>
+<li><a href="#orgfeebcb2">5.2.1.6. Exporting to HTML</a></li>
+<li><a href="#org34ea7b8">5.2.1.7. Exporting to Beamer</a></li>
+<li><a href="#org5a2c74b">5.2.1.8. Exporting to GFM</a></li>
 </ul>
 </li>
-<li><a href="#org9ee96ac">5.2.2. Task management</a>
+<li><a href="#org6255c13">5.2.2. Task management</a>
 <ul>
-<li><a href="#org9d76310">5.2.2.1. Capture templates</a></li>
-<li><a href="#orgb18aaec">5.2.2.2. Task settings</a></li>
-<li><a href="#org651db7d">5.2.2.3. Contexts</a></li>
-<li><a href="#org8c41b1a">5.2.2.4. Refile targets</a></li>
-<li><a href="#org6065bf9">5.2.2.5. Habits</a></li>
-<li><a href="#orgf751da6">5.2.2.6. Custom Agendas</a>
+<li><a href="#org084f2fe">5.2.2.1. Capture templates</a></li>
+<li><a href="#orgb716df4">5.2.2.2. Task settings</a></li>
+<li><a href="#orgf65dc99">5.2.2.3. Contexts</a></li>
+<li><a href="#org3450a7b">5.2.2.4. Refile targets</a></li>
+<li><a href="#orgb70eb08">5.2.2.5. Habits</a></li>
+<li><a href="#orgb0968be">5.2.2.6. Custom Agendas</a>
 <ul>
-<li><a href="#org13eee48">5.2.2.6.1. All Agenda Function</a></li>
-<li><a href="#org6707809">5.2.2.6.2. Context Agenda Function</a></li>
-<li><a href="#org8cde72b">5.2.2.6.3. Agenda Support Functions</a></li>
+<li><a href="#orgae9066d">5.2.2.6.1. All Agenda Function</a></li>
+<li><a href="#org0abc378">5.2.2.6.2. Context Agenda Function</a></li>
+<li><a href="#orgf3d9168">5.2.2.6.3. Agenda Support Functions</a></li>
 </ul>
 </li>
-<li><a href="#org676e16f">5.2.2.7. Agenda Searches</a></li>
+<li><a href="#orgef90f85">5.2.2.7. Agenda Searches</a></li>
 </ul>
 </li>
-<li><a href="#org1d10a62">5.2.3. Notes</a>
+<li><a href="#org944f6e1">5.2.3. Notes</a>
 <ul>
-<li><a href="#org5eade07">5.2.3.1. org-roam</a></li>
-<li><a href="#org518b248">5.2.3.2. org-journal</a></li>
+<li><a href="#org5d3f92a">5.2.3.1. org-roam</a></li>
+<li><a href="#org9b2c7e2">5.2.3.2. org-journal</a></li>
 </ul>
 </li>
-<li><a href="#org3819caa">5.2.4. Calendar</a></li>
-<li><a href="#org8131228">5.2.5. Alerts</a></li>
+<li><a href="#org5e1984e">5.2.4. Calendar</a></li>
+<li><a href="#org75efb59">5.2.5. Alerts</a></li>
 </ul>
 </li>
-<li><a href="#org2c07796">5.3. Markdown</a></li>
-<li><a href="#org315a567">5.4. Java</a></li>
-<li><a href="#orgeb1cb49">5.5. YAML</a></li>
+<li><a href="#orge82dc22">5.3. YAML</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org86437d7" class="outline-2">
-<h2 id="org86437d7"><span class="section-number-2">1</span> Intro</h2>
+<div id="outline-container-orgcc0737f" class="outline-2">
+<h2 id="orgcc0737f"><span class="section-number-2">1</span> Intro</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This is my foray into the world of literate Emacs configuration. I think I may have finally lost it. But let&rsquo;s give it a
@@ -935,12 +568,12 @@ I use <a href="https://github.com/hlissner/doom-emacs">doom-emacs</a> as my core
 </div>
 </div>
 
-<div id="outline-container-org5a57fb9" class="outline-2">
-<h2 id="org5a57fb9"><span class="section-number-2">2</span> General configuration</h2>
+<div id="outline-container-org6363f49" class="outline-2">
+<h2 id="org6363f49"><span class="section-number-2">2</span> General configuration</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org7535019" class="outline-3">
-<h3 id="org7535019"><span class="section-number-3">2.1</span> File variables</h3>
+<div id="outline-container-org7b550bf" class="outline-3">
+<h3 id="org7b550bf"><span class="section-number-3">2.1</span> File variables</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 This configures the file variables for <kbd>config.el</kbd> and <kbd>init.el</kbd>. Apparently <a href="https://nullprogram.com/blog/2016/12/22/">enabling lexical binding</a> makes them faster to
@@ -959,8 +592,8 @@ process.
 </div>
 </div>
 
-<div id="outline-container-org8c93f24" class="outline-3">
-<h3 id="org8c93f24"><span class="section-number-3">2.2</span> Personal information</h3>
+<div id="outline-container-orgc6ddf52" class="outline-3">
+<h3 id="orgc6ddf52"><span class="section-number-3">2.2</span> Personal information</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 This contains various bits about myself that Emacs likes to use in various modules.
@@ -977,16 +610,16 @@ This contains various bits about myself that Emacs likes to use in various modul
 </div>
 </div>
 
-<div id="outline-container-org42b3e30" class="outline-3">
-<h3 id="org42b3e30"><span class="section-number-3">2.3</span> Visual Settings</h3>
+<div id="outline-container-org5d5f1ec" class="outline-3">
+<h3 id="org5d5f1ec"><span class="section-number-3">2.3</span> Visual Settings</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 This tweaks the visuals to my liking.
 </p>
 </div>
 
-<div id="outline-container-org7c7ff98" class="outline-4">
-<h4 id="org7c7ff98"><span class="section-number-4">2.3.1</span> Theme</h4>
+<div id="outline-container-org4164bf6" class="outline-4">
+<h4 id="org4164bf6"><span class="section-number-4">2.3.1</span> Theme</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <p>
 Use the default doom-one theme, and the very nice <a href="https://www.fsd.it/shop/fonts/pragmatapro/">PragmataPro</a> font.
@@ -1002,23 +635,28 @@ Use the default doom-one theme, and the very nice <a href="https://www.fsd.it/sh
 
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-org8286bd8" class="outline-4">
+<h4 id="org8286bd8"><span class="section-number-4">2.3.2</span> Mixed pitch mode</h4>
+<div class="outline-text-4" id="text-2-3-2">
 <p>
-Enable <kbd>mixed-pitch-mode</kbd> for text modes. Also ensure it preserves the variable pitch height rather than inheriting from
+Enable <kbd>mixed-pitch-mode</kbd> for some text modes. Also ensure it preserves the variable pitch height rather than inheriting from
 the default face.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #c678dd;">add-hook</span> <span style="color: #51afef;">'</span><span style="color: #dcaeea;">text-mode-hook</span> <span style="color: #51afef;">#'</span><span style="color: #dcaeea;">mixed-pitch-mode</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">add-hook!</span> <span style="color: #c678dd;">(</span><span style="color: #c678dd;">org-mode</span> gfm-mode markdown-mode<span style="color: #c678dd;">)</span> <span style="color: #51afef;">#'</span><span style="color: #dcaeea;">mixed-pitch-mode</span><span style="color: #51afef;">)</span>
 <span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">mixed-pitch-set-height</span> t<span style="color: #51afef;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org570a360" class="outline-4">
-<h4 id="org570a360"><span class="section-number-4">2.3.2</span> Maximize</h4>
-<div class="outline-text-4" id="text-2-3-2">
+<div id="outline-container-org28f59f5" class="outline-4">
+<h4 id="org28f59f5"><span class="section-number-4">2.3.3</span> Maximize</h4>
+<div class="outline-text-4" id="text-2-3-3">
 <p>
 Maximize the frame when doom starts. I prefer it always opening up this way. Note this has no real effect if using a
 tiling WM.
@@ -1032,16 +670,16 @@ tiling WM.
 </div>
 </div>
 
-<div id="outline-container-org3dd4de4" class="outline-3">
-<h3 id="org3dd4de4"><span class="section-number-3">2.4</span> Editor behavior</h3>
+<div id="outline-container-orga9a5bb4" class="outline-3">
+<h3 id="orga9a5bb4"><span class="section-number-3">2.4</span> Editor behavior</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 This tweaks the general editor behavior to my liking.
 </p>
 </div>
 
-<div id="outline-container-orgc81a4e3" class="outline-4">
-<h4 id="orgc81a4e3"><span class="section-number-4">2.4.1</span> Deletion</h4>
+<div id="outline-container-org089be37" class="outline-4">
+<h4 id="org089be37"><span class="section-number-4">2.4.1</span> Deletion</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <p>
 Delete files to the local Trash folder, e.g. <kbd>~/.local/share/Trash</kbd> on Linux.
@@ -1063,37 +701,41 @@ Make undo more fine-grained.
 </div>
 </div>
 
-<div id="outline-container-org48a72e8" class="outline-4">
-<h4 id="org48a72e8"><span class="section-number-4">2.4.2</span> Auto-save</h4>
+<div id="outline-container-orgc4556c9" class="outline-4">
+<h4 id="orgc4556c9"><span class="section-number-4">2.4.2</span> Auto-save</h4>
 <div class="outline-text-4" id="text-2-4-2">
 <p>
-I want Emacs to save files I&rsquo;m working on in case my system crashes. These get stored in
-<kbd>~/.emacs.d/local/cache/autosave</kbd> in some weird format. Still, better safe than sorry. Emacs will prompt to recover them
-on opening the file.
+I want Emacs to auto-save files I&rsquo;m working on to avoid the tedium of manual saving all the time. Auto save can be
+obnoxious if done incorrectly, so I want it only save when safe.
+</p>
+
+<p>
+First I use the built-in auto-save functionality to save the buffer after some idle time.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">auto-save-default</span> t<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #dcaeea;">auto-save-visited-mode</span> t<span style="color: #51afef;">)</span>
 </pre>
 </div>
 
 <p>
 And like other modern editors, I want Emacs to save the buffer when the focus changes. To avoid weird issues, such as
-when inserting links via popups, I only save when swapping between file buffers.
+when interacting with popups, I only save when swapping between file buffers and when the frame loses focus.
 </p>
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">add-hook!</span> <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span><span style="color: #dcaeea;">doom-switch-buffer-hook</span>
-             <span style="color: #dcaeea;">doom-switch-window-hook</span>
-             <span style="color: #dcaeea;">focus-out-hook</span><span style="color: #c678dd;">)</span>
+             <span style="color: #dcaeea;">doom-switch-window-hook</span><span style="color: #c678dd;">)</span>
   <span style="color: #c678dd;">(</span><span style="color: #51afef;">if</span> <span style="color: #98be65;">(</span><span style="color: #dcaeea;">buffer-file-name</span><span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span><span style="color: #c678dd;">save-some-buffers</span> t<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">avoid saving when switching to a non-file buffer</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">add-function</span> <span style="color: #c678dd;">:after</span> <span style="color: #dcaeea;">after-focus-change-function</span>
+              <span style="color: #c678dd;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #98be65;">()</span> <span style="color: #98be65;">(</span><span style="color: #c678dd;">save-some-buffers</span> t<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org9330994" class="outline-4">
-<h4 id="org9330994"><span class="section-number-4">2.4.3</span> Line wrapping</h4>
+<div id="outline-container-orgea47efc" class="outline-4">
+<h4 id="orgea47efc"><span class="section-number-4">2.4.3</span> Line wrapping</h4>
 <div class="outline-text-4" id="text-2-4-3">
 <p>
 Fill column primarily affects how Emacs breaks lines in <code>auto-fill-mode</code>. The default is 80. I set it to 120 which is a
@@ -1103,7 +745,7 @@ to variable pitch fonts).
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq-default</span> <span style="color: #dcaeea;">fill-column</span> <span style="color: #da8548; font-weight: bold;">120</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">add-hook!</span> <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span><span style="color: #dcaeea;">prog-mode-hook</span> conf-mode-hook<span style="color: #c678dd;">)</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">add-hook!</span> <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span><span style="color: #dcaeea;">text-mode-hook</span> <span style="color: #dcaeea;">prog-mode-hook</span> conf-mode-hook<span style="color: #c678dd;">)</span>
            <span style="color: #51afef;">#'</span><span style="color: #dcaeea;">display-fill-column-indicator-mode</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
@@ -1121,8 +763,8 @@ of the text files I work on. Instead I use <code>+word-wrap-mode</code> which is
 </div>
 </div>
 
-<div id="outline-container-org9b09afd" class="outline-4">
-<h4 id="org9b09afd"><span class="section-number-4">2.4.4</span> Window splitting</h4>
+<div id="outline-container-org439384a" class="outline-4">
+<h4 id="org439384a"><span class="section-number-4">2.4.4</span> Window splitting</h4>
 <div class="outline-text-4" id="text-2-4-4">
 <p>
 These changes makes window splitting a bit nicer.
@@ -1150,8 +792,8 @@ I increase it to make Emacs more conservative.
 </div>
 </div>
 
-<div id="outline-container-orgbea7829" class="outline-4">
-<h4 id="orgbea7829"><span class="section-number-4">2.4.5</span> Clipboard and Copy/Paste</h4>
+<div id="outline-container-org07a12c4" class="outline-4">
+<h4 id="org07a12c4"><span class="section-number-4">2.4.5</span> Clipboard and Copy/Paste</h4>
 <div class="outline-text-4" id="text-2-4-5">
 <p>
 I want to integrate Emacs with the system clipboard. All copy/paste goes into and takes from the system clipboard. This allows
@@ -1174,8 +816,8 @@ And allow pasting from system clipboard with the typical Linux <kbd>C-S-v</kbd> 
 </div>
 </div>
 </div>
-<div id="outline-container-org0200dfc" class="outline-4">
-<h4 id="org0200dfc"><span class="section-number-4">2.4.6</span> Which-key</h4>
+<div id="outline-container-orgcea903f" class="outline-4">
+<h4 id="orgcea903f"><span class="section-number-4">2.4.6</span> Which-key</h4>
 <div class="outline-text-4" id="text-2-4-6">
 <p>
 Reduce the popup delay for <kbd>which-key</kbd>.
@@ -1189,8 +831,8 @@ Reduce the popup delay for <kbd>which-key</kbd>.
 </div>
 </div>
 
-<div id="outline-container-orgef6553f" class="outline-3">
-<h3 id="orgef6553f"><span class="section-number-3">2.5</span> Authinfo</h3>
+<div id="outline-container-org9dc32be" class="outline-3">
+<h3 id="org9dc32be"><span class="section-number-3">2.5</span> Authinfo</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 Sensitive credentials are stored in a gpg encrypted auth file. I prefer to only use <kbd>~/.authinfo.gpg</kbd>, rather than doom&rsquo;s default of <kbd>~/.emacs.d/.local/etc/authinfo.gpg</kbd> .
@@ -1204,8 +846,8 @@ Sensitive credentials are stored in a gpg encrypted auth file. I prefer to only 
 </div>
 </div>
 
-<div id="outline-container-orge01bc29" class="outline-2">
-<h2 id="orge01bc29"><span class="section-number-2">3</span> Packages</h2>
+<div id="outline-container-orga88436e" class="outline-2">
+<h2 id="orga88436e"><span class="section-number-2">3</span> Packages</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 This section defines the custom packages for <kbd>packages.el</kbd>.
@@ -1221,8 +863,8 @@ This section defines the custom packages for <kbd>packages.el</kbd>.
 </div>
 </div>
 
-<div id="outline-container-org3dadedc" class="outline-3">
-<h3 id="org3dadedc"><span class="section-number-3">3.1</span> Package loading</h3>
+<div id="outline-container-org1201189" class="outline-3">
+<h3 id="org1201189"><span class="section-number-3">3.1</span> Package loading</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Use the <code>package!</code> macro for each package. Afterwards run <code>doom refresh</code> on the command line. Everything in this section
@@ -1230,8 +872,8 @@ goes into <kbd>packges.el</kbd>.
 </p>
 </div>
 
-<div id="outline-container-org1fdde19" class="outline-4">
-<h4 id="org1fdde19"><span class="section-number-4">3.1.1</span> atomic-chrome</h4>
+<div id="outline-container-orged8c458" class="outline-4">
+<h4 id="orged8c458"><span class="section-number-4">3.1.1</span> atomic-chrome</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <p>
 <kbd>atomic-chrome</kbd> provides integration with <a href="https://atom.io/packages/atomic-chrome">atomic chrome</a> extension. This lets me use Emacs to edit browser text
@@ -1245,8 +887,8 @@ boxes! It&rsquo;s very handy for large Github comments.
 </div>
 </div>
 
-<div id="outline-container-org098aab6" class="outline-4">
-<h4 id="org098aab6"><span class="section-number-4">3.1.2</span> org-roam</h4>
+<div id="outline-container-orgdd6377a" class="outline-4">
+<h4 id="orgdd6377a"><span class="section-number-4">3.1.2</span> org-roam</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 <kbd>org-roam</kbd> is included by default in doom. I like to use the latest version - so I pin it to a more recent one.
@@ -1259,8 +901,8 @@ boxes! It&rsquo;s very handy for large Github comments.
 </div>
 </div>
 
-<div id="outline-container-org20bed14" class="outline-4">
-<h4 id="org20bed14"><span class="section-number-4">3.1.3</span> lsp-mode</h4>
+<div id="outline-container-org37c81ae" class="outline-4">
+<h4 id="org37c81ae"><span class="section-number-4">3.1.3</span> lsp-mode</h4>
 <div class="outline-text-4" id="text-3-1-3">
 <p>
 Use the latest LSP.
@@ -1273,8 +915,8 @@ Use the latest LSP.
 </div>
 </div>
 
-<div id="outline-container-org2d15f64" class="outline-4">
-<h4 id="org2d15f64"><span class="section-number-4">3.1.4</span> mu4e-alert</h4>
+<div id="outline-container-org03134ef" class="outline-4">
+<h4 id="org03134ef"><span class="section-number-4">3.1.4</span> mu4e-alert</h4>
 <div class="outline-text-4" id="text-3-1-4">
 <p>
 Mail notifications. Used for <code>doom-modeline-m4ue</code>.
@@ -1287,8 +929,8 @@ Mail notifications. Used for <code>doom-modeline-m4ue</code>.
 </div>
 </div>
 
-<div id="outline-container-org9524ad2" class="outline-4">
-<h4 id="org9524ad2"><span class="section-number-4">3.1.5</span> org-msg</h4>
+<div id="outline-container-org2a69c5b" class="outline-4">
+<h4 id="org2a69c5b"><span class="section-number-4">3.1.5</span> org-msg</h4>
 <div class="outline-text-4" id="text-3-1-5">
 <p>
 Send HTML mail with org-mode. Better than the buggy/unsupported <kbd>org-mu4e-compose-mode</kbd>.
@@ -1301,8 +943,8 @@ Send HTML mail with org-mode. Better than the buggy/unsupported <kbd>org-mu4e-co
 </div>
 </div>
 
-<div id="outline-container-org88759f0" class="outline-4">
-<h4 id="org88759f0"><span class="section-number-4">3.1.6</span> org-alert</h4>
+<div id="outline-container-orga1c9069" class="outline-4">
+<h4 id="orga1c9069"><span class="section-number-4">3.1.6</span> org-alert</h4>
 <div class="outline-text-4" id="text-3-1-6">
 <p>
 Used to generate system notifications from org agendas.
@@ -1315,8 +957,8 @@ Used to generate system notifications from org agendas.
 </div>
 </div>
 
-<div id="outline-container-org9b742f6" class="outline-4">
-<h4 id="org9b742f6"><span class="section-number-4">3.1.7</span> caddyfile-mode</h4>
+<div id="outline-container-org061aeac" class="outline-4">
+<h4 id="org061aeac"><span class="section-number-4">3.1.7</span> caddyfile-mode</h4>
 <div class="outline-text-4" id="text-3-1-7">
 <p>
 <a href="https://github.com/Schnouki/caddyfile-mode">https://github.com/Schnouki/caddyfile-mode</a>
@@ -1330,19 +972,19 @@ Used to generate system notifications from org agendas.
 </div>
 </div>
 
-<div id="outline-container-org66b3cd4" class="outline-3">
-<h3 id="org66b3cd4"><span class="section-number-3">3.2</span> Package configuration</h3>
+<div id="outline-container-org4138179" class="outline-3">
+<h3 id="org4138179"><span class="section-number-3">3.2</span> Package configuration</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 For configuring packages that are loaded in <kbd>packages.el</kbd>.
 </p>
 </div>
 
-<div id="outline-container-org49a1d1e" class="outline-4">
-<h4 id="org49a1d1e"><span class="section-number-4">3.2.1</span> atomic-chrome configuration</h4>
+<div id="outline-container-org4244a18" class="outline-4">
+<h4 id="org4244a18"><span class="section-number-4">3.2.1</span> atomic-chrome configuration</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
-Enable <a href="#org1fdde19">atomic-chrome</a> integration.
+Enable <a href="#orged8c458">atomic-chrome</a> integration.
 </p>
 
 <div class="org-src-container">
@@ -1356,8 +998,8 @@ Enable <a href="#org1fdde19">atomic-chrome</a> integration.
 </div>
 </div>
 </div>
-<div id="outline-container-org7ca753f" class="outline-4">
-<h4 id="org7ca753f"><span class="section-number-4">3.2.2</span> caddyfile-mode</h4>
+<div id="outline-container-orgc4471c8" class="outline-4">
+<h4 id="orgc4471c8"><span class="section-number-4">3.2.2</span> caddyfile-mode</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">use-package</span> caddyfile-mode
@@ -1371,16 +1013,16 @@ Enable <a href="#org1fdde19">atomic-chrome</a> integration.
 </div>
 </div>
 
-<div id="outline-container-orgcddbf57" class="outline-2">
-<h2 id="orgcddbf57"><span class="section-number-2">4</span> Modules</h2>
+<div id="outline-container-orgf136952" class="outline-2">
+<h2 id="orgf136952"><span class="section-number-2">4</span> Modules</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-This section configures the doom modules. Languages have their own <a href="#orgfb5e42b">dedicated section</a>.
+This section configures the doom modules. Languages have their own <a href="#org73f753e">dedicated section</a>.
 </p>
 </div>
 
-<div id="outline-container-org384034a" class="outline-3">
-<h3 id="org384034a"><span class="section-number-3">4.1</span> Enable modules (init.el)</h3>
+<div id="outline-container-org852217b" class="outline-3">
+<h3 id="org852217b"><span class="section-number-3">4.1</span> Enable modules (init.el)</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 This section generates <kbd>init.el</kbd> and is where I enable the doom modules I want. See <a href="https://github.com/hlissner/doom-emacs/blob/develop/init.example.el">init.example.el</a> for all possible
@@ -1488,12 +1130,12 @@ options.
 </div>
 </div>
 
-<div id="outline-container-orgf66600f" class="outline-3">
-<h3 id="orgf66600f"><span class="section-number-3">4.2</span> Core configuration</h3>
+<div id="outline-container-org10f4d25" class="outline-3">
+<h3 id="org10f4d25"><span class="section-number-3">4.2</span> Core configuration</h3>
 <div class="outline-text-3" id="text-4-2">
 </div>
-<div id="outline-container-org5904a53" class="outline-4">
-<h4 id="org5904a53"><span class="section-number-4">4.2.1</span> Projects</h4>
+<div id="outline-container-orgc2f7ab8" class="outline-4">
+<h4 id="orgc2f7ab8"><span class="section-number-4">4.2.1</span> Projects</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <p>
 Set the search directories for projectile to auto-discovery projects.
@@ -1501,23 +1143,6 @@ Set the search directories for projectile to auto-discovery projects.
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">projectile-project-search-path</span> <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span><span style="color: #98be65;">"~/devel/"</span> <span style="color: #98be65;">"~/sky"</span> <span style="color: #98be65;">"~/gatech"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-</pre>
-</div>
-
-<p>
-Change the root finding logic to make more sense (in my head). Prefer using language specific build files to identify
-project roots over <kbd>.git</kbd>. Also, prefer <kbd>.project</kbd> over anything else by placing it first in the root files.. _I&rsquo;m
-finding this too weird - I like having .git be the root of my project. The main issue I was trying to solve was with LSP
-misidentifying roots, but I&rsquo;ll just leave the initial guess root to nil for now._
-</p>
-
-<div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(after! projectile</span>
-<span style="color: #5B6268;">;;   </span><span style="color: #5B6268;">(prependq!  projectile-project-root-files '(".project" "go.mod"))          ; add additional project files here</span>
-<span style="color: #5B6268;">;;   </span><span style="color: #5B6268;">(setq projectile-project-root-files-functions #'(projectile-root-top-down</span>
-<span style="color: #5B6268;">;;                                                    </span><span style="color: #5B6268;">projectile-root-top-down-recurring</span>
-<span style="color: #5B6268;">;;                                                    </span><span style="color: #5B6268;">projectile-root-bottom-up</span>
-<span style="color: #5B6268;">;;                                                    </span><span style="color: #5B6268;">projectile-root-local)))</span>
 </pre>
 </div>
 
@@ -1537,8 +1162,8 @@ Clear the projectile cache when swapping branches in <kbd>magit</kbd> which will
 </div>
 </div>
 
-<div id="outline-container-org7771795" class="outline-4">
-<h4 id="org7771795"><span class="section-number-4">4.2.2</span> Smart parentheses</h4>
+<div id="outline-container-org4471dbf" class="outline-4">
+<h4 id="org4471dbf"><span class="section-number-4">4.2.2</span> Smart parentheses</h4>
 <div class="outline-text-4" id="text-4-2-2">
 <p>
 Add convenient global binding for jumping outside of parenthesis. This replaces the default binding of <code>upcase-word</code>,
@@ -1554,12 +1179,12 @@ which I have never used.
 </div>
 </div>
 
-<div id="outline-container-orgb9d5446" class="outline-3">
-<h3 id="orgb9d5446"><span class="section-number-3">4.3</span> UI configuration</h3>
+<div id="outline-container-org201758c" class="outline-3">
+<h3 id="org201758c"><span class="section-number-3">4.3</span> UI configuration</h3>
 <div class="outline-text-3" id="text-4-3">
 </div>
-<div id="outline-container-orgc9326ed" class="outline-4">
-<h4 id="orgc9326ed"><span class="section-number-4">4.3.1</span> Workspaces</h4>
+<div id="outline-container-org4e66c16" class="outline-4">
+<h4 id="org4e66c16"><span class="section-number-4">4.3.1</span> Workspaces</h4>
 <div class="outline-text-4" id="text-4-3-1">
 <p>
 By default doom loads a project into the main workspace if it&rsquo;s empty. I don&rsquo;t like this behavior - I prefer to reserve
@@ -1570,11 +1195,25 @@ the main workspace for ad hoc editing of files. So always open up a new workspac
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">+workspaces-on-switch-project-behavior</span> t<span style="color: #51afef;">)</span>
 </pre>
 </div>
+
+<p>
+Swap <kbd>SPC TAB TAB</kbd> to switch to the last workspace.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">map!</span> <span style="color: #c678dd;">:leader</span>
+      <span style="color: #c678dd;">(</span><span style="color: #c678dd;">:prefix-map</span> <span style="color: #98be65;">(</span><span style="color: #98be65;">"TAB"</span> . <span style="color: #98be65;">"workspace"</span><span style="color: #98be65;">)</span>
+        <span style="color: #c678dd;">:desc</span> <span style="color: #98be65;">"Display tab bar"</span>           <span style="color: #98be65;">"`"</span>     <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">+workspace/display</span>
+        <span style="color: #c678dd;">:desc</span> <span style="color: #98be65;">"Switch to last workspace"</span>  <span style="color: #98be65;">"TAB"</span>   <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">+workspace/other</span>
+       <span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+</pre>
+</div>
 </div>
 </div>
 
-<div id="outline-container-orgc57f22d" class="outline-4">
-<h4 id="orgc57f22d"><span class="section-number-4">4.3.2</span> Zen</h4>
+<div id="outline-container-orge7d26bc" class="outline-4">
+<h4 id="orge7d26bc"><span class="section-number-4">4.3.2</span> Zen</h4>
 <div class="outline-text-4" id="text-4-3-2">
 <p>
 Get rid of the change in font. I use zen mode for code, so I want to keep my normal font. Also enable the mode-line, and
@@ -1592,8 +1231,8 @@ set a width more appropriate for a modern screen size.
 </div>
 </div>
 
-<div id="outline-container-orgcb490bc" class="outline-4">
-<h4 id="orgcb490bc"><span class="section-number-4">4.3.3</span> Treemacs</h4>
+<div id="outline-container-orgcd4e15a" class="outline-4">
+<h4 id="orgcd4e15a"><span class="section-number-4">4.3.3</span> Treemacs</h4>
 <div class="outline-text-4" id="text-4-3-3">
 <p>
 Enable follow-mode so the treemacs cursor follows the buffer file. Also increase the default width to show more stuff.
@@ -1601,20 +1240,20 @@ Enable follow-mode so the treemacs cursor follows the buffer file. Also increase
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">after!</span> treemacs
-  <span style="color: #c678dd;">(</span>treemacs-follow-mode <span style="color: #da8548; font-weight: bold;">1</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> treemacs-width <span style="color: #da8548; font-weight: bold;">40</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #dcaeea;">treemacs-follow-mode</span> <span style="color: #da8548; font-weight: bold;">1</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">treemacs-width</span> <span style="color: #da8548; font-weight: bold;">40</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1578a2a" class="outline-3">
-<h3 id="org1578a2a"><span class="section-number-3">4.4</span> Checkers configuration</h3>
+<div id="outline-container-org075d37e" class="outline-3">
+<h3 id="org075d37e"><span class="section-number-3">4.4</span> Checkers configuration</h3>
 <div class="outline-text-3" id="text-4-4">
 </div>
-<div id="outline-container-org780d191" class="outline-4">
-<h4 id="org780d191"><span class="section-number-4">4.4.1</span> Flyspell</h4>
+<div id="outline-container-org9c5fbe5" class="outline-4">
+<h4 id="org9c5fbe5"><span class="section-number-4">4.4.1</span> Flyspell</h4>
 <div class="outline-text-4" id="text-4-4-1">
 <p>
 Flyspell can create a lot of lag in large buffers. Make it as lazy as possible.
@@ -1628,16 +1267,16 @@ Flyspell can create a lot of lag in large buffers. Make it as lazy as possible.
 </div>
 </div>
 
-<div id="outline-container-org71073eb" class="outline-3">
-<h3 id="org71073eb"><span class="section-number-3">4.5</span> Email configuration (mu4e)</h3>
+<div id="outline-container-orgc2c4928" class="outline-3">
+<h3 id="orgc2c4928"><span class="section-number-3">4.5</span> Email configuration (mu4e)</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 I am experimenting with <kbd>mu4e</kbd> for my email configuration. I&rsquo;m using it with mbsync as the backend for syncing emails. Note as of 1.4, the root maildir is set via the <code>mu init</code> command so it is unnecessary to set it.
 </p>
 </div>
 
-<div id="outline-container-orgfbb0a32" class="outline-5">
-<h5 id="orgfbb0a32"><span class="section-number-5">4.5.0.1</span> Prerequisites</h5>
+<div id="outline-container-org6871216" class="outline-5">
+<h5 id="org6871216"><span class="section-number-5">4.5.0.1</span> Prerequisites</h5>
 <div class="outline-text-5" id="text-4-5-0-1">
 <p>
 First run mbsync for the first time to download all mail. Then set up <kbd>mu</kbd>:
@@ -1651,8 +1290,8 @@ mu init --maildir ~/Mail --my-address james@r-vn.org
 </div>
 </div>
 
-<div id="outline-container-org9e1a5b6" class="outline-5">
-<h5 id="org9e1a5b6"><span class="section-number-5">4.5.0.2</span> Configuration</h5>
+<div id="outline-container-org8e7599e" class="outline-5">
+<h5 id="org8e7599e"><span class="section-number-5">4.5.0.2</span> Configuration</h5>
 <div class="outline-text-5" id="text-4-5-0-2">
 <p>
 First, use doom&rsquo;s handy function for setting up an <a href="https://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html#Contexts">mu4e context</a>.
@@ -1661,20 +1300,20 @@ First, use doom&rsquo;s handy function for setting up an <a href="https://www.dj
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #c678dd;">set-email-account!</span>
  <span style="color: #98be65;">"r-vn.org"</span>
- <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span><span style="color: #dcaeea;">mu4e-sent-folder</span>       . <span style="color: #98be65;">"/r-vn.org/Sent"</span><span style="color: #98be65;">)</span>
-   <span style="color: #98be65;">(</span><span style="color: #dcaeea;">mu4e-drafts-folder</span>     . <span style="color: #98be65;">"/r-vn.org/Drafts"</span><span style="color: #98be65;">)</span>
-   <span style="color: #98be65;">(</span><span style="color: #dcaeea;">mu4e-trash-folder</span>      . <span style="color: #98be65;">"/r-vn.org/Trash"</span><span style="color: #98be65;">)</span>
-   <span style="color: #98be65;">(</span><span style="color: #dcaeea;">mu4e-refile-folder</span>     . <span style="color: #98be65;">"/r-vn.org/Archive"</span><span style="color: #98be65;">)</span>
-   <span style="color: #98be65;">(</span><span style="color: #dcaeea;">smtpmail-smtp-user</span>     . <span style="color: #98be65;">"james@r-vn.org"</span><span style="color: #98be65;">)</span>
-   <span style="color: #98be65;">(</span><span style="color: #dcaeea;">mu4e-maildir-shortcuts</span> .
+ <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>mu4e-sent-folder       . <span style="color: #98be65;">"/r-vn.org/Sent"</span><span style="color: #98be65;">)</span>
+   <span style="color: #98be65;">(</span>mu4e-drafts-folder     . <span style="color: #98be65;">"/r-vn.org/Drafts"</span><span style="color: #98be65;">)</span>
+   <span style="color: #98be65;">(</span>mu4e-trash-folder      . <span style="color: #98be65;">"/r-vn.org/Trash"</span><span style="color: #98be65;">)</span>
+   <span style="color: #98be65;">(</span>mu4e-refile-folder     . <span style="color: #98be65;">"/r-vn.org/Archive"</span><span style="color: #98be65;">)</span>
+   <span style="color: #98be65;">(</span>smtpmail-smtp-user     . <span style="color: #98be65;">"james@r-vn.org"</span><span style="color: #98be65;">)</span>
+   <span style="color: #98be65;">(</span>mu4e-maildir-shortcuts .
                            <span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span><span style="color: #c678dd;">:maildir</span> <span style="color: #98be65;">"/r-vn.org/INBOX"</span>   <span style="color: #c678dd;">:key</span> ?i<span style="color: #c678dd;">)</span>
                             <span style="color: #c678dd;">(</span><span style="color: #c678dd;">:maildir</span> <span style="color: #98be65;">"/r-vn.org/Archive"</span> <span style="color: #c678dd;">:key</span> ?a<span style="color: #c678dd;">)</span>
                             <span style="color: #c678dd;">(</span><span style="color: #c678dd;">:maildir</span> <span style="color: #98be65;">"/r-vn.org/Trash"</span>   <span style="color: #c678dd;">:key</span> ?t<span style="color: #c678dd;">)</span>
                             <span style="color: #c678dd;">(</span><span style="color: #c678dd;">:maildir</span> <span style="color: #98be65;">"/r-vn.org/Sent"</span>    <span style="color: #c678dd;">:key</span> ?s<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span>
-   <span style="color: #98be65;">(</span><span style="color: #dcaeea;">smtpmail-smtp-server</span> . <span style="color: #98be65;">"smtp.fastmail.com"</span><span style="color: #98be65;">)</span>
-   <span style="color: #98be65;">(</span><span style="color: #dcaeea;">smtpmail-stream-type</span> . ssl<span style="color: #98be65;">)</span>
-   <span style="color: #98be65;">(</span><span style="color: #dcaeea;">smtpmail-smtp-service</span> . <span style="color: #da8548; font-weight: bold;">465</span><span style="color: #98be65;">)</span>
-   <span style="color: #98be65;">(</span><span style="color: #dcaeea;">smtpmail-default-smtp-server</span> . <span style="color: #98be65;">"smtp.fastmail.com"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+   <span style="color: #98be65;">(</span>smtpmail-smtp-server . <span style="color: #98be65;">"smtp.fastmail.com"</span><span style="color: #98be65;">)</span>
+   <span style="color: #98be65;">(</span>smtpmail-stream-type . ssl<span style="color: #98be65;">)</span>
+   <span style="color: #98be65;">(</span>smtpmail-smtp-service . <span style="color: #da8548; font-weight: bold;">465</span><span style="color: #98be65;">)</span>
+   <span style="color: #98be65;">(</span>smtpmail-default-smtp-server . <span style="color: #98be65;">"smtp.fastmail.com"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
  t<span style="color: #51afef;">)</span>
 </pre>
 </div>
@@ -1685,14 +1324,14 @@ Tweak the general configuration.
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">after!</span> mu4e
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">mu4e-attachment-dir</span> <span style="color: #98be65;">"~/Downloads"</span>   <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Attachments in standard place.</span>
-        <span style="color: #dcaeea;">mu4e-headers-include-related</span> nil    <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Only show messages which match the current filter.</span>
-        <span style="color: #dcaeea;">mu4e-headers-fields</span>                 <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Header columns.</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> mu4e-attachment-dir <span style="color: #98be65;">"~/Downloads"</span>   <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Attachments in standard place.</span>
+        mu4e-headers-include-related nil    <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Only show messages which match the current filter.</span>
+        mu4e-headers-fields                 <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Header columns.</span>
         <span style="color: #51afef;">'</span><span style="color: #98be65;">(</span><span style="color: #51afef;">(</span><span style="color: #c678dd;">:human-date</span> . <span style="color: #da8548; font-weight: bold;">12</span><span style="color: #51afef;">)</span>
           <span style="color: #51afef;">(</span><span style="color: #c678dd;">:flags</span> . <span style="color: #da8548; font-weight: bold;">6</span><span style="color: #51afef;">)</span>
           <span style="color: #51afef;">(</span><span style="color: #c678dd;">:from</span> . <span style="color: #da8548; font-weight: bold;">25</span><span style="color: #51afef;">)</span>
           <span style="color: #51afef;">(</span><span style="color: #c678dd;">:subject</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span>
-        <span style="color: #dcaeea;">mu4e-update-interval</span> <span style="color: #da8548; font-weight: bold;">300</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>          <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Check for mail every 5 minutes.</span>
+        mu4e-update-interval <span style="color: #da8548; font-weight: bold;">300</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>          <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Check for mail every 5 minutes.</span>
 </pre>
 </div>
 
@@ -1701,70 +1340,18 @@ Compose mails with <kbd>org-msg</kbd>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #c678dd;">remove-hook</span> <span style="color: #51afef;">'</span><span style="color: #dcaeea;">mu4e-compose-mode-hook</span> <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">org-mu4e-compose-org-mode</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Don't use org-mu4e.</span>
-
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">jara--org-msg-save-article-for-reply-mu4e-2</span> <span style="color: #c678dd;">()</span>
-  <span style="color: #83898d;">"Export the currently visited mu4e article as HTML."</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">let*</span> <span style="color: #98be65;">(</span><span style="color: #51afef;">(</span>msg <span style="color: #dcaeea;">mu4e-compose-parent-message</span><span style="color: #51afef;">)</span>
-        <span style="color: #51afef;">(</span>htmlfile <span style="color: #c678dd;">(</span><span style="color: #c678dd;">mu4e~write-body-to-html</span> msg<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">message</span> <span style="color: #98be65;">"mu4e html file at %s"</span> htmlfile<span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">list</span> htmlfile<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Same as org-msg method but with quoted-printable-decode region removed.</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">With this, the encoding is broken on the HTML reply.</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">jara--org-msg-save-article-for-reply-mu4e</span> <span style="color: #c678dd;">()</span>
-  <span style="color: #83898d;">"Export the currently visited mu4e article as HTML."</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">let*</span> <span style="color: #98be65;">(</span><span style="color: #51afef;">(</span>msg <span style="color: #dcaeea;">mu4e-compose-parent-message</span><span style="color: #51afef;">)</span>
-   <span style="color: #51afef;">(</span>html <span style="color: #c678dd;">(</span><span style="color: #c678dd;">mu4e-message-field</span> msg <span style="color: #c678dd;">:body-html</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-   <span style="color: #51afef;">(</span>file <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">concat</span> <span style="color: #98be65;">"/tmp/"</span> <span style="color: #98be65;">(</span><span style="color: #c678dd;">mu4e-message-field</span> msg <span style="color: #c678dd;">:message-id</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span><span style="color: #51afef;">cl-flet*</span> <span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span>mails2str <span style="color: #98be65;">(</span>l<span style="color: #98be65;">)</span>
-     <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">mapconcat</span> <span style="color: #51afef;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #c678dd;">(</span>m<span style="color: #c678dd;">)</span>
-            <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">format</span> <span style="color: #98be65;">"%S &amp;lt;%s&amp;gt;"</span> <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">car</span> m<span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">cdr</span> m<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-          l <span style="color: #98be65;">", "</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-         <span style="color: #c678dd;">(</span>field2str <span style="color: #98be65;">(</span>f<span style="color: #98be65;">)</span>
-     <span style="color: #98be65;">(</span><span style="color: #51afef;">let</span> <span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span>value <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">funcall</span> <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">cdr</span> f<span style="color: #51afef;">)</span>
-               <span style="color: #51afef;">(</span><span style="color: #c678dd;">mu4e-message-field</span> msg <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">car</span> f<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-       <span style="color: #51afef;">(</span><span style="color: #51afef;">when</span> value
-         <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">format</span> <span style="color: #98be65;">"%s: %s&lt;br&gt;\n"</span>
-           <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">capitalize</span> <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">substring</span> <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">symbol-name</span> <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">car</span> f<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span> <span style="color: #da8548; font-weight: bold;">1</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span>
-           value<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-      <span style="color: #51afef;">(</span><span style="color: #51afef;">with-temp-buffer</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">save-excursion</span>
-    <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">insert</span> html<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Remove everything before html tag</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">save-excursion</span>
-    <span style="color: #98be65;">(</span><span style="color: #51afef;">if</span> <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">re-search-forward</span> <span style="color: #98be65;">"^&lt;html</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">(</span><span style="color: #98be65;">.*?</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">)</span><span style="color: #98be65;">&gt;"</span> nil t<span style="color: #51afef;">)</span>
-        <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">delete-region</span> <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">point-min</span><span style="color: #c678dd;">)</span> <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">match-beginning</span> <span style="color: #da8548; font-weight: bold;">0</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-      <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Handle malformed HTML</span>
-      <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">insert</span> <span style="color: #98be65;">"&lt;html&gt;&lt;body&gt;"</span><span style="color: #51afef;">)</span>
-      <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">goto-char</span> <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">point-max</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-      <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">insert</span> <span style="color: #98be65;">"&lt;/body&gt;&lt;/html&gt;"</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Insert reply header after body tag</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">when</span> <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">re-search-forward</span> <span style="color: #98be65;">"&lt;body</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">(</span><span style="color: #98be65;">.*?</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">)</span><span style="color: #98be65;">&gt;"</span> nil t<span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">goto-char</span> <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">match-end</span> <span style="color: #da8548; font-weight: bold;">0</span><span style="color: #51afef;">)</span><span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">insert</span> <span style="color: #98be65;">"&lt;div align=\"left\"&gt;\n"</span>
-      <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">mapconcat</span> <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">field2str</span>
-           <span style="color: #51afef;">`</span><span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span><span style="color: #c678dd;">:from</span> . ,<span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">mails2str</span><span style="color: #98be65;">)</span>
-             <span style="color: #98be65;">(</span><span style="color: #c678dd;">:subject</span> . identity<span style="color: #98be65;">)</span>
-             <span style="color: #98be65;">(</span><span style="color: #c678dd;">:to</span> . ,<span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">mails2str</span><span style="color: #98be65;">)</span>
-             <span style="color: #98be65;">(</span><span style="color: #c678dd;">:cc</span> . ,<span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">mails2str</span><span style="color: #98be65;">)</span>
-             <span style="color: #98be65;">(</span><span style="color: #c678dd;">:date</span> . message-make-date<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-           <span style="color: #98be65;">""</span><span style="color: #51afef;">)</span>
-      <span style="color: #98be65;">"&lt;/div&gt;\n&lt;hr&gt;\n"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #c678dd;">write-file</span> file<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-      <span style="color: #51afef;">(</span><span style="color: #a9a1e1;">list</span> file<span style="color: #51afef;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #c678dd;">remove-hook</span> <span style="color: #51afef;">'</span><span style="color: #ECBE7B;">mu4e-compose-mode-hook</span> <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">org-mu4e-compose-org-mode</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">Don't use org-mu4e.</span>
 
 <span style="color: #51afef;">(</span><span style="color: #51afef;">use-package</span> org-msg
   <span style="color: #c678dd;">:after</span> <span style="color: #c678dd;">(</span>org mu4e<span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">:hook</span> <span style="color: #c678dd;">(</span><span style="color: #c678dd;">mu4e-main-mode</span> . <span style="color: #dcaeea;">org-msg-mode</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">:hook</span> <span style="color: #c678dd;">(</span>mu4e-main-mode . org-msg-mode<span style="color: #c678dd;">)</span>
   <span style="color: #c678dd;">:config</span>
-  <span style="color: #c678dd;">(</span><span style="color: #c678dd;">advice-add</span> <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">org-msg-save-article-for-reply-mu4e</span> <span style="color: #c678dd;">:override</span> <span style="color: #51afef;">#'</span><span style="color: #ECBE7B;">jara--org-msg-save-article-for-reply-mu4e</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">org-msg-options</span> <span style="color: #98be65;">"html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"</span>
-        <span style="color: #dcaeea;">org-msg-startup</span> <span style="color: #98be65;">"hidestars indent inlineimages"</span>
-        <span style="color: #dcaeea;">org-msg-greeting-fmt</span> <span style="color: #98be65;">"\nHi %s,\n\n"</span>
-        <span style="color: #dcaeea;">org-msg-greeting-name-limit</span> <span style="color: #da8548; font-weight: bold;">3</span>
-        <span style="color: #dcaeea;">org-msg-text-plain-alternative</span> t
-        <span style="color: #dcaeea;">org-msg-signature</span> <span style="color: #98be65;">"</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> org-msg-options <span style="color: #98be65;">"html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"</span>
+        org-msg-startup <span style="color: #98be65;">"hidestars indent inlineimages"</span>
+        org-msg-greeting-fmt <span style="color: #98be65;">"\nHi %s,\n\n"</span>
+        org-msg-greeting-name-limit <span style="color: #da8548; font-weight: bold;">3</span>
+        org-msg-text-plain-alternative t
+        org-msg-signature <span style="color: #98be65;">"</span>
 
 <span style="color: #98be65;">Regards,</span>
 
@@ -1791,7 +1378,7 @@ Bind mail to <kbd>SPC o m</kbd>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> <span style="color: #dcaeea;">shr-color-visible-luminance-min</span> <span style="color: #da8548; font-weight: bold;">80</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> shr-color-visible-luminance-min <span style="color: #da8548; font-weight: bold;">80</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 
@@ -1811,39 +1398,17 @@ Set up mu4e-alert for notifications in the modeline.
 </div>
 </div>
 
-<div id="outline-container-org4bb91d0" class="outline-3">
-<h3 id="org4bb91d0"><span class="section-number-3">4.6</span> Tools configuration</h3>
+<div id="outline-container-org9aa0439" class="outline-3">
+<h3 id="org9aa0439"><span class="section-number-3">4.6</span> Tools configuration</h3>
 <div class="outline-text-3" id="text-4-6">
 </div>
-<div id="outline-container-org36d9870" class="outline-4">
-<h4 id="org36d9870"><span class="section-number-4">4.6.1</span> Language Server Protocol (LSP)</h4>
+<div id="outline-container-orga7923e1" class="outline-4">
+<h4 id="orga7923e1"><span class="section-number-4">4.6.1</span> Language Server Protocol (LSP)</h4>
 <div class="outline-text-4" id="text-4-6-1">
-<p>
-I add some often used LSP bindings. I also override the default format binding to use LSP. And finally, I bind the
-entire <code>lsp-command-map</code> provided by LSP to <kbd>SPC c l</kbd>. <span class="underline">No longer needed - this is now in doom!</span>
-</p>
-
-<div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(defun jsravn--format-accordingly ()</span>
-<span style="color: #5B6268;">;;   </span><span style="color: #5B6268;">(interactive)</span>
-<span style="color: #5B6268;">;;   </span><span style="color: #5B6268;">(call-interactively</span>
-<span style="color: #5B6268;">;;    </span><span style="color: #5B6268;">(if (bound-and-true-p lsp-mode)</span>
-<span style="color: #5B6268;">;;        </span><span style="color: #5B6268;">#'+default/lsp-format-region-or-buffer</span>
-<span style="color: #5B6268;">;;      </span><span style="color: #5B6268;">#'+format/region-or-buffer)))</span>
-
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(map! :leader</span>
-<span style="color: #5B6268;">;;       </span><span style="color: #5B6268;">(:prefix "c"</span>
-<span style="color: #5B6268;">;;         </span><span style="color: #5B6268;">:desc "Format buffer/region" "f"    #'jsravn--format-accordingly</span>
-<span style="color: #5B6268;">;;         </span><span style="color: #5B6268;">:desc "LSP Function parameters" "p" #'lsp-signature-activate</span>
-<span style="color: #5B6268;">;;         </span><span style="color: #5B6268;">(:after lsp-mode</span>
-<span style="color: #5B6268;">;;           </span><span style="color: #5B6268;">:desc "LSP" "l" lsp-command-map)))</span>
-</pre>
-</div>
-
 <p>
 Disable the auto root guessing that doom enables by default, but doesn&rsquo;t work very well in my experience. With this
 disabled LSP will prompt for the project root when opening a new LSP recognized file. This adds a little
-inconvenience, but saves a lot of trouble. <span class="underline">I&rsquo;ve disabled this for now as I test out simply configuring Projectile roots instead instead.</span>
+inconvenience, but saves a lot of trouble with golang projects.
 </p>
 
 <div class="org-src-container">
@@ -1892,8 +1457,8 @@ Turn on <a href="https://github.com/emacs-lsp/lsp-mode/wiki/Debugging">LSP Debug
 </div>
 </div>
 
-<div id="outline-container-orgfdb21dd" class="outline-4">
-<h4 id="orgfdb21dd"><span class="section-number-4">4.6.2</span> Magit</h4>
+<div id="outline-container-org429bfa2" class="outline-4">
+<h4 id="org429bfa2"><span class="section-number-4">4.6.2</span> Magit</h4>
 <div class="outline-text-4" id="text-4-6-2">
 <p>
 Prefer offering remote branches when prompting for a branch selection.
@@ -1917,16 +1482,16 @@ Limit the number of topics that forge displays. I find the default a bit too lar
 </div>
 </div>
 
-<div id="outline-container-orgfb5e42b" class="outline-2">
-<h2 id="orgfb5e42b"><span class="section-number-2">5</span> Languages</h2>
+<div id="outline-container-org73f753e" class="outline-2">
+<h2 id="org73f753e"><span class="section-number-2">5</span> Languages</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 This section configures language major modes.
 </p>
 </div>
 
-<div id="outline-container-org276fbc1" class="outline-3">
-<h3 id="org276fbc1"><span class="section-number-3">5.1</span> Golang</h3>
+<div id="outline-container-orgaa4bbea" class="outline-3">
+<h3 id="orgaa4bbea"><span class="section-number-3">5.1</span> Golang</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Tweak the hover documentation of <kbd>gopls</kbd> so it shows more information when using <code>+lookup/documentation</code>. For some
@@ -1940,8 +1505,8 @@ reason though this seems slightly broken - as the documentation popup contains r
 </div>
 </div>
 
-<div id="outline-container-orgbca295c" class="outline-3">
-<h3 id="orgbca295c"><span class="section-number-3">5.2</span> Org Mode</h3>
+<div id="outline-container-orgc518efe" class="outline-3">
+<h3 id="orgc518efe"><span class="section-number-3">5.2</span> Org Mode</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 This section tweaks <kbd>org-mode</kbd> to my own specific needs and workflow. There is a lot of custom stuff here, so
@@ -1958,16 +1523,16 @@ The most important thing is to tell org-mode where my org files are.
 </div>
 </div>
 
-<div id="outline-container-org275807e" class="outline-4">
-<h4 id="org275807e"><span class="section-number-4">5.2.1</span> General settings</h4>
+<div id="outline-container-org8b41f1a" class="outline-4">
+<h4 id="org8b41f1a"><span class="section-number-4">5.2.1</span> General settings</h4>
 <div class="outline-text-4" id="text-5-2-1">
 <p>
 General settings for org-mode interaction.
 </p>
 </div>
 
-<div id="outline-container-orge6cc5c5" class="outline-5">
-<h5 id="orge6cc5c5"><span class="section-number-5">5.2.1.1</span> Editor</h5>
+<div id="outline-container-orga83e7e2" class="outline-5">
+<h5 id="orga83e7e2"><span class="section-number-5">5.2.1.1</span> Editor</h5>
 <div class="outline-text-5" id="text-5-2-1-1">
 <p>
 Allow <code>imenu</code> to nest fully in org-mode to quickly jump to any heading.
@@ -1980,16 +1545,15 @@ Allow <code>imenu</code> to nest fully in org-mode to quickly jump to any headin
 </div>
 </div>
 
-<div id="outline-container-org2d324e3" class="outline-5">
-<h5 id="org2d324e3"><span class="section-number-5">5.2.1.2</span> Visuals</h5>
+<div id="outline-container-org4451293" class="outline-5">
+<h5 id="org4451293"><span class="section-number-5">5.2.1.2</span> Visuals</h5>
 <div class="outline-text-5" id="text-5-2-1-2">
 <p>
-Use variable pitch for org mode text. Also make headings appear larger.
+Make headings appear larger.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(add-hook! 'org-mode-hook #'mixed-pitch-mode)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">custom-set-faces!</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">custom-set-faces!</span>
   <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span>outline-1 <span style="color: #c678dd;">:weight</span> extra-bold <span style="color: #c678dd;">:height</span> <span style="color: #da8548; font-weight: bold;">1.12</span><span style="color: #c678dd;">)</span>
   <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span>outline-2 <span style="color: #c678dd;">:weight</span> bold <span style="color: #c678dd;">:height</span> <span style="color: #da8548; font-weight: bold;">1.10</span><span style="color: #c678dd;">)</span>
   <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span>outline-3 <span style="color: #c678dd;">:weight</span> bold <span style="color: #c678dd;">:height</span> <span style="color: #da8548; font-weight: bold;">1.08</span><span style="color: #c678dd;">)</span>
@@ -1998,16 +1562,6 @@ Use variable pitch for org mode text. Also make headings appear larger.
   <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span>outline-6 <span style="color: #c678dd;">:weight</span> semi-bold <span style="color: #c678dd;">:height</span> <span style="color: #da8548; font-weight: bold;">1.02</span><span style="color: #c678dd;">)</span>
   <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span>outline-8 <span style="color: #c678dd;">:weight</span> semi-bold<span style="color: #c678dd;">)</span>
   <span style="color: #51afef;">'</span><span style="color: #c678dd;">(</span>outline-9 <span style="color: #c678dd;">:weight</span> semi-bold<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-</pre>
-</div>
-
-<p>
-Enable <kbd>+org-pretty-mode</kbd> which hides the emphasis markers and enables pretty entities. Disable for now as I find it can
-mess up org rendering.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #5B6268;">;</span><span style="color: #5B6268;">(add-hook! 'org-mode-hook #'+org-pretty-mode)</span>
 </pre>
 </div>
 
@@ -2025,8 +1579,8 @@ Make org-mode symbols look nicer than the defaults. Shamelessly stolen from
 </div>
 </div>
 
-<div id="outline-container-org69bf132" class="outline-5">
-<h5 id="org69bf132"><span class="section-number-5">5.2.1.3</span> Archiving</h5>
+<div id="outline-container-orgbd2960e" class="outline-5">
+<h5 id="orgbd2960e"><span class="section-number-5">5.2.1.3</span> Archiving</h5>
 <div class="outline-text-5" id="text-5-2-1-3">
 <p>
 I prefer to archive tasks into a sub-folder. Also, I want to keep any inherited tags so information is not lost, as I
@@ -2041,8 +1595,8 @@ frequently archive sub-trees.
 </div>
 </div>
 
-<div id="outline-container-org4dec093" class="outline-5">
-<h5 id="org4dec093"><span class="section-number-5">5.2.1.4</span> Download</h5>
+<div id="outline-container-org374733e" class="outline-5">
+<h5 id="org374733e"><span class="section-number-5">5.2.1.4</span> Download</h5>
 <div class="outline-text-5" id="text-5-2-1-4">
 <p>
 <kbd>org-download</kbd> makes it easy to download images directly into org files.
@@ -2061,8 +1615,8 @@ I configure it to use my preferred capture method depending on OS.
 </div>
 </div>
 </div>
-<div id="outline-container-org2d77e3a" class="outline-5">
-<h5 id="org2d77e3a"><span class="section-number-5">5.2.1.5</span> Exporting (General)</h5>
+<div id="outline-container-orga0dc10c" class="outline-5">
+<h5 id="orga0dc10c"><span class="section-number-5">5.2.1.5</span> Exporting (General)</h5>
 <div class="outline-text-5" id="text-5-2-1-5">
 <p>
 Export more than the default 2 levels. I want all the levels!
@@ -2075,8 +1629,8 @@ Export more than the default 2 levels. I want all the levels!
 </div>
 </div>
 
-<div id="outline-container-org4b5892c" class="outline-5">
-<h5 id="org4b5892c"><span class="section-number-5">5.2.1.6</span> Exporting to HTML</h5>
+<div id="outline-container-orgfeebcb2" class="outline-5">
+<h5 id="orgfeebcb2"><span class="section-number-5">5.2.1.6</span> Exporting to HTML</h5>
 <div class="outline-text-5" id="text-5-2-1-6">
 <p>
 Let&rsquo;s make HTML look nicer. This is all taken from <a href="https://tecosaur.github.io/emacs-config/config.html#OrgModeVisuals">tecosaur&rsquo;s org-mode config</a>, which is based on <a href="https://github.com/fniessen/org-html-themes">fniessen/org-html-themes</a>.
@@ -2325,7 +1879,7 @@ And tweak the markup classes.
 </div>
 
 <p>
-And use nicer check boxes.
+And use nicer check boxes. <span class="underline">This doesn&rsquo;t work.</span>
 </p>
 
 <div class="org-src-container">
@@ -2341,8 +1895,8 @@ And use nicer check boxes.
 </div>
 </div>
 
-<div id="outline-container-org02b7a5e" class="outline-5">
-<h5 id="org02b7a5e"><span class="section-number-5">5.2.1.7</span> Exporting to Beamer</h5>
+<div id="outline-container-org34ea7b8" class="outline-5">
+<h5 id="org34ea7b8"><span class="section-number-5">5.2.1.7</span> Exporting to Beamer</h5>
 <div class="outline-text-5" id="text-5-2-1-7">
 <p>
 Use a different theme.
@@ -2364,8 +1918,8 @@ And divide presentation into subheadings.
 </div>
 </div>
 
-<div id="outline-container-org10605a7" class="outline-5">
-<h5 id="org10605a7"><span class="section-number-5">5.2.1.8</span> Exporting to GFM</h5>
+<div id="outline-container-org5a2c74b" class="outline-5">
+<h5 id="org5a2c74b"><span class="section-number-5">5.2.1.8</span> Exporting to GFM</h5>
 <div class="outline-text-5" id="text-5-2-1-8">
 <p>
 GFM exports to markdown. Let&rsquo;s enable it.
@@ -2380,8 +1934,8 @@ GFM exports to markdown. Let&rsquo;s enable it.
 </div>
 </div>
 
-<div id="outline-container-org9ee96ac" class="outline-4">
-<h4 id="org9ee96ac"><span class="section-number-4">5.2.2</span> Task management</h4>
+<div id="outline-container-org6255c13" class="outline-4">
+<h4 id="org6255c13"><span class="section-number-4">5.2.2</span> Task management</h4>
 <div class="outline-text-4" id="text-5-2-2">
 <p>
 I follow my own take on GTD for task management. The task management is independent of notes, and the task files are kept
@@ -2423,8 +1977,8 @@ My high level task process then is:
 </ol>
 </div>
 
-<div id="outline-container-org9d76310" class="outline-5">
-<h5 id="org9d76310"><span class="section-number-5">5.2.2.1</span> Capture templates</h5>
+<div id="outline-container-org084f2fe" class="outline-5">
+<h5 id="org084f2fe"><span class="section-number-5">5.2.2.1</span> Capture templates</h5>
 <div class="outline-text-5" id="text-5-2-2-1">
 <p>
 These are my custom templates for capturing new tasks quickly to the inbox.
@@ -2449,8 +2003,8 @@ These are my custom templates for capturing new tasks quickly to the inbox.
 </div>
 </div>
 </div>
-<div id="outline-container-orgb18aaec" class="outline-5">
-<h5 id="orgb18aaec"><span class="section-number-5">5.2.2.2</span> Task settings</h5>
+<div id="outline-container-orgb716df4" class="outline-5">
+<h5 id="orgb716df4"><span class="section-number-5">5.2.2.2</span> Task settings</h5>
 <div class="outline-text-5" id="text-5-2-2-2">
 <p>
 Define the <kbd>TODO</kbd> states and also mark complete items with the current time.
@@ -2466,8 +2020,8 @@ Define the <kbd>TODO</kbd> states and also mark complete items with the current 
 </div>
 </div>
 
-<div id="outline-container-org651db7d" class="outline-5">
-<h5 id="org651db7d"><span class="section-number-5">5.2.2.3</span> Contexts</h5>
+<div id="outline-container-orgf65dc99" class="outline-5">
+<h5 id="orgf65dc99"><span class="section-number-5">5.2.2.3</span> Contexts</h5>
 <div class="outline-text-5" id="text-5-2-2-3">
 <p>
 I use tags to primarily set contexts, following the GTD process. I have <kbd>@work</kbd>, <kbd>@home</kbd>, and <kbd>@omscs</kbd>. I configure
@@ -2484,8 +2038,8 @@ tag selection, <kbd>C-c C-c</kbd>, to quickly pick one of these contexts.
 </div>
 </div>
 
-<div id="outline-container-org8c41b1a" class="outline-5">
-<h5 id="org8c41b1a"><span class="section-number-5">5.2.2.4</span> Refile targets</h5>
+<div id="outline-container-org3450a7b" class="outline-5">
+<h5 id="org3450a7b"><span class="section-number-5">5.2.2.4</span> Refile targets</h5>
 <div class="outline-text-5" id="text-5-2-2-4">
 <p>
 Define targets for potential refile. This is part of my GTD system and allows quickly moving tasks between the core task
@@ -2504,8 +2058,8 @@ files.
 </div>
 </div>
 
-<div id="outline-container-org6065bf9" class="outline-5">
-<h5 id="org6065bf9"><span class="section-number-5">5.2.2.5</span> Habits</h5>
+<div id="outline-container-orgb70eb08" class="outline-5">
+<h5 id="orgb70eb08"><span class="section-number-5">5.2.2.5</span> Habits</h5>
 <div class="outline-text-5" id="text-5-2-2-5">
 <p>
 Enable org-habit to allow special scheduled items for helping me create habits. To use, create a recurring <kbd>SCHEDULED</kbd> item with
@@ -2520,8 +2074,8 @@ the <kbd>STYLE</kbd> property (<kbd>C-x C-p</kbd>) set to <kbd>habit</kbd>.  See
 </div>
 </div>
 
-<div id="outline-container-orgf751da6" class="outline-5">
-<h5 id="orgf751da6"><span class="section-number-5">5.2.2.6</span> Custom Agendas</h5>
+<div id="outline-container-orgb0968be" class="outline-5">
+<h5 id="orgb0968be"><span class="section-number-5">5.2.2.6</span> Custom Agendas</h5>
 <div class="outline-text-5" id="text-5-2-2-6">
 <p>
 The agendas are my central view on tasks. There are separate subsections for each agenda view, defined as a function.
@@ -2547,8 +2101,8 @@ Also, give me two weeks warning of impending deadlines.
 </div>
 </div>
 
-<div id="outline-container-org13eee48" class="outline-6">
-<h6 id="org13eee48"><span class="section-number-6">5.2.2.6.1</span> All Agenda Function</h6>
+<div id="outline-container-orgae9066d" class="outline-6">
+<h6 id="orgae9066d"><span class="section-number-6">5.2.2.6.1</span> All Agenda Function</h6>
 <div class="outline-text-6" id="text-5-2-2-6-1">
 <p>
 This is my all agenda function. It shows everything going on in my task system.
@@ -2577,11 +2131,11 @@ This is my all agenda function. It shows everything going on in my task system.
 </div>
 </div>
 
-<div id="outline-container-org6707809" class="outline-6">
-<h6 id="org6707809"><span class="section-number-6">5.2.2.6.2</span> Context Agenda Function</h6>
+<div id="outline-container-org0abc378" class="outline-6">
+<h6 id="org0abc378"><span class="section-number-6">5.2.2.6.2</span> Context Agenda Function</h6>
 <div class="outline-text-6" id="text-5-2-2-6-2">
 <p>
-This is my per-context agenda function. It is a slimmed down version of the <a href="#org13eee48">All Agenda Function</a> that scopes to a
+This is my per-context agenda function. It is a slimmed down version of the <a href="#orgae9066d">All Agenda Function</a> that scopes to a
 context, like <kbd>@home</kbd>.
 </p>
 
@@ -2605,8 +2159,8 @@ context, like <kbd>@home</kbd>.
 </div>
 </div>
 
-<div id="outline-container-org8cde72b" class="outline-6">
-<h6 id="org8cde72b"><span class="section-number-6">5.2.2.6.3</span> Agenda Support Functions</h6>
+<div id="outline-container-orgf3d9168" class="outline-6">
+<h6 id="orgf3d9168"><span class="section-number-6">5.2.2.6.3</span> Agenda Support Functions</h6>
 <div class="outline-text-6" id="text-5-2-2-6-3">
 <p>
 I have a few support functions for the agendas.
@@ -2652,8 +2206,8 @@ This a custom filter that skips any <kbd>SCHEDULED</kbd> items which have alread
 </div>
 </div>
 
-<div id="outline-container-org676e16f" class="outline-5">
-<h5 id="org676e16f"><span class="section-number-5">5.2.2.7</span> Agenda Searches</h5>
+<div id="outline-container-orgef90f85" class="outline-5">
+<h5 id="orgef90f85"><span class="section-number-5">5.2.2.7</span> Agenda Searches</h5>
 <div class="outline-text-5" id="text-5-2-2-7">
 <p>
 Agenda search is usually accessed via <kbd>SPC o A s</kbd> and allows quick searching of all task files.
@@ -2681,16 +2235,16 @@ as a single phrase. A single phrase can be forced by enclosing in quotations.
 </div>
 </div>
 
-<div id="outline-container-org1d10a62" class="outline-4">
-<h4 id="org1d10a62"><span class="section-number-4">5.2.3</span> Notes</h4>
+<div id="outline-container-org944f6e1" class="outline-4">
+<h4 id="org944f6e1"><span class="section-number-4">5.2.3</span> Notes</h4>
 <div class="outline-text-4" id="text-5-2-3">
 <p>
 I use org-roam, deft, and org-journal to manage my notes.
 </p>
 </div>
 
-<div id="outline-container-org5eade07" class="outline-5">
-<h5 id="org5eade07"><span class="section-number-5">5.2.3.1</span> org-roam</h5>
+<div id="outline-container-org5d3f92a" class="outline-5">
+<h5 id="org5d3f92a"><span class="section-number-5">5.2.3.1</span> org-roam</h5>
 <div class="outline-text-5" id="text-5-2-3-1">
 <p>
 I use <a href="https://org-roam.readthedocs.io/en/master/">org-roam</a> to organize my notes. <kbd>org-roam</kbd> is scoped to a single folder which contains all the org files that roam
@@ -2757,8 +2311,8 @@ And I want the org-roam buffer to open automatically when I visit a roam file.
 </div>
 </div>
 
-<div id="outline-container-org518b248" class="outline-5">
-<h5 id="org518b248"><span class="section-number-5">5.2.3.2</span> org-journal</h5>
+<div id="outline-container-org9b2c7e2" class="outline-5">
+<h5 id="org9b2c7e2"><span class="section-number-5">5.2.3.2</span> org-journal</h5>
 <div class="outline-text-5" id="text-5-2-3-2">
 <p>
 Set up org-journal to integrate with org-roam.
@@ -2774,8 +2328,8 @@ Set up org-journal to integrate with org-roam.
 </div>
 </div>
 </div>
-<div id="outline-container-org3819caa" class="outline-4">
-<h4 id="org3819caa"><span class="section-number-4">5.2.4</span> Calendar</h4>
+<div id="outline-container-org5e1984e" class="outline-4">
+<h4 id="org5e1984e"><span class="section-number-4">5.2.4</span> Calendar</h4>
 <div class="outline-text-4" id="text-5-2-4">
 <p>
 I am experimenting with <kbd>org-caldav</kbd> to sync my org files with calendars. Much of this is taken from <a href="https://www.reddit.com/r/orgmode/comments/8rl8ep/making_orgcaldav_useable/">this reddit post</a>.
@@ -2821,8 +2375,8 @@ Unfortunately it&rsquo;s very slow and blocks Emacs completely while syncing. It
 </div>
 </div>
 </div>
-<div id="outline-container-org8131228" class="outline-4">
-<h4 id="org8131228"><span class="section-number-4">5.2.5</span> Alerts</h4>
+<div id="outline-container-org75efb59" class="outline-4">
+<h4 id="org75efb59"><span class="section-number-4">5.2.5</span> Alerts</h4>
 <div class="outline-text-4" id="text-5-2-5">
 <p>
 Experiment using <kbd>org-alert</kbd> to get notified of impending deadlines. <span class="underline">Not working</span>
@@ -2843,35 +2397,9 @@ Experiment using <kbd>org-alert</kbd> to get notified of impending deadlines. <s
 </div>
 </div>
 
-<div id="outline-container-org2c07796" class="outline-3">
-<h3 id="org2c07796"><span class="section-number-3">5.3</span> Markdown</h3>
+<div id="outline-container-orge82dc22" class="outline-3">
+<h3 id="orge82dc22"><span class="section-number-3">5.3</span> YAML</h3>
 <div class="outline-text-3" id="text-5-3">
-<p>
-Use <kbd>mixed-pitch-mode</kbd> for markdown.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(add-hook! (gfm-mode markdown-mode) #'mixed-pitch-mode)</span>
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org315a567" class="outline-3">
-<h3 id="org315a567"><span class="section-number-3">5.4</span> Java</h3>
-<div class="outline-text-3" id="text-5-4">
-<p>
-Configure <kbd>lsp-jt</kbd>.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(setq lsp-jt-root (concat doom-etc-dir "eclipse.jdt.ls/server/java-test/server"))</span>
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgeb1cb49" class="outline-3">
-<h3 id="orgeb1cb49"><span class="section-number-3">5.5</span> YAML</h3>
-<div class="outline-text-3" id="text-5-5">
 <p>
 Add Kubernetes schemas.
 </p>
@@ -2899,7 +2427,7 @@ Add Kubernetes schemas.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: jsravn</p>
-<p class="date">Created: 2020-05-14 Thu 08:57</p>
+<p class="date">Created: 2020-05-15 Fri 10:05</p>
 </div>
 </body>
 </html>

@@ -19,10 +19,10 @@
       +pretty-code-pragmata-pro-font-name "PragmataPro Liga")
 ;; Theme:1 ends here
 
-;; [[file:~/.config/doom/config.org::*Theme][Theme:2]]
-(add-hook 'text-mode-hook #'mixed-pitch-mode)
+;; [[file:~/.config/doom/config.org::*Mixed pitch mode][Mixed pitch mode:1]]
+(add-hook! (org-mode gfm-mode markdown-mode) #'mixed-pitch-mode)
 (setq mixed-pitch-set-height t)
-;; Theme:2 ends here
+;; Mixed pitch mode:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Maximize][Maximize:1]]
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -37,19 +37,20 @@
 ;; Deletion:2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Auto-save][Auto-save:1]]
-(setq auto-save-default t)
+(auto-save-visited-mode t)
 ;; Auto-save:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Auto-save][Auto-save:2]]
 (add-hook! '(doom-switch-buffer-hook
-             doom-switch-window-hook
-             focus-out-hook)
+             doom-switch-window-hook)
   (if (buffer-file-name) (save-some-buffers t))) ; avoid saving when switching to a non-file buffer
+(add-function :after after-focus-change-function
+              (lambda () (save-some-buffers t)))
 ;; Auto-save:2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Line wrapping][Line wrapping:1]]
 (setq-default fill-column 120)
-(add-hook! '(prog-mode-hook conf-mode-hook)
+(add-hook! '(text-mode-hook prog-mode-hook conf-mode-hook)
            #'display-fill-column-indicator-mode)
 ;; Line wrapping:1 ends here
 
@@ -105,22 +106,13 @@
 ;; Projects:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Projects][Projects:2]]
-;; (after! projectile
-;;   (prependq!  projectile-project-root-files '(".project" "go.mod"))          ; add additional project files here
-;;   (setq projectile-project-root-files-functions #'(projectile-root-top-down
-;;                                                    projectile-root-top-down-recurring
-;;                                                    projectile-root-bottom-up
-;;                                                    projectile-root-local)))
-;; Projects:2 ends here
-
-;; [[file:~/.config/doom/config.org::*Projects][Projects:3]]
 (defun +private/projectile-invalidate-cache (&rest _args)
   (projectile-invalidate-cache nil))
 (advice-add 'magit-checkout
             :after #'+private/projectile-invalidate-cache)
 (advice-add 'magit-branch-and-checkout
             :after #'+private/projectile-invalidate-cache)
-;; Projects:3 ends here
+;; Projects:2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Smart parentheses][Smart parentheses:1]]
 (map!
@@ -130,6 +122,14 @@
 ;; [[file:~/.config/doom/config.org::*Workspaces][Workspaces:1]]
 (setq +workspaces-on-switch-project-behavior t)
 ;; Workspaces:1 ends here
+
+;; [[file:~/.config/doom/config.org::*Workspaces][Workspaces:2]]
+(map! :leader
+      (:prefix-map ("TAB" . "workspace")
+        :desc "Display tab bar"           "`"     #'+workspace/display
+        :desc "Switch to last workspace"  "TAB"   #'+workspace/other
+       ))
+;; Workspaces:2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Zen][Zen:1]]
 (after! writeroom-mode
@@ -184,62 +184,10 @@
 ;; [[file:~/.config/doom/config.org::*Configuration][Configuration:3]]
 (remove-hook 'mu4e-compose-mode-hook #'org-mu4e-compose-org-mode) ; Don't use org-mu4e.
 
-(defun jara--org-msg-save-article-for-reply-mu4e-2 ()
-  "Export the currently visited mu4e article as HTML."
-  (let* ((msg mu4e-compose-parent-message)
-        (htmlfile (mu4e~write-body-to-html msg)))
-    (message "mu4e html file at %s" htmlfile)
-    (list htmlfile)))
-
-;; Same as org-msg method but with quoted-printable-decode region removed.
-;; With this, the encoding is broken on the HTML reply.
-(defun jara--org-msg-save-article-for-reply-mu4e ()
-  "Export the currently visited mu4e article as HTML."
-  (let* ((msg mu4e-compose-parent-message)
-	 (html (mu4e-message-field msg :body-html))
-	 (file (concat "/tmp/" (mu4e-message-field msg :message-id))))
-    (cl-flet* ((mails2str (l)
-		 (mapconcat (lambda (m)
-			      (format "%S &lt;%s&gt;" (car m) (cdr m)))
-			    l ", "))
-	       (field2str (f)
-		 (let ((value (funcall (cdr f)
-				       (mu4e-message-field msg (car f)))))
-		   (when value
-		     (format "%s: %s<br>\n"
-			     (capitalize (substring (symbol-name (car f)) 1))
-			     value)))))
-      (with-temp-buffer
-	(save-excursion
-	  (insert html))
-	;; Remove everything before html tag
-	(save-excursion
-	  (if (re-search-forward "^<html\\(.*?\\)>" nil t)
-	      (delete-region (point-min) (match-beginning 0))
-	    ;; Handle malformed HTML
-	    (insert "<html><body>")
-	    (goto-char (point-max))
-	    (insert "</body></html>")))
-	;; Insert reply header after body tag
-	(when (re-search-forward "<body\\(.*?\\)>" nil t)
-	  (goto-char (match-end 0))
-	  (insert "<div align=\"left\">\n"
-		  (mapconcat #'field2str
-			     `((:from . ,#'mails2str)
-			       (:subject . identity)
-			       (:to . ,#'mails2str)
-			       (:cc . ,#'mails2str)
-			       (:date . message-make-date))
-			     "")
-		  "</div>\n<hr>\n"))
-	(write-file file))
-      (list file))))
-
 (use-package org-msg
   :after (org mu4e)
   :hook (mu4e-main-mode . org-msg-mode)
   :config
-  (advice-add #'org-msg-save-article-for-reply-mu4e :override #'jara--org-msg-save-article-for-reply-mu4e)
   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
 	      org-msg-startup "hidestars indent inlineimages"
 	      org-msg-greeting-fmt "\nHi %s,\n\n"
@@ -274,41 +222,25 @@ Regards,
 ;; Configuration:6 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):1]]
-;; (defun jsravn--format-accordingly ()
-;;   (interactive)
-;;   (call-interactively
-;;    (if (bound-and-true-p lsp-mode)
-;;        #'+default/lsp-format-region-or-buffer
-;;      #'+format/region-or-buffer)))
-
-;; (map! :leader
-;;       (:prefix "c"
-;;         :desc "Format buffer/region" "f"    #'jsravn--format-accordingly
-;;         :desc "LSP Function parameters" "p" #'lsp-signature-activate
-;;         (:after lsp-mode
-;;           :desc "LSP" "l" lsp-command-map)))
+(setq lsp-auto-guess-root nil)
 ;; Language Server Protocol (LSP):1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):2]]
-(setq lsp-auto-guess-root nil)
+(setq lsp-enable-symbol-highlighting nil)
 ;; Language Server Protocol (LSP):2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):3]]
-(setq lsp-enable-symbol-highlighting nil)
+(setq lsp-enable-links nil)
 ;; Language Server Protocol (LSP):3 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):4]]
-(setq lsp-enable-links nil)
+(setq lsp-signature-auto-activate t
+      lsp-signature-render-documentation nil)
 ;; Language Server Protocol (LSP):4 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):5]]
-(setq lsp-signature-auto-activate t
-      lsp-signature-render-documentation nil)
-;; Language Server Protocol (LSP):5 ends here
-
-;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):6]]
 ;(setq lsp-log-io t)
-;; Language Server Protocol (LSP):6 ends here
+;; Language Server Protocol (LSP):5 ends here
 
 ;; [[file:~/.config/doom/config.org::*Magit][Magit:1]]
 (setq magit-prefer-remote-upstream t)
@@ -331,7 +263,6 @@ Regards,
 ;; Editor:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Visuals][Visuals:1]]
-;; (add-hook! 'org-mode-hook #'mixed-pitch-mode)
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.12)
   '(outline-2 :weight bold :height 1.10)
@@ -344,14 +275,10 @@ Regards,
 ;; Visuals:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Visuals][Visuals:2]]
-;(add-hook! 'org-mode-hook #'+org-pretty-mode)
-;; Visuals:2 ends here
-
-;; [[file:~/.config/doom/config.org::*Visuals][Visuals:3]]
 (setq
  org-ellipsis " ▼ "
  org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷" "☷" "☷" "☷"))
-;; Visuals:3 ends here
+;; Visuals:2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Archiving][Archiving:1]]
 (setq org-archive-location (concat org-directory ".archive/%s::"))
@@ -845,14 +772,6 @@ Regards,
 ;;   :config
 ;;   (add-hook 'emacs-startup-hook #'org-alert-enable))
 ;; Alerts:1 ends here
-
-;; [[file:~/.config/doom/config.org::*Markdown][Markdown:1]]
-;; (add-hook! (gfm-mode markdown-mode) #'mixed-pitch-mode)
-;; Markdown:1 ends here
-
-;; [[file:~/.config/doom/config.org::*Java][Java:1]]
-;; (setq lsp-jt-root (concat doom-etc-dir "eclipse.jdt.ls/server/java-test/server"))
-;; Java:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*YAML][YAML:1]]
 (setq lsp-yaml-schemas (make-hash-table))
