@@ -1,14 +1,16 @@
-personal_ws-1.1 en 90 
+personal_ws-1.1 en 94 
 ASG
 Aldeman
 Authenticators
 Autostart
 BYOD
+Bazzy's
 Biometrics
 Bolognese
 Boursin
 CNAME
 CNI
+CoreDNS
 Crypto
 Cryptographic
 Cyber
@@ -21,6 +23,7 @@ Dockerfile
 Flyspell
 GFM
 GTD
+Gatech
 Github
 Golang
 Gradle
@@ -32,6 +35,7 @@ IPs
 KDC
 Kerberos
 Kubernetes
+Kustomize
 LSP
 Leiningen
 Magit
