@@ -611,8 +611,7 @@ Limit the number of topics that forge displays. I find the default a bit too lar
 This section configures language major modes.
 
 ** Golang
-Tweak the hover documentation of =gopls= so it shows more information when using ~+lookup/documentation~. For some
-reason though this seems slightly broken - as the documentation popup contains raw HTML escapes.
+Tweak the hover documentation of =gopls= so it shows more information when using ~+lookup/documentation~.
 
 #+BEGIN_SRC emacs-lisp
 (setq lsp-gopls-hover-kind "FullDocumentation")
