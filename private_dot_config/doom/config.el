@@ -77,9 +77,9 @@
  :i "C-S-v" #'yank)
 ;; Clipboard and Copy/Paste:2 ends here
 
-;; [[file:~/.config/doom/config.org::*Which-key][Which-key:1]]
+;; [[file:~/.config/doom/config.org::*Which-keyk][Which-keyk:1]]
 (setq which-key-idle-delay 0.5)
-;; Which-key:1 ends here
+;; Which-keyk:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Authinfo][Authinfo:1]]
 (setq auth-sources '("~/.authinfo.gpg"))
@@ -126,8 +126,7 @@
 ;; [[file:~/.config/doom/config.org::*Workspaces][Workspaces:2]]
 (map! :leader
       (:prefix-map ("TAB" . "workspace")
-        :desc "Display tab bar"           "`"     #'+workspace/display
-        :desc "Switch to last workspace"  "TAB"   #'+workspace/other
+        :desc "Switch to last workspace"  ","   #'+workspace/other
        ))
 ;; Workspaces:2 ends here
 
@@ -144,6 +143,11 @@
   (treemacs-follow-mode 1)
   (setq treemacs-width 40))
 ;; Treemacs:1 ends here
+
+;; [[file:~/.config/doom/config.org::*Completion][Completion:1]]
+(after! company
+  (remove-hook 'evil-normal-state-entry-hook #'company-abort))
+;; Completion:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Flyspell][Flyspell:1]]
 (after! flyspell (flyspell-lazy-mode 1))
@@ -239,8 +243,12 @@ Regards,
 ;; Language Server Protocol (LSP):4 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):5]]
-;(setq lsp-log-io t)
+(setq lsp-enable-snippet nil)
 ;; Language Server Protocol (LSP):5 ends here
+
+;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):6]]
+;(setq lsp-log-io t)
+;; Language Server Protocol (LSP):6 ends here
 
 ;; [[file:~/.config/doom/config.org::*Magit][Magit:1]]
 (setq magit-prefer-remote-upstream t)
@@ -693,7 +701,7 @@ Regards,
 (setq org-roam-capture-templates
       '(("d" "default" plain (function org-roam-capture--get-point)
          "%?"
-         :file-name "%<%Y%m%d%H%M%S>-${slug}"
+         :file-name "${slug}-%<%Y%m%d%H%M%S>"
          :head "#+TITLE: ${title}\n"
          :unnarrowed t)))
 ;; org-roam:2 ends here
