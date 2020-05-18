@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ "$(lsb_release -is)" != "Arch" ]; then
+    exit
+fi
+
 set -eu
 
 if command -v pacman >/dev/null; then
