@@ -1,6 +1,7 @@
 #!/bin/sh
 
-if [ "$(lsb_release -is)" != "Arch" ]; then
+. /etc/os-release
+if [ "$ID" != "arch" ]; then
     exit
 fi
 
