@@ -77,9 +77,9 @@
  :i "C-S-v" #'yank)
 ;; Clipboard and Copy/Paste:2 ends here
 
-;; [[file:~/.config/doom/config.org::*Which-keyk][Which-keyk:1]]
+;; [[file:~/.config/doom/config.org::*Which-key][Which-key:1]]
 (setq which-key-idle-delay 0.5)
-;; Which-keyk:1 ends here
+;; Which-key:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Authinfo][Authinfo:1]]
 (setq auth-sources '("~/.authinfo.gpg"))

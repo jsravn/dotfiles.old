@@ -89,7 +89,7 @@ Make undo more fine-grained.
 
 *** Auto-save
 I want Emacs to auto-save files I'm working on to avoid the tedium of manual saving all the time. Auto save can be
-obnoxious if done incorrectly, so I want it only save when safe.
+obnoxious if done incorrectly, so I want it to only save when safe.
 
 First I use the built-in auto-save functionality to save the buffer after some idle time.
 
@@ -158,7 +158,7 @@ And allow pasting from system clipboard with the typical Linux =C-S-v= while in 
 (map!
  :i "C-S-v" #'yank)
 #+END_SRC
-*** Which-keyk
+*** Which-key
 Reduce the popup delay for =which-key=.
 
 #+BEGIN_SRC emacs-lisp
