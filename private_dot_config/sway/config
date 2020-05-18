@@ -11,7 +11,7 @@
 # * grim, slurp, wl-clipboard
 # * gnome-keyring started via PAM (https://wiki.archlinux.org/index.php/GNOME/Keyring#PAM_method)
 #
-# Start with ~/.local/bin/startsway.sh which imports the login environment to systemd and starts the sway service.
+# Start with ~/.local/bin/startsway.sh.
 
 # variables
 font pango: sans 8
@@ -60,9 +60,8 @@ exec dropbox
 exec swaymsg \
 	"workspace $ws8; exec spotify; \
      workspace $ws7; exec evolution; \
-     workspace $ws6; exec keybase-gui; exec discord; exec slack; \
      workspace $ws2; exec emacs; \
-     workspace $ws1; exec chromium"
+     workspace $ws1; exec chromium;"
 
 # monitors
 output DP-1 mode 2560x1440@165Hz
