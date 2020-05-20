@@ -1,9 +1,0 @@
-#!/usr/bin/pulseaudio -nF
-
-.ifexists module-jackdbus-detect.so
-.nofail
-load-module module-jackdbus-detect connect=no channels=2
-.fail
-.endif
-
-.include /etc/pulse/default.pa
