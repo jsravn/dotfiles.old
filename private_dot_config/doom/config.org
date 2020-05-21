@@ -120,11 +120,12 @@ to variable pitch fonts).
 #+END_SRC
 
 Also I disable ~auto-fill-mode~ by default. I prefer to enable it only when needed, as it doesn't play nicely with many
-of the text files I work on. Instead I use ~+word-wrap-mode~ which is equivalent to using =SPC t w= by default.
+of the text files I work on. Instead I use ~+word-wrap-mode~ which is equivalent to using =SPC t w= by default. _Disable
+this for now as I've come to like auto-fill mode as the default._
 
 #+BEGIN_SRC emacs-lisp
-(remove-hook 'text-mode-hook #'auto-fill-mode)
-(add-hook 'text-mode-hook #'+word-wrap-mode)
+;; (remove-hook 'text-mode-hook #'auto-fill-mode)
+;; (add-hook 'text-mode-hook #'+word-wrap-mode)
 #+END_SRC
 
 *** Window splitting
@@ -553,6 +554,14 @@ Set up mu4e-alert for notifications in the modeline.
 
 ** Tools configuration
 *** Language Server Protocol (LSP)
+Add some useful binds.
+
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      (:prefix "c"
+       :desc "LSP Parameters" "p" #'lsp-signature-activate))
+#+END_SRC
+
 Disable the auto root guessing that doom enables by default, but doesn't work very well in my experience. With this
 disabled LSP will prompt for the project root when opening a new LSP recognized file. This adds a little
 inconvenience, but saves a lot of trouble with golang projects.

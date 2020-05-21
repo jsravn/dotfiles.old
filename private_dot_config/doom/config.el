@@ -55,8 +55,8 @@
 ;; Line wrapping:1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Line wrapping][Line wrapping:2]]
-(remove-hook 'text-mode-hook #'auto-fill-mode)
-(add-hook 'text-mode-hook #'+word-wrap-mode)
+;; (remove-hook 'text-mode-hook #'auto-fill-mode)
+;; (add-hook 'text-mode-hook #'+word-wrap-mode)
 ;; Line wrapping:2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Window splitting][Window splitting:1]]
@@ -226,29 +226,35 @@ Regards,
 ;; Configuration:6 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):1]]
-(setq lsp-auto-guess-root nil)
+(map! :leader
+      (:prefix "c"
+       :desc "LSP Parameters" "p" #'lsp-signature-activate))
 ;; Language Server Protocol (LSP):1 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):2]]
-(setq lsp-enable-symbol-highlighting nil)
+(setq lsp-auto-guess-root nil)
 ;; Language Server Protocol (LSP):2 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):3]]
-(setq lsp-enable-links nil)
+(setq lsp-enable-symbol-highlighting nil)
 ;; Language Server Protocol (LSP):3 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):4]]
-(setq lsp-signature-auto-activate t
-      lsp-signature-render-documentation nil)
+(setq lsp-enable-links nil)
 ;; Language Server Protocol (LSP):4 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):5]]
-(setq lsp-enable-snippet nil)
+(setq lsp-signature-auto-activate t
+      lsp-signature-render-documentation nil)
 ;; Language Server Protocol (LSP):5 ends here
 
 ;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):6]]
-;(setq lsp-log-io t)
+(setq lsp-enable-snippet nil)
 ;; Language Server Protocol (LSP):6 ends here
+
+;; [[file:~/.config/doom/config.org::*Language Server Protocol (LSP)][Language Server Protocol (LSP):7]]
+;(setq lsp-log-io t)
+;; Language Server Protocol (LSP):7 ends here
 
 ;; [[file:~/.config/doom/config.org::*Magit][Magit:1]]
 (setq magit-prefer-remote-upstream t)
