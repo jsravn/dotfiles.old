@@ -59,7 +59,6 @@ exec redshift -m wayland
 exec dropbox
 exec swaymsg \
 	"workspace $ws8; exec spotify; \
-     workspace $ws7; exec evolution; \
      workspace $ws2; exec emacs; \
      workspace $ws1; exec chromium;"
 
